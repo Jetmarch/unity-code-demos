@@ -8,8 +8,11 @@ namespace ShootEmUp
         [SerializeField] private GameManager gameManager;
         [SerializeField] private BulletSystem _bulletSystem;
         [SerializeField] private BulletConfig _bulletConfig;
-        
-        public bool _fireRequired;
+        [SerializeField] private MoveComponent _moveComponent;
+
+
+        private float _horizontalDirection;
+        private bool _fireRequired;
 
         private void OnEnable()
         {
@@ -30,6 +33,8 @@ namespace ShootEmUp
                 this.OnFlyBullet();
                 this._fireRequired = false;
             }
+
+            _moveComponent.MoveByRigidbodyVelocity(new Vector2(_horizontalDirection, 0) * Time.fixedDeltaTime);
         }
 
         private void OnFlyBullet()
@@ -44,6 +49,26 @@ namespace ShootEmUp
                 position = weapon.Position,
                 velocity = weapon.Rotation * Vector3.up * this._bulletConfig.speed
             });
+        }
+
+        public void Fire()
+        {
+            _fireRequired = true;
+        }
+
+        public void MoveRight()
+        {
+            _horizontalDirection = 1;
+        }
+
+        public void MoveLeft()
+        {
+            _horizontalDirection = -1;
+        }
+
+        public void StopMove()
+        {
+            _horizontalDirection = 0;
         }
     }
 }
