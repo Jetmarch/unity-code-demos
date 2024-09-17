@@ -18,10 +18,10 @@ namespace ShootEmUp
         [SerializeField] private BulletPool _bulletPool;
         [SerializeField] private LevelBounds levelBounds;
         [SerializeField] private BulletFactory _bulletFactory;
-        
+
         private readonly HashSet<Bullet> _activeBullets = new();
         private readonly List<Bullet> _cache = new();
-        
+
         private void FixedUpdate()
         {
             CheckLevelBounds();
@@ -41,7 +41,7 @@ namespace ShootEmUp
                 }
             }
         }
-        
+
         private void OnBulletCollision(Bullet bullet, Collision2D collision)
         {
             BulletUtils.DealDamage(bullet, collision.gameObject);

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ShootEmUp
@@ -14,12 +12,12 @@ namespace ShootEmUp
 
         private void OnEnable()
         {
-            _characterController.hpEmpty += CharacterDeath;
+            _characterController.HpEmpty += CharacterDeath;
         }
 
         private void OnDisable()
         {
-            _characterController.hpEmpty -= CharacterDeath;
+            _characterController.HpEmpty -= CharacterDeath;
         }
 
         private void CharacterDeath(GameObject _)

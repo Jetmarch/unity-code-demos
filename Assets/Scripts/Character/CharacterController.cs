@@ -5,15 +5,15 @@ namespace ShootEmUp
 {
     public sealed class CharacterController : MonoBehaviour
     {
-        [SerializeField] private GameObject character;
+        public Action<BulletSystem.Args> OnRequestBullet;
+
+        [SerializeField] private GameObject _character;
         [SerializeField] private BulletConfig _bulletConfig;
         [SerializeField] private MoveComponent _moveComponent;
         [SerializeField] private HitPointsComponent _hitPointsComponent;
 
         private float _horizontalDirection;
         private bool _fireRequired;
-
-        public Action<BulletSystem.Args> OnRequestBullet;
 
         private void FixedUpdate()
         {
@@ -29,16 +29,16 @@ namespace ShootEmUp
 
         private void ShootBullet()
         {
-            var weapon = character.GetComponent<WeaponComponent>();
+            var weapon = _character.GetComponent<WeaponComponent>();
 
             OnRequestBullet?.Invoke(new BulletSystem.Args
             {
                 isPlayer = true,
-                physicsLayer = (int)_bulletConfig.physicsLayer,
-                color = _bulletConfig.color,
-                damage = _bulletConfig.damage,
+                physicsLayer = (int)_bulletConfig.PhysicsLayer,
+                color = _bulletConfig.Color,
+                damage = _bulletConfig.Damage,
                 position = weapon.Position,
-                velocity = weapon.Rotation * Vector3.up * _bulletConfig.speed
+                velocity = weapon.Rotation * Vector3.up * _bulletConfig.Speed
             });
         }
 
