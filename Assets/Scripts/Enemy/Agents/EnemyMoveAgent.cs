@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace ShootEmUp
@@ -9,7 +10,10 @@ namespace ShootEmUp
             get { return _isReached; }
         }
 
+        public event Action OnReachedDestination;
+
         [SerializeField] private MoveComponent _moveComponent;
+        [SerializeField] private float _minDestinationMagnitude = 0.25f;
 
         private Vector2 _destination;
         private bool _isReached;
@@ -27,14 +31,20 @@ namespace ShootEmUp
                 return;
             }
 
+            Move(Time.fixedDeltaTime);
+        }
+
+        private void Move(float delta)
+        {
             var vector = _destination - (Vector2)transform.position;
-            if (vector.magnitude <= 0.25f)
+            if (vector.magnitude <= _minDestinationMagnitude)
             {
                 _isReached = true;
+                OnReachedDestination?.Invoke();
                 return;
             }
 
-            var direction = vector.normalized * Time.fixedDeltaTime;
+            var direction = vector.normalized * delta;
             _moveComponent.MoveByRigidbodyVelocity(direction);
         }
     }

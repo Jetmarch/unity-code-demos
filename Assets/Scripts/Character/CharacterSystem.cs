@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class CharacterController : MonoBehaviour
+    public sealed class CharacterSystem : MonoBehaviour
     {
         public Action<BulletSystem.Args> OnRequestBullet;
 

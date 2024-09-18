@@ -9,39 +9,51 @@ namespace ShootEmUp
         public event FireHandler OnFire;
 
         [SerializeField] private WeaponComponent _weaponComponent;
-        [SerializeField] private EnemyMoveAgent _moveAgent;
-        [SerializeField] private float _countdown;
+        [SerializeField] private float _attackDelay = 1f;
 
         private GameObject _target;
         private float _currentTime;
+
+        private bool _isActive;
 
         public void SetTarget(GameObject target)
         {
             _target = target;
         }
 
+        public void Activate()
+        {
+            _isActive = true;
+        }
+
+        public void Deactivate()
+        {
+            _isActive = false;
+        }
+
         public void Reset()
         {
-            _currentTime = _countdown;
+            _currentTime = _attackDelay;
+            Deactivate();
         }
 
         private void FixedUpdate()
         {
-            if (!_moveAgent.IsReached)
+            if(!_isActive)
             {
                 return;
             }
 
-            if (!_target.GetComponent<HitPointsComponent>().IsHitPointsExists())
-            {
-                return;
-            }
+            DelayedAttack(Time.fixedDeltaTime);
+        }
 
-            _currentTime -= Time.fixedDeltaTime;
+        private void DelayedAttack(float delta)
+        {
+            _currentTime -= delta;
             if (_currentTime <= 0)
             {
                 Fire();
-                _currentTime += _countdown;
+                _currentTime += _attackDelay;
             }
         }
 
