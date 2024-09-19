@@ -11,22 +11,11 @@ namespace ShootEmUp
 
         public Action<GameObject> OnEnemyDestroyed;
 
-        [SerializeField] private float _spawnDelay = 1f;
-
         [SerializeField] private GameObjectPool _enemyPool;
 
         [SerializeField] private EnemyFactory _enemyFactory;
 
         private readonly HashSet<GameObject> _activeEnemies = new();
-
-        private IEnumerator Start()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(_spawnDelay);
-                CreateEnemy();
-            }
-        }
 
         public void CreateEnemy()
         {

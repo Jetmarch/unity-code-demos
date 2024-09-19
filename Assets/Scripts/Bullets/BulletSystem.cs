@@ -18,32 +18,15 @@ namespace ShootEmUp
 
         [SerializeField] private GameObjectPool _bulletPool;
 
-        [SerializeField] private LevelBounds levelBounds;
+        [SerializeField] private BulletLevelBoundsChecker _levelBoundsChecker;
 
         [SerializeField] private BulletFactory _bulletFactory;
 
         private readonly HashSet<Bullet> _activeBullets = new();
 
-        private readonly List<Bullet> _cache = new();
-
         private void FixedUpdate()
         {
-            CheckLevelBounds();
-        }
-
-        private void CheckLevelBounds()
-        {
-            _cache.Clear();
-            _cache.AddRange(_activeBullets);
-
-            for (int i = 0, count = _cache.Count; i < count; i++)
-            {
-                var bullet = _cache[i];
-                if (!levelBounds.InBounds(bullet.transform.position))
-                {
-                    RemoveBullet(bullet);
-                }
-            }
+            _levelBoundsChecker.CheckLevelBounds(_activeBullets, RemoveBullet);
         }
 
         private void OnBulletCollision(Bullet bullet, Collision2D collision)
