@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public class EnemyFactory : MonoBehaviour
+    public sealed class EnemyFactory : MonoBehaviour
     {
         [SerializeField] private EnemyPositions _enemyPositions;
 

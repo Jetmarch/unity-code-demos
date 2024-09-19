@@ -3,10 +3,12 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public class BulletFactory : MonoBehaviour
+    public sealed class BulletFactory : MonoBehaviour
     {
+        [SerializeField] private Transform _worldTransform;
         public Bullet ConstructBullet(Bullet bullet, BulletSystem.Args args)
         {
+            bullet.transform.SetParent(_worldTransform);
             bullet.SetPosition(args.position);
             bullet.SetColor(args.color);
             bullet.SetPhysicsLayer(args.physicsLayer);

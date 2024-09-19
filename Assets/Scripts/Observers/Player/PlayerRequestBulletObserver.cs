@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public class PlayerRequestBulletObserver : MonoBehaviour
+    public sealed class PlayerRequestBulletObserver : MonoBehaviour
     {
         [SerializeField] private CharacterSystem _characterController;
+
         [SerializeField] private BulletSystem _bulletSystem;
 
         private void OnEnable()

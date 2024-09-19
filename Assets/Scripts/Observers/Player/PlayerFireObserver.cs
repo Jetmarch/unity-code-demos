@@ -2,13 +2,11 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public class PlayerFireObserver : MonoBehaviour
+    public sealed class PlayerFireObserver : MonoBehaviour
     {
-        [SerializeField]
-        private InputManager _inputManager;
+        [SerializeField] private InputManager _inputManager;
 
-        [SerializeField]
-        private CharacterSystem _characterController;
+        [SerializeField] private CharacterSystem _characterController;
 
         private void OnEnable()
         {

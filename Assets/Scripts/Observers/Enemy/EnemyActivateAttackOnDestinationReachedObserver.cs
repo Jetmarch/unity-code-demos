@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public class EnemyActivateAttackOnDestinationReachedObserver : MonoBehaviour
+    public sealed class EnemyActivateAttackOnDestinationReachedObserver : MonoBehaviour
     {
         [SerializeField] private EnemyMoveAgent _moveAgent;
+
         [SerializeField] private EnemyAttackAgent _attackAgent;
 
         private void OnEnable()

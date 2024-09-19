@@ -17,8 +17,7 @@ namespace ShootEmUp
 
         private Transform _myTransform;
 
-        [SerializeField]
-        private Params _params;
+        [SerializeField] private Params _params;
 
         private void Awake()
         {

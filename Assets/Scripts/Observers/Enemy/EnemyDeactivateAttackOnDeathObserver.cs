@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public class EnemyDeactivateAttackOnDeathObserver : MonoBehaviour
+    public sealed class EnemyDeactivateAttackOnDeathObserver : MonoBehaviour
     {
         [SerializeField] private EnemyAttackAgent _attackAgent;
+
         [SerializeField] private HitPointsComponent _hpComponent;
 
         private void OnEnable()

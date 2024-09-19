@@ -6,8 +6,11 @@ namespace ShootEmUp
     public sealed class InputManager : MonoBehaviour
     {
         public event Action OnFire;
+
         public event Action OnMoveLeft;
+
         public event Action OnMoveRight;
+
         public event Action OnStopMove;
 
         private void Update()

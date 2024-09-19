@@ -9,9 +9,11 @@ namespace ShootEmUp
         public event FireHandler OnFire;
 
         [SerializeField] private WeaponComponent _weaponComponent;
+
         [SerializeField] private float _attackDelay = 1f;
 
         private GameObject _target;
+
         private float _currentTime;
 
         private bool _isActive;

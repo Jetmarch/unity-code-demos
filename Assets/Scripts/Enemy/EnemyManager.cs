@@ -8,11 +8,13 @@ namespace ShootEmUp
     public sealed class EnemyManager : MonoBehaviour
     {
         public Action<GameObject> OnEnemySpawned;
+
         public Action<GameObject> OnEnemyDestroyed;
 
         [SerializeField] private float _spawnDelay = 1f;
 
-        [SerializeField] private EnemyPool _enemyPool;
+        [SerializeField] private GameObjectPool _enemyPool;
+
         [SerializeField] private EnemyFactory _enemyFactory;
 
         private readonly HashSet<GameObject> _activeEnemies = new();
@@ -28,7 +30,14 @@ namespace ShootEmUp
 
         public void CreateEnemy()
         {
-            var enemy = _enemyPool.SpawnEnemy();
+            var enemy = _enemyPool.GetObject();
+
+            if (enemy == null)
+            {
+                Debug.LogWarning("CreateEnemy: enemy object from poll was null");
+                return;
+            }
+
             _enemyFactory.ConstructEnemy(enemy);
             _activeEnemies.Add(enemy);
             OnEnemySpawned?.Invoke(enemy);
@@ -39,7 +48,7 @@ namespace ShootEmUp
             if (_activeEnemies.Remove(enemy))
             {
                 OnEnemyDestroyed?.Invoke(enemy);
-                _enemyPool.UnspawnEnemy(enemy);
+                _enemyPool.ReturnObject(enemy);
             }
         }
     }

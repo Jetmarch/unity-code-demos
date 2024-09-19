@@ -13,9 +13,11 @@ namespace ShootEmUp
         public event Action OnReachedDestination;
 
         [SerializeField] private MoveComponent _moveComponent;
+
         [SerializeField] private float _minDestinationMagnitude = 0.25f;
 
         private Vector2 _destination;
+
         private bool _isReached;
 
         public void SetDestination(Vector2 endPoint)

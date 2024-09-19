@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public class EnemyFireController : MonoBehaviour
+    public sealed class EnemyFireHelper : MonoBehaviour
     {
         [SerializeField] private BulletConfig _bulletConfig;
+
         [SerializeField] private BulletSystem _bulletSystem;
 
         public void OnFire(GameObject enemy, Vector2 position, Vector2 direction)

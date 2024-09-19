@@ -8,11 +8,15 @@ namespace ShootEmUp
         public Action<BulletSystem.Args> OnRequestBullet;
 
         [SerializeField] private GameObject _character;
+
         [SerializeField] private BulletConfig _bulletConfig;
+
         [SerializeField] private MoveComponent _moveComponent;
+
         [SerializeField] private HitPointsComponent _hitPointsComponent;
 
         private float _horizontalDirection;
+
         private bool _fireRequired;
 
         private void FixedUpdate()

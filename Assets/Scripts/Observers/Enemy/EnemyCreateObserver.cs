@@ -2,10 +2,11 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public class EnemyCreateObserver : MonoBehaviour
+    public sealed class EnemyCreateObserver : MonoBehaviour
     {
         [SerializeField] private EnemyManager _enemyManager;
-        [SerializeField] private EnemyFireController _enemyFireController;
+
+        [SerializeField] private EnemyFireHelper _enemyFireController;
 
         private void OnEnable()
         {

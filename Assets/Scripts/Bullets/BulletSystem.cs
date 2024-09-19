@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace ShootEmUp
@@ -15,11 +16,14 @@ namespace ShootEmUp
             public bool isPlayer;
         }
 
-        [SerializeField] private BulletPool _bulletPool;
+        [SerializeField] private GameObjectPool _bulletPool;
+
         [SerializeField] private LevelBounds levelBounds;
+
         [SerializeField] private BulletFactory _bulletFactory;
 
         private readonly HashSet<Bullet> _activeBullets = new();
+
         private readonly List<Bullet> _cache = new();
 
         private void FixedUpdate()
@@ -53,13 +57,22 @@ namespace ShootEmUp
             if (_activeBullets.Remove(bullet))
             {
                 bullet.OnCollisionEntered -= OnBulletCollision;
-                _bulletPool.ReturnBullet(bullet);
+                _bulletPool.ReturnObject(bullet.gameObject);
             }
         }
 
         public void CreateBullet(Args args)
         {
-            var bullet = _bulletPool.GetBullet();
+            var bullet = _bulletPool.GetObject().GetComponent<Bullet>();
+
+            if(bullet == null)
+            {
+                throw new System.Exception("Bullet prefab doesn't contain Bullet script!");
+#if UNITY_EDITOR
+                EditorApplication.isPaused = true;
+#endif
+            }
+
             bullet = _bulletFactory.ConstructBullet(bullet, args);
 
             if (_activeBullets.Add(bullet))
