@@ -6,7 +6,7 @@ namespace ShootEmUp
 {
     public sealed class BulletLevelBoundsChecker : MonoBehaviour
     {
-        public Action<Bullet> OnOutOfBounds;
+        [SerializeField] private BulletFactory _bulletFactory;
 
         [SerializeField] private LevelBounds levelBounds;
 
@@ -25,6 +25,11 @@ namespace ShootEmUp
                     OnOutOfBoundsCallback?.Invoke(bullet);
                 }
             }
+        }
+
+        private void FixedUpdate()
+        {
+            CheckLevelBounds(_bulletFactory.ActiveBullets, _bulletFactory.RemoveBullet);
         }
     }
 }

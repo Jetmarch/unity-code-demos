@@ -5,24 +5,31 @@ namespace ShootEmUp
 {
     public sealed class Bullet : MonoBehaviour
     {
-        public event Action<Bullet, Collision2D> OnCollisionEntered;
+        public event Action<Bullet> OnCollisionEntered;
 
-        [NonSerialized] public bool isPlayer;
+        public bool IsPlayer { get { return _bulletInfo.IsPlayer; } }
 
-        [NonSerialized] public int damage;
+        public int Damage { get { return _bulletInfo.Damage; } }
 
-        [SerializeField] private Rigidbody2D _rb2D;
+        [SerializeField] private Rigidbody2D _rigidbody2D;
 
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        private BulletInfo _bulletInfo;
+
+        public void Construct(Transform worldTransform, BulletInfo bulletInfo)
         {
-            OnCollisionEntered?.Invoke(this, collision);
+            _bulletInfo = bulletInfo;
+            transform.SetParent(worldTransform);
+            SetPosition(bulletInfo.Position);
+            SetColor(bulletInfo.Color);
+            SetPhysicsLayer(bulletInfo.PhysicsLayer);
+            SetVelocity(bulletInfo.Velocity);
         }
 
         public void SetVelocity(Vector2 velocity)
         {
-            _rb2D.velocity = velocity;
+            _rigidbody2D.velocity = velocity;
         }
 
         public void SetPhysicsLayer(int physicsLayer)
@@ -38,6 +45,12 @@ namespace ShootEmUp
         public void SetColor(Color color)
         {
             _spriteRenderer.color = color;
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            BulletUseCase.DealDamage(this, collision.gameObject);
+            OnCollisionEntered?.Invoke(this);
         }
     }
 }

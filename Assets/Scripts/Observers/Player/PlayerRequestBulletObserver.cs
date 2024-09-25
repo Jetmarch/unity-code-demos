@@ -4,9 +4,9 @@ namespace ShootEmUp
 {
     public sealed class PlayerRequestBulletObserver : MonoBehaviour
     {
-        [SerializeField] private CharacterSystem _characterController;
+        [SerializeField] private Character _characterController;
 
-        [SerializeField] private BulletSystem _bulletSystem;
+        [SerializeField] private BulletFactory _bulletSystem;
 
         private void OnEnable()
         {

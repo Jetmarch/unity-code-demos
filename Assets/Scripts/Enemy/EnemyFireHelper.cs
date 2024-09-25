@@ -6,18 +6,18 @@ namespace ShootEmUp
     {
         [SerializeField] private BulletConfig _bulletConfig;
 
-        [SerializeField] private BulletSystem _bulletSystem;
+        [SerializeField] private BulletFactory _bulletSystem;
 
-        public void OnFire(GameObject enemy, Vector2 position, Vector2 direction)
+        public void OnFire(Vector2 position, Vector2 direction)
         {
-            _bulletSystem.CreateBullet(new BulletSystem.Args
+            _bulletSystem.CreateBullet(new BulletInfo
             {
-                isPlayer = false,
-                physicsLayer = (int)_bulletConfig.PhysicsLayer,
-                color = _bulletConfig.Color,
-                damage = _bulletConfig.Damage,
-                position = position,
-                velocity = direction * _bulletConfig.Speed
+                IsPlayer = false,
+                PhysicsLayer = (int)_bulletConfig.PhysicsLayer,
+                Color = _bulletConfig.Color,
+                Damage = _bulletConfig.Damage,
+                Position = position,
+                Velocity = direction * _bulletConfig.Speed
             });
         }
     }

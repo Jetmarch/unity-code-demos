@@ -7,11 +7,11 @@ namespace ShootEmUp
     {
         public event Action OnFire;
 
-        public event Action OnMoveLeft;
+        public event Action<float> OnMove;
 
-        public event Action OnMoveRight;
+        [SerializeField] private string _horizontalAxisName = "Horizontal";
 
-        public event Action OnStopMove;
+        private float _horizontalMoveAxis;
 
         private void Update()
         {
@@ -33,18 +33,8 @@ namespace ShootEmUp
         }
         private void Move()
         {
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                OnMoveLeft?.Invoke();
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                OnMoveRight?.Invoke();
-            }
-            else
-            {
-                OnStopMove?.Invoke();
-            }
+            _horizontalMoveAxis = Input.GetAxis(_horizontalAxisName);
+            OnMove?.Invoke(_horizontalMoveAxis);
         }
     }
 }

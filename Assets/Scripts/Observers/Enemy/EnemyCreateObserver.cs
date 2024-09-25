@@ -4,7 +4,7 @@ namespace ShootEmUp
 {
     public sealed class EnemyCreateObserver : MonoBehaviour
     {
-        [SerializeField] private EnemyManager _enemyManager;
+        [SerializeField] private EnemySpawner _enemyManager;
 
         [SerializeField] private EnemyFireHelper _enemyFireController;
 
@@ -20,7 +20,7 @@ namespace ShootEmUp
 
         private void OnEnemySpawned(GameObject enemy)
         {
-            enemy.GetComponent<HitPointsComponent>().HpEmpty += _enemyManager.DestroyEnemy;
+            enemy.GetComponent<HitPointsComponent>().OnDeath += _enemyManager.DestroyEnemy;
             enemy.GetComponent<EnemyAttackAgent>().OnFire += _enemyFireController.OnFire;
         }
     }

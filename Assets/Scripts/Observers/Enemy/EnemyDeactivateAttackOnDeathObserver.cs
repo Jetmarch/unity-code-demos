@@ -10,12 +10,12 @@ namespace ShootEmUp
 
         private void OnEnable()
         {
-            _hpComponent.HpEmpty += OnHpEmpty;
+            _hpComponent.OnDeath += OnHpEmpty;
         }
 
         private void OnDisable()
         {
-            _hpComponent.HpEmpty -= OnHpEmpty;
+            _hpComponent.OnDeath -= OnHpEmpty;
         }
 
         private void OnHpEmpty(GameObject _)

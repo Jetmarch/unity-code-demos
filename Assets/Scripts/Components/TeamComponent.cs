@@ -7,6 +7,7 @@ namespace ShootEmUp
         public bool IsPlayer
         {
             get { return _isPlayer; }
+            set { _isPlayer = value; }
         }
 
         [SerializeField] private bool _isPlayer;

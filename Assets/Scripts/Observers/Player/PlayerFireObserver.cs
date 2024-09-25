@@ -6,7 +6,7 @@ namespace ShootEmUp
     {
         [SerializeField] private InputManager _inputManager;
 
-        [SerializeField] private CharacterSystem _characterController;
+        [SerializeField] private Character _characterController;
 
         private void OnEnable()
         {

@@ -6,8 +6,8 @@ namespace ShootEmUp
     public class EnemySpawnInteractor : MonoBehaviour
     {
         [SerializeField] private float _spawnDelay = 1f;
-        
-        [SerializeField] private EnemyManager _enemyManager;
+
+        [SerializeField] private EnemySpawner _enemyManager;
 
         private IEnumerator Start()
         {

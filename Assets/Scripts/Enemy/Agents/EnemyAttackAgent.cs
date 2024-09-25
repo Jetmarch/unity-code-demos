@@ -4,7 +4,7 @@ namespace ShootEmUp
 {
     public sealed class EnemyAttackAgent : MonoBehaviour
     {
-        public delegate void FireHandler(GameObject enemy, Vector2 position, Vector2 direction);
+        public delegate void FireHandler(Vector2 position, Vector2 direction);
 
         public event FireHandler OnFire;
 
@@ -41,7 +41,7 @@ namespace ShootEmUp
 
         private void FixedUpdate()
         {
-            if(!_isActive)
+            if (!_isActive)
             {
                 return;
             }
@@ -64,7 +64,7 @@ namespace ShootEmUp
             var startPosition = _weaponComponent.Position;
             var vector = (Vector2)_target.transform.position - startPosition;
             var direction = vector.normalized;
-            OnFire?.Invoke(gameObject, startPosition, direction);
+            OnFire?.Invoke(startPosition, direction);
         }
     }
 }

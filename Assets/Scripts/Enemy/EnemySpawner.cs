@@ -1,19 +1,22 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyManager : MonoBehaviour
+    public sealed class EnemySpawner : MonoBehaviour
     {
-        public Action<GameObject> OnEnemySpawned;
+        public event Action<GameObject> OnEnemySpawned;
 
-        public Action<GameObject> OnEnemyDestroyed;
+        public event Action<GameObject> OnEnemyDestroyed;
 
         [SerializeField] private GameObjectPool _enemyPool;
 
-        [SerializeField] private EnemyFactory _enemyFactory;
+        [SerializeField] private EnemyPositions _enemyPositions;
+
+        [SerializeField] private GameObject _character;
+
+        [SerializeField] private Transform _worldTransform;
 
         private readonly HashSet<GameObject> _activeEnemies = new();
 
@@ -27,7 +30,15 @@ namespace ShootEmUp
                 return;
             }
 
-            _enemyFactory.ConstructEnemy(enemy);
+            enemy.transform.SetParent(_worldTransform);
+
+            var spawnPosition = _enemyPositions.RandomSpawnPosition();
+            enemy.transform.position = spawnPosition.position;
+
+            var attackPosition = _enemyPositions.RandomAttackPosition();
+            enemy.GetComponent<EnemyMoveAgent>().SetDestination(attackPosition.position);
+
+            enemy.GetComponent<EnemyAttackAgent>().SetTarget(_character);
             _activeEnemies.Add(enemy);
             OnEnemySpawned?.Invoke(enemy);
         }
