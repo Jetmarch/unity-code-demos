@@ -6,7 +6,7 @@ namespace ShootEmUp
     {
         [SerializeField] private InputManager _inputManager;
 
-        [SerializeField] private Character _characterController;
+        [SerializeField] private Character _character;
 
         private void OnEnable()
         {
@@ -20,7 +20,7 @@ namespace ShootEmUp
 
         private void OnFire()
         {
-            _characterController.Fire();
+            _character.Fire();
         }
     }
 }

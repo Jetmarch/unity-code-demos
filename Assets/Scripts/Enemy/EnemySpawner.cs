@@ -18,6 +18,8 @@ namespace ShootEmUp
 
         [SerializeField] private Transform _worldTransform;
 
+        [SerializeField] private BulletFactory _bulletFactory;
+
         private readonly HashSet<GameObject> _activeEnemies = new();
 
         public void CreateEnemy()
@@ -38,7 +40,7 @@ namespace ShootEmUp
             var attackPosition = _enemyPositions.RandomAttackPosition();
             enemy.GetComponent<EnemyMoveAgent>().SetDestination(attackPosition.position);
 
-            enemy.GetComponent<EnemyAttackAgent>().SetTarget(_character);
+            enemy.GetComponent<EnemyAttackAgent>().Construct(_bulletFactory, _character);
             _activeEnemies.Add(enemy);
             OnEnemySpawned?.Invoke(enemy);
         }

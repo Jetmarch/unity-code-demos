@@ -1,12 +1,9 @@
-using System;
 using UnityEngine;
 
 namespace ShootEmUp
 {
     public sealed class Character : MonoBehaviour
     {
-        public event Action<BulletInfo> OnRequestBullet;
-
         [SerializeField] private WeaponComponent _weapon;
 
         [SerializeField] private BulletConfig _bulletConfig;
@@ -22,15 +19,7 @@ namespace ShootEmUp
 
         private void ShootBullet()
         {
-            OnRequestBullet?.Invoke(new BulletInfo
-            {
-                IsPlayer = true,
-                PhysicsLayer = (int)_bulletConfig.PhysicsLayer,
-                Color = _bulletConfig.Color,
-                Damage = _bulletConfig.Damage,
-                Position = _weapon.Position,
-                Velocity = _weapon.Rotation * Vector3.up * _bulletConfig.Speed
-            });
+            _weapon.Fire(_weapon.Rotation * Vector3.up);
         }
 
         public void Fire()

@@ -7,14 +7,14 @@ namespace ShootEmUp
     {
         [SerializeField] private float _spawnDelay = 1f;
 
-        [SerializeField] private EnemySpawner _enemyManager;
+        [SerializeField] private EnemySpawner _enemySpawner;
 
         private IEnumerator Start()
         {
             while (true)
             {
                 yield return new WaitForSeconds(_spawnDelay);
-                _enemyManager.CreateEnemy();
+                _enemySpawner.CreateEnemy();
             }
         }
     }

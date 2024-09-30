@@ -8,7 +8,7 @@ namespace ShootEmUp
     {
         [SerializeField] private BulletFactory _bulletFactory;
 
-        [SerializeField] private LevelBounds levelBounds;
+        [SerializeField] private LevelBounds _levelBounds;
 
         private readonly List<Bullet> _cache = new();
 
@@ -20,7 +20,7 @@ namespace ShootEmUp
             for (int i = 0, count = _cache.Count; i < count; i++)
             {
                 var bullet = _cache[i];
-                if (!levelBounds.InBounds(bullet.transform.position))
+                if (!_levelBounds.InBounds(bullet.transform.position))
                 {
                     OnOutOfBoundsCallback?.Invoke(bullet);
                 }
