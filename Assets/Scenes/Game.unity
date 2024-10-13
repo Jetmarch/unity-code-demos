@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputManager: {fileID: 1134805361}
-  _characterController: {fileID: 4414282821800802402}
+  _character: {fileID: 4414282821800802402}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -584,7 +584,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spawnDelay: 1
-  _enemyManager: {fileID: 562298205}
+  _enemySpawner: {fileID: 562298205}
 --- !u!1 &782683709
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,7 +822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5c3fde9a3b3b6544bcb2abe49561a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyManager: {fileID: 562298205}
+  _enemySpawner: {fileID: 562298205}
 --- !u!1 &1134805359
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,7 +1082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf090288b5ae97449a1d8ac721670ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyManager: {fileID: 562298205}
+  _enemySpawner: {fileID: 562298205}
 --- !u!1 &1575951064
 GameObject:
   m_ObjectHideFlags: 0
