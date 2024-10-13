@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class InputManager : MonoBehaviour
+    public sealed class InputManager : MonoBehaviour, IGameUpdateListener
     {
         public event Action OnFire;
 
@@ -13,7 +13,12 @@ namespace ShootEmUp
 
         private float _horizontalMoveAxis;
 
-        private void Update()
+        private void Start()
+        {
+            IGameListener.Register(this);
+        }
+
+        public void OnUpdate(float delta)
         {
             ProcessInput();
         }
@@ -36,5 +41,7 @@ namespace ShootEmUp
             _horizontalMoveAxis = Input.GetAxis(_horizontalAxisName);
             OnMove?.Invoke(_horizontalMoveAxis);
         }
+
+        
     }
 }

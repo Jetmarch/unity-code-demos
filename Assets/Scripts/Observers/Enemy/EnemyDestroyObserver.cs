@@ -2,22 +2,29 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyDestroyObserver : MonoBehaviour
+    public sealed class EnemyDestroyObserver : MonoBehaviour//, IGameStartListener, IGameFinishListener
     {
-        [SerializeField] private EnemySpawner _enemySpawner;
-        private void OnEnable()
-        {
-            _enemySpawner.OnEnemyDestroyed += OnEnemyDestroyed;
-        }
+        //[SerializeField] private EnemySpawner _enemySpawner;
 
-        private void OnDisable()
-        {
-            _enemySpawner.OnEnemyDestroyed -= OnEnemyDestroyed;
-        }
+        //private void Start()
+        //{
+        //    IGameListener.Register(this);
+        //}
 
-        private void OnEnemyDestroyed(GameObject enemy)
-        {
-            enemy.GetComponent<HitPointsComponent>().OnDeath -= _enemySpawner.DestroyEnemy;
-        }
+        //public void OnStart()
+        //{
+        //    _enemySpawner.OnEnemyDestroyed += OnEnemyDestroyed;
+        //}
+
+        //public void OnFinish()
+        //{
+        //    _enemySpawner.OnEnemyDestroyed -= OnEnemyDestroyed;
+        //}
+
+        //private void OnEnemyDestroyed(Enemy enemy)
+        //{
+        //    enemy.OnDeath -= _enemySpawner.DestroyEnemy;
+        //    enemy.OnReachedDestination -= enemy.ActivateAttack;
+        //}
     }
 }

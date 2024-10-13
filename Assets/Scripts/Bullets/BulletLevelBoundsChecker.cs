@@ -12,6 +12,11 @@ namespace ShootEmUp
 
         private readonly List<Bullet> _cache = new();
 
+        private void Start()
+        {
+            IGameListener.Register(this);
+        }
+
         public void CheckLevelBounds(IReadOnlyCollection<Bullet> activeBullets, Action<Bullet> OnOutOfBoundsCallback)
         {
             _cache.Clear();

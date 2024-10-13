@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class Character : MonoBehaviour
+    public sealed class Character : MonoBehaviour, IGameFixedUpdateListener, IGameFinishListener
     {
         [SerializeField] private WeaponComponent _weapon;
 
@@ -12,9 +12,9 @@ namespace ShootEmUp
 
         private float _horizontalDirection;
 
-        private void FixedUpdate()
+        private void Start()
         {
-            _moveComponent.Move(new Vector2(_horizontalDirection, 0) * Time.fixedDeltaTime);
+            IGameListener.Register(this);
         }
 
         private void ShootBullet()
@@ -30,6 +30,16 @@ namespace ShootEmUp
         public void Move(float horizontalDirection)
         {
             _horizontalDirection = horizontalDirection;
+        }
+
+        public void OnFixedUpdate(float delta)
+        {
+            _moveComponent.Move(new Vector2(_horizontalDirection, 0) * delta);
+        }
+
+        public void OnFinish()
+        {
+            Move(0);
         }
     }
 }

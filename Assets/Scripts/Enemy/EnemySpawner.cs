@@ -6,9 +6,9 @@ namespace ShootEmUp
 {
     public sealed class EnemySpawner : MonoBehaviour
     {
-        public event Action<GameObject> OnEnemySpawned;
+        public event Action<Enemy> OnEnemySpawned;
 
-        public event Action<GameObject> OnEnemyDestroyed;
+        public event Action<Enemy> OnEnemyDestroyed;
 
         [SerializeField] private GameObjectPool _enemyPool;
 
@@ -20,11 +20,12 @@ namespace ShootEmUp
 
         [SerializeField] private BulletFactory _bulletFactory;
 
-        private readonly HashSet<GameObject> _activeEnemies = new();
+        private readonly HashSet<Enemy> _activeEnemies = new();
+
 
         public void CreateEnemy()
         {
-            var enemy = _enemyPool.GetObject();
+            var enemy = _enemyPool.GetObject()?.GetComponent<Enemy>();
 
             if (enemy == null)
             {
@@ -38,19 +39,19 @@ namespace ShootEmUp
             enemy.transform.position = spawnPosition.position;
 
             var attackPosition = _enemyPositions.RandomAttackPosition();
-            enemy.GetComponent<EnemyMoveAgent>().SetDestination(attackPosition.position);
 
-            enemy.GetComponent<EnemyAttackAgent>().Construct(_bulletFactory, _character);
+            enemy.Construct(_bulletFactory, _character, attackPosition.position);
+
             _activeEnemies.Add(enemy);
             OnEnemySpawned?.Invoke(enemy);
         }
 
-        public void DestroyEnemy(GameObject enemy)
+        public void DestroyEnemy(Enemy enemy)
         {
             if (_activeEnemies.Remove(enemy))
             {
                 OnEnemyDestroyed?.Invoke(enemy);
-                _enemyPool.ReturnObject(enemy);
+                _enemyPool.ReturnObject(enemy.gameObject);
             }
         }
     }

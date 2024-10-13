@@ -2,26 +2,30 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyDeactivateAttackOnDeathObserver : MonoBehaviour
+    public sealed class EnemyDeactivateAttackOnDeathObserver : MonoBehaviour//, IGameStartListener, IGameFinishListener
     {
-        [SerializeField] private EnemyAttackAgent _attackAgent;
+        //[SerializeField] private EnemyAttackAgent _attackAgent;
 
-        [SerializeField] private HitPointsComponent _hpComponent;
+        //[SerializeField] private HitPointsComponent _hpComponent;
 
-        private void OnEnable()
-        {
-            _hpComponent.OnDeath += OnHpEmpty;
-        }
+        //private void Start()
+        //{
+        //    IGameListener.Register(this);
+        //}
 
-        private void OnDisable()
-        {
-            _hpComponent.OnDeath -= OnHpEmpty;
-        }
+        //public void OnStart()
+        //{
+        //    _hpComponent.OnDeath += OnHpEmpty;
+        //}
 
-        private void OnHpEmpty(GameObject _)
-        {
-            _attackAgent.Deactivate();
-        }
+        //public void OnFinish()
+        //{
+        //    _hpComponent.OnDeath -= OnHpEmpty;
+        //}
 
+        //private void OnHpEmpty(GameObject _)
+        //{
+        //    _attackAgent.Deactivate();
+        //}
     }
 }

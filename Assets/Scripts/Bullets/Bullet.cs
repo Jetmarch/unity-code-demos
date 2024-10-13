@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class Bullet : MonoBehaviour
+    public sealed class Bullet : MonoBehaviour, IGamePauseListener, IGameResumeListener, IGameFinishListener
     {
         public event Action<Bullet> OnCollisionEntered;
 
@@ -16,6 +16,11 @@ namespace ShootEmUp
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
         private BulletInfo _bulletInfo;
+
+        private void Start()
+        {
+            IGameListener.Register(this);
+        }
 
         public void Construct(Transform worldTransform, BulletInfo bulletInfo)
         {
@@ -51,6 +56,21 @@ namespace ShootEmUp
         {
             BulletUseCase.DealDamage(this, collision.gameObject);
             OnCollisionEntered?.Invoke(this);
+        }
+
+        public void OnPause()
+        {
+            SetVelocity(Vector2.zero);
+        }
+
+        public void OnResume()
+        {
+            SetVelocity(_bulletInfo.Velocity);
+        }
+
+        public void OnFinish()
+        {
+            SetVelocity(Vector2.zero);
         }
     }
 }
