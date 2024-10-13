@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class BulletLevelBoundsChecker : MonoBehaviour
+    public sealed class BulletLevelBoundsChecker : MonoBehaviour, IGameFixedUpdateListener
     {
         [SerializeField] private BulletFactory _bulletFactory;
 
@@ -27,7 +27,7 @@ namespace ShootEmUp
             }
         }
 
-        private void FixedUpdate()
+        public void OnFixedUpdate(float delta)
         {
             CheckLevelBounds(_bulletFactory.ActiveBullets, _bulletFactory.RemoveBullet);
         }
