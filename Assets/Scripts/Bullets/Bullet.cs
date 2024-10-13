@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class Bullet : MonoBehaviour, IGamePauseListener, IGameResumeListener, IGameFinishListener
+    public sealed class Bullet : MonoBehaviour, IGamePauseListener, IGameResumeListener, IGameFinishListener, IGameFixedUpdateListener
     {
         public event Action<Bullet> OnCollisionEntered;
 
@@ -11,11 +11,12 @@ namespace ShootEmUp
 
         public int Damage { get { return _bulletInfo.Damage; } }
 
-        [SerializeField] private Rigidbody2D _rigidbody2D;
-
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
+        [SerializeField] private MoveComponent _moveComponent;
+
         private BulletInfo _bulletInfo;
+        private Vector2 _currentVelocity;
 
         private void Start()
         {
@@ -34,7 +35,7 @@ namespace ShootEmUp
 
         public void SetVelocity(Vector2 velocity)
         {
-            _rigidbody2D.velocity = velocity;
+            _currentVelocity = velocity;
         }
 
         public void SetPhysicsLayer(int physicsLayer)
@@ -71,6 +72,11 @@ namespace ShootEmUp
         public void OnFinish()
         {
             SetVelocity(Vector2.zero);
+        }
+
+        public void OnFixedUpdate(float delta)
+        {
+            _moveComponent.Move(_currentVelocity * delta);
         }
     }
 }

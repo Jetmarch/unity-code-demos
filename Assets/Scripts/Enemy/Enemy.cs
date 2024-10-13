@@ -8,14 +8,11 @@ namespace ShootEmUp
         public event Action<Enemy> OnDeath;
         public event Action OnReachedDestination;
 
-        [SerializeField]
-        private EnemyAttackAgent _attackAgent;
+        [SerializeField] private EnemyAttackAgent _attackAgent;
 
-        [SerializeField]
-        private EnemyMoveAgent _moveAgent;
+        [SerializeField] private EnemyMoveAgent _moveAgent;
 
-        [SerializeField]
-        private HitPointsComponent _hitPointsComponent;
+        [SerializeField] private HitPointsComponent _hitPointsComponent;
 
         public void Construct(BulletFactory bulletFactory, GameObject target, Vector2 endPoint)
         {

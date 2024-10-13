@@ -21,7 +21,7 @@ namespace ShootEmUp
 
         public void CreateBullet(BulletInfo bulletInfo)
         {
-            var bullet = _bulletPool.GetObject().GetComponent<Bullet>();
+            var bullet = _bulletPool.GetObject()?.GetComponent<Bullet>();
 
             if (bullet == null)
             {

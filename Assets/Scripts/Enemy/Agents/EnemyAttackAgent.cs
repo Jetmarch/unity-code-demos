@@ -71,7 +71,5 @@ namespace ShootEmUp
             var direction = ((Vector2)_target.transform.position - _weaponComponent.Position).normalized;
             _weaponComponent.Fire(direction);
         }
-
-        
     }
 }

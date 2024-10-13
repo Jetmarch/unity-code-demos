@@ -26,7 +26,6 @@ namespace ShootEmUp
             StopSpawn();
         }
 
-
         public void OnPause()
         {
             StopSpawn();
@@ -45,12 +44,6 @@ namespace ShootEmUp
             }
             _spawnCoroutine = StartCoroutine(Spawn());
         }
-
-        private void StopSpawn()
-        {
-            StopCoroutine(_spawnCoroutine);
-        }
-
         private IEnumerator Spawn()
         {
             while (true)
@@ -59,5 +52,11 @@ namespace ShootEmUp
                 _enemySpawner.CreateEnemy();
             }
         }
+
+        private void StopSpawn()
+        {
+            StopCoroutine(_spawnCoroutine);
+        }
+
     }
 }
