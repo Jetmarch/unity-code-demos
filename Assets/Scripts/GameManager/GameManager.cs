@@ -5,6 +5,8 @@ namespace ShootEmUp
 {
     public sealed class GameManager : MonoBehaviour
     {
+        public GameState CurrentState { get { return _state; } }
+
         private List<IGameListener> _gameListeners = new();
         private List<IGameStartListener> _gameStartListeners = new();
         private List<IGameFinishListener> _gameFinishListeners = new();
@@ -154,5 +156,6 @@ namespace ShootEmUp
                 listener.OnResume();
             }
         }
+
     }
 }
