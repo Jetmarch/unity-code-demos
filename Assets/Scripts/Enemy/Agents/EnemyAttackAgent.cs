@@ -40,14 +40,14 @@ namespace ShootEmUp
             _isActive = false;
         }
 
-        public void OnFixedUpdate(float delta)
+        public void OnFixedUpdate(float fixedDelta)
         {
             if (!_isActive)
             {
                 return;
             }
 
-            DelayedAttack(delta);
+            DelayedAttack(fixedDelta);
         }
 
         public void Reset()

@@ -23,7 +23,7 @@ namespace ShootEmUp
         {
             var bullet = _bulletPool.GetObject()?.GetComponent<Bullet>();
 
-            if (bullet == null)
+            if (!bullet)
             {
                 throw new System.Exception("Bullet prefab doesn't contain Bullet script!");
 #if UNITY_EDITOR

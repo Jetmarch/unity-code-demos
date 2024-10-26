@@ -31,14 +31,14 @@ namespace ShootEmUp
             _isReached = false;
         }
 
-        public void OnFixedUpdate(float delta)
+        public void OnFixedUpdate(float fixedDelta)
         {
             if (_isReached)
             {
                 return;
             }
 
-            Move(delta);
+            Move(fixedDelta);
         }
 
         private void Move(float delta)

@@ -40,6 +40,6 @@ namespace ShootEmUp
 
     public interface IGameFixedUpdateListener : IGameListener
     {
-        void OnFixedUpdate(float delta);
+        void OnFixedUpdate(float fixedDelta);
     }
 }

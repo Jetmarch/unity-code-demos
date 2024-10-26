@@ -20,12 +20,14 @@ namespace ShootEmUp
 
         public void OnStart()
         {
+            _gameView.Show();
             _gameView.OnButtonClick += TogglePause;
         }
 
         public void OnFinish()
         {
             _gameView.OnButtonClick -= TogglePause;
+            _gameView.Hide();
         }
 
         private void TogglePause()

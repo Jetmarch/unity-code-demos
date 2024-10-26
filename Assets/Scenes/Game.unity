@@ -596,6 +596,7 @@ GameObject:
   - component: {fileID: 363245576}
   - component: {fileID: 363245577}
   - component: {fileID: 363245578}
+  - component: {fileID: 363245579}
   m_Layer: 0
   m_Name: Bullets
   m_TagString: Untagged
@@ -647,6 +648,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletFactory: {fileID: 363245577}
   _levelBounds: {fileID: 2572952653776768186}
+--- !u!114 &363245579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363245575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c42843372b6184b8238d70df9b7376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletFactory: {fileID: 363245577}
 --- !u!1 &410383441
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,10 +707,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f921ca1bc354e4b99ada7e448b7e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _container: {fileID: 604141135}
-  _startGameBtn: {fileID: 349452094}
-  _startGameText: {fileID: 258462194}
-  _defaultStartGameText: "\u0421\u0442\u0430\u0440\u0442"
 --- !u!114 &410383444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2236,9 +2246,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2f700f5560c514f8da5fccd7279239, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _container: {fileID: 1946196740}
-  _togglePauseBtn: {fileID: 658896334}
-  _togglePauseText: {fileID: 1116280755}
 --- !u!114 &1969206807
 MonoBehaviour:
   m_ObjectHideFlags: 0

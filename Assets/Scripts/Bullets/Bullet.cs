@@ -3,13 +3,11 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class Bullet : MonoBehaviour, IGamePauseListener, IGameResumeListener, IGameFinishListener, IGameFixedUpdateListener
+    public sealed class Bullet : MonoBehaviour
     {
         public event Action<Bullet> OnCollisionEntered;
-
-        public bool IsPlayer { get { return _bulletInfo.IsPlayer; } }
-
-        public int Damage { get { return _bulletInfo.Damage; } }
+        public bool IsPlayer => _bulletInfo.IsPlayer;
+        public int Damage => _bulletInfo.Damage;
 
         [SerializeField] private SpriteRenderer _spriteRenderer;
 
@@ -17,40 +15,15 @@ namespace ShootEmUp
 
         private BulletInfo _bulletInfo;
         private Vector2 _currentVelocity;
-
-        private void Start()
-        {
-            IGameListener.Register(this);
-        }
-
+        
         public void Construct(Transform worldTransform, BulletInfo bulletInfo)
         {
             _bulletInfo = bulletInfo;
             transform.SetParent(worldTransform);
-            SetPosition(bulletInfo.Position);
-            SetColor(bulletInfo.Color);
-            SetPhysicsLayer(bulletInfo.PhysicsLayer);
-            SetVelocity(bulletInfo.Velocity);
-        }
-
-        public void SetVelocity(Vector2 velocity)
-        {
-            _currentVelocity = velocity;
-        }
-
-        public void SetPhysicsLayer(int physicsLayer)
-        {
-            gameObject.layer = physicsLayer;
-        }
-
-        public void SetPosition(Vector3 position)
-        {
-            transform.position = position;
-        }
-
-        public void SetColor(Color color)
-        {
-            _spriteRenderer.color = color;
+            transform.position = bulletInfo.Position;
+            _spriteRenderer.color = bulletInfo.Color;
+            gameObject.layer = bulletInfo.PhysicsLayer;
+            _currentVelocity = bulletInfo.Velocity;
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -59,24 +32,19 @@ namespace ShootEmUp
             OnCollisionEntered?.Invoke(this);
         }
 
-        public void OnPause()
+        public void StopMove()
         {
-            SetVelocity(Vector2.zero);
+            _currentVelocity = Vector2.zero;
         }
 
-        public void OnResume()
+        public void ResumeMove()
         {
-            SetVelocity(_bulletInfo.Velocity);
+            _currentVelocity = _bulletInfo.Velocity;
         }
 
-        public void OnFinish()
+        public void Move(float fixedDelta)
         {
-            SetVelocity(Vector2.zero);
-        }
-
-        public void OnFixedUpdate(float delta)
-        {
-            _moveComponent.Move(_currentVelocity * delta);
+            _moveComponent.Move(_currentVelocity * fixedDelta);
         }
     }
 }

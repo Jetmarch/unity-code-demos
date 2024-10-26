@@ -5,15 +5,11 @@ namespace ShootEmUp
 {
     public sealed class GameManager : MonoBehaviour
     {
-        public GameState CurrentState { get { return _state; } }
+        public GameState CurrentState => _state;
 
-        private List<IGameListener> _gameListeners = new();
-        private List<IGameStartListener> _gameStartListeners = new();
-        private List<IGameFinishListener> _gameFinishListeners = new();
-        private List<IGamePauseListener> _gamePauseListeners = new();
-        private List<IGameResumeListener> _gameResumeListeners = new();
-        private List<IGameUpdateListener> _gameUpdateListeners = new();
-        private List<IGameFixedUpdateListener> _gameFixedUpdateListeners = new();
+        private readonly List<IGameListener> _gameListeners = new();
+        private readonly List<IGameUpdateListener> _gameUpdateListeners = new();
+        private readonly List<IGameFixedUpdateListener> _gameFixedUpdateListeners = new();
 
         private GameState _state;
 
@@ -25,28 +21,7 @@ namespace ShootEmUp
         private void RegisterListener(IGameListener obj)
         {
             _gameListeners.Add(obj);
-
-
-            if(obj is IGameStartListener startListener)
-            {
-                _gameStartListeners.Add(startListener);
-            }
-
-            if (obj is IGameFinishListener finishListener)
-            {
-                _gameFinishListeners.Add(finishListener);
-            }
-
-            if (obj is IGamePauseListener pauseListener)
-            {
-                _gamePauseListeners.Add(pauseListener);
-            }
-
-            if (obj is IGameResumeListener resumeListener)
-            {
-                _gameResumeListeners.Add(resumeListener);
-            }
-
+            
             if (obj is IGameUpdateListener updateListener)
             {
                 _gameUpdateListeners.Add(updateListener);
@@ -61,28 +36,7 @@ namespace ShootEmUp
         private void RemoveListener(IGameListener obj)
         {
             _gameListeners.Remove(obj);
-
-
-            if (obj is IGameStartListener startListener)
-            {
-                _gameStartListeners.Remove(startListener);
-            }
-
-            if (obj is IGameFinishListener finishListener)
-            {
-                _gameFinishListeners.Remove(finishListener);
-            }
-
-            if (obj is IGamePauseListener pauseListener)
-            {
-                _gamePauseListeners.Remove(pauseListener);
-            }
-
-            if (obj is IGameResumeListener resumeListener)
-            {
-                _gameResumeListeners.Remove(resumeListener);
-            }
-
+            
             if (obj is IGameUpdateListener updateListener)
             {
                 _gameUpdateListeners.Remove(updateListener);
@@ -120,9 +74,12 @@ namespace ShootEmUp
         public void StartGame()
         {
             _state = GameState.Starting;
-            foreach (var listener in _gameStartListeners)
+            foreach (var listener in _gameListeners)
             {
-                listener.OnStart();
+                if (listener is IGameStartListener startListener)
+                {
+                    startListener.OnStart();
+                }
             }
             _state = GameState.Running;
         }
@@ -131,19 +88,27 @@ namespace ShootEmUp
         public void FinishGame()
         {
             _state = GameState.Finished;
-            foreach (var listener in _gameFinishListeners)
+            foreach (var listener in _gameListeners)
             {
-                listener.OnFinish();
+                if (listener is IGameFinishListener finishListener)
+                {
+                    finishListener.OnFinish();
+                }
             }
+            
+            Debug.Log("Finish game");
         }
 
         [ContextMenu("Pause game")]
         public void PauseGame()
         {
             _state = GameState.Paused;
-            foreach (var listener in _gamePauseListeners)
+            foreach (var listener in _gameListeners)
             {
-                listener.OnPause();
+                if (listener is IGamePauseListener pauseListener)
+                {
+                    pauseListener.OnPause();
+                }
             }
         }
 
@@ -151,9 +116,12 @@ namespace ShootEmUp
         public void ResumeGame()
         {
             _state = GameState.Running;
-            foreach (var listener in _gameResumeListeners)
+            foreach (var listener in _gameListeners)
             {
-                listener.OnResume();
+                if(listener is IGameResumeListener resumeListener)
+                {
+                    resumeListener.OnResume();
+                }
             }
         }
 

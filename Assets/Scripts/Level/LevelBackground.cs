@@ -15,9 +15,9 @@ namespace ShootEmUp
             IGameListener.Register(this);
         }
 
-        public void OnFixedUpdate(float delta)
+        public void OnFixedUpdate(float fixedDelta)
         {
-            MoveBackground(delta);
+            MoveBackground(fixedDelta);
         }
 
         private void MoveBackground(float delta)

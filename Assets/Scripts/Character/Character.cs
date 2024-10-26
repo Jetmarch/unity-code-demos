@@ -32,9 +32,9 @@ namespace ShootEmUp
             _horizontalDirection = horizontalDirection;
         }
 
-        public void OnFixedUpdate(float delta)
+        public void OnFixedUpdate(float fixedDelta)
         {
-            _moveComponent.Move(new Vector2(_horizontalDirection, 0) * delta);
+            _moveComponent.Move(new Vector2(_horizontalDirection, 0) * fixedDelta);
         }
 
         public void OnFinish()
