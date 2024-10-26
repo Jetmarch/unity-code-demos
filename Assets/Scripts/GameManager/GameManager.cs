@@ -18,7 +18,7 @@ namespace ShootEmUp
             IGameListener.OnRegister += RegisterListener;
         }
 
-        private void RegisterListener(IGameListener obj)
+        public void RegisterListener(IGameListener obj)
         {
             _gameListeners.Add(obj);
             
@@ -96,7 +96,7 @@ namespace ShootEmUp
                 }
             }
             
-            Debug.Log("Finish game");
+            Debug.Log("Game over!");
         }
 
         [ContextMenu("Pause game")]

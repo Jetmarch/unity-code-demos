@@ -22,11 +22,6 @@ namespace ShootEmUp
         public void Construct(BulletFactory bulletFactory, GameObject target)
         {
             _weaponComponent.Construct(bulletFactory);
-            SetTarget(target);
-        }
-
-        public void SetTarget(GameObject target)
-        {
             _target = target;
         }
 

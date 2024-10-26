@@ -1,23 +1,26 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using VContainer;
 
 namespace ShootEmUp
 {
     public sealed class BulletLevelBoundsChecker : MonoBehaviour, IGameFixedUpdateListener
     {
-        [SerializeField] private BulletFactory _bulletFactory;
+        private BulletFactory _bulletFactory;
 
-        [SerializeField] private LevelBounds _levelBounds;
+        private LevelBounds _levelBounds;
 
         private readonly List<Bullet> _cache = new();
 
-        private void Start()
+        [Inject]
+        public void Construct(BulletFactory bulletFactory, LevelBounds levelBounds)
         {
-            IGameListener.Register(this);
+            _bulletFactory = bulletFactory;
+            _levelBounds = levelBounds;
         }
 
-        public void CheckLevelBounds(IReadOnlyCollection<Bullet> activeBullets, Action<Bullet> OnOutOfBoundsCallback)
+        private void CheckLevelBounds(IReadOnlyCollection<Bullet> activeBullets, Action<Bullet> OnOutOfBoundsCallback)
         {
             _cache.Clear();
             _cache.AddRange(activeBullets);

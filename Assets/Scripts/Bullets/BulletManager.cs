@@ -1,13 +1,16 @@
 using UnityEngine;
+using VContainer;
 
 namespace ShootEmUp
 {
     public class BulletManager : MonoBehaviour, IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener, IGameFinishListener
     {
-        [SerializeField] private BulletFactory _bulletFactory;
-        private void Start()
+        private BulletFactory _bulletFactory;
+        
+        [Inject]
+        private void Construct(BulletFactory bulletFactory)
         {
-            IGameListener.Register(this);
+            _bulletFactory = bulletFactory;
         }
         
         public void OnPause()

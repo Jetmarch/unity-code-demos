@@ -1,19 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
+using VContainer;
 
 namespace ShootEmUp
 {
     public class GameListenerInstaller : MonoBehaviour
     {
-        private void Start()
+        [Inject]
+        private void Construct(GameManager gameManager)
         {
-            //var listeners = FindObjectsOfType<MonoBehaviour>().OfType<IGameListener>();
-            //foreach (var listener in listeners)
-            //{
-            //    listener.Register();
-            //}
+            foreach (var listener in GetComponentsInChildren<IGameListener>())
+            {
+                gameManager.RegisterListener(listener);
+            }
         }
     }
 }

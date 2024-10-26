@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using VContainer;
 
 namespace ShootEmUp
 {
@@ -12,17 +13,26 @@ namespace ShootEmUp
 
         [SerializeField] private GameObjectPool _enemyPool;
 
-        [SerializeField] private EnemyPositions _enemyPositions;
-
-        [SerializeField] private GameObject _character;
-
         [SerializeField] private Transform _worldTransform;
-
-        [SerializeField] private BulletFactory _bulletFactory;
+        
+        // [SerializeField] private GameObject _character;
+        
+        private Character _character;
+        
+        private EnemyPositions _enemyPositions;
+        
+        private BulletFactory _bulletFactory;
 
         private readonly HashSet<Enemy> _activeEnemies = new();
 
-
+        [Inject]
+        private void Construct(BulletFactory bulletFactory, EnemyPositions enemyPositions, Character character)
+        {
+            _bulletFactory = bulletFactory;
+            _enemyPositions = enemyPositions;
+            _character = character;
+        }
+        
         public void CreateEnemy()
         {
             var enemy = _enemyPool.GetObject()?.GetComponent<Enemy>();
@@ -40,7 +50,7 @@ namespace ShootEmUp
 
             var attackPosition = _enemyPositions.RandomAttackPosition();
 
-            enemy.Construct(_bulletFactory, _character, attackPosition.position);
+            enemy.Construct(_bulletFactory, _character.gameObject, attackPosition.position);
 
             _activeEnemies.Add(enemy);
             OnEnemySpawned?.Invoke(enemy);

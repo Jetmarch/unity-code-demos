@@ -8,9 +8,7 @@ namespace ShootEmUp
     public sealed class BulletFactory : MonoBehaviour
     {
         public IReadOnlyCollection<Bullet> ActiveBullets { get { return _activeBullets; } }
-
         public event Action<Bullet> OnBulletCreated;
-
         public event Action<Bullet> OnBulletRemoved;
 
         [SerializeField] private GameObjectPool _bulletPool;

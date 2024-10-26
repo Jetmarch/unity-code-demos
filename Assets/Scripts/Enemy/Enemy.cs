@@ -6,7 +6,6 @@ namespace ShootEmUp
     public class Enemy : MonoBehaviour
     {
         public event Action<Enemy> OnDeath;
-        public event Action OnReachedDestination;
 
         [SerializeField] private EnemyAttackAgent _attackAgent;
 

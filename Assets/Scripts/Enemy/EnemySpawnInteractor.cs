@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using VContainer;
 
 namespace ShootEmUp
 {
@@ -10,6 +11,12 @@ namespace ShootEmUp
         [SerializeField] private EnemySpawner _enemySpawner;
 
         private Coroutine _spawnCoroutine;
+
+        [Inject]
+        private void Construct(EnemySpawner enemySpawner)
+        {
+            _enemySpawner = enemySpawner;
+        }
 
         private void Start()
         {
