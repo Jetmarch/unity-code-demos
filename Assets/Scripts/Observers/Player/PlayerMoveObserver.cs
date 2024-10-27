@@ -2,16 +2,18 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class PlayerMoveObserver : MonoBehaviour, IGameStartListener, IGameFinishListener
+    public sealed class PlayerMoveObserver : IGameStartListener, IGameFinishListener
     {
-        [SerializeField] private InputManager _inputManager;
+        private readonly InputManager _inputManager;
 
-        [SerializeField] private Character _character;
+        private readonly Character _character;
 
-        private void Start()
+        public PlayerMoveObserver(InputManager inputManager, Character character)
         {
-            IGameListener.Register(this);
+            _inputManager = inputManager;
+            _character = character;
         }
+
         public void OnStart()
         {
             _inputManager.OnMove += _character.Move;
@@ -21,6 +23,5 @@ namespace ShootEmUp
         {
             _inputManager.OnMove -= _character.Move;
         }
-
     }
 }

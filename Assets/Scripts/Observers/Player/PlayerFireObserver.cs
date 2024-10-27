@@ -2,15 +2,16 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class PlayerFireObserver : MonoBehaviour, IGameStartListener, IGameFinishListener
+    public sealed class PlayerFireObserver : IGameStartListener, IGameFinishListener
     {
-        [SerializeField] private InputManager _inputManager;
+        private readonly InputManager _inputManager;
 
-        [SerializeField] private Character _character;
+        private readonly Character _character;
 
-        private void Start()
+        public PlayerFireObserver(InputManager inputManager, Character character)
         {
-            IGameListener.Register(this);
+            _inputManager = inputManager;
+            _character = character;
         }
 
         public void OnStart()

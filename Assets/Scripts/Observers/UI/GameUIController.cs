@@ -1,32 +1,36 @@
+using System.Runtime.CompilerServices;
 using ShootEmUp.UI;
 using UnityEngine;
+using VContainer;
 
 namespace ShootEmUp
 {
-    public class GameUIController : MonoBehaviour, IGameStartListener, IGameFinishListener
+    public class GameUIController : IGameStartListener, IGameFinishListener
     {
-        [SerializeField] private ButtonView _gameView;
+        private readonly GameView _gameView;
 
-        [SerializeField] private GameManager _gameManager;
+        private readonly GameManager _gameManager;
 
-        [SerializeField] private string _pauseText;
+        private const string PauseText = "PAUSE";
 
-        [SerializeField] private string _resumeText;
+        private const string ResumeText = "RESUME";
 
-        private void Start()
+        [Inject]
+        public GameUIController(GameView gameView, GameManager gameManager)
         {
-            IGameListener.Register(this);
+            _gameView = gameView;
+            _gameManager = gameManager;
         }
 
         public void OnStart()
         {
             _gameView.Show();
-            _gameView.OnButtonClick += TogglePause;
+            _gameView.TogglePauseButton.OnButtonClick += TogglePause;
         }
 
         public void OnFinish()
         {
-            _gameView.OnButtonClick -= TogglePause;
+            _gameView.TogglePauseButton.OnButtonClick -= TogglePause;
             _gameView.Hide();
         }
 
@@ -35,12 +39,12 @@ namespace ShootEmUp
             if (_gameManager.CurrentState == GameState.Running)
             {
                 _gameManager.PauseGame();
-                _gameView.UpdateText(_resumeText);
+                _gameView.UpdateTogglePauseButtonText(ResumeText);
             }
             else if (_gameManager.CurrentState == GameState.Paused)
             {
                 _gameManager.ResumeGame();
-                _gameView.UpdateText(_pauseText);
+                _gameView.UpdateTogglePauseButtonText(PauseText);
             }
         }
     }

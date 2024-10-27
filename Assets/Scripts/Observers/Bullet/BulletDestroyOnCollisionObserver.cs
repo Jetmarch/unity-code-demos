@@ -2,13 +2,13 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public class BulletDestroyOnCollisionObserver : MonoBehaviour, IGameStartListener, IGameFinishListener
+    public class BulletDestroyOnCollisionObserver : IGameStartListener, IGameFinishListener
     {
-        [SerializeField] private BulletFactory _bulletFactory;
+        private BulletFactory _bulletFactory;
 
-        private void Start()
+        public BulletDestroyOnCollisionObserver(BulletFactory bulletFactory)
         {
-            IGameListener.Register(this);
+            _bulletFactory = bulletFactory;
         }
 
         public void OnStart()

@@ -2,13 +2,13 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyCreateDestroyObserver : MonoBehaviour, IGameStartListener, IGameFinishListener
+    public sealed class EnemyCreateDestroyObserver : IGameStartListener, IGameFinishListener
     {
-        [SerializeField] private EnemySpawner _enemySpawner;
+        private readonly EnemySpawner _enemySpawner;
 
-        private void Start()
+        public EnemyCreateDestroyObserver(EnemySpawner enemySpawner)
         {
-            IGameListener.Register(this);
+            _enemySpawner = enemySpawner;
         }
 
         public void OnStart()

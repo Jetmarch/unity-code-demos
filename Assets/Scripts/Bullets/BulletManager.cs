@@ -1,14 +1,10 @@
-using UnityEngine;
-using VContainer;
-
 namespace ShootEmUp
 {
-    public class BulletManager : MonoBehaviour, IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener, IGameFinishListener
+    public class BulletManager : IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener, IGameFinishListener
     {
-        private BulletFactory _bulletFactory;
+        private readonly BulletFactory _bulletFactory;
         
-        [Inject]
-        private void Construct(BulletFactory bulletFactory)
+        public BulletManager(BulletFactory bulletFactory)
         {
             _bulletFactory = bulletFactory;
         }

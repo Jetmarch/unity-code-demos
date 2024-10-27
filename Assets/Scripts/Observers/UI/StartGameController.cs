@@ -1,42 +1,39 @@
+using System;
 using ShootEmUp.UI;
-using UnityEngine;
+using VContainer.Unity;
 
 namespace ShootEmUp
 {
-    public class StartGameController : MonoBehaviour, IGameStartListener
+    public class StartGameController : IGameStartListener, IInitializable, IDisposable
     {
-        [SerializeField] private ButtonView _startGameView;
+        private readonly StartGameView _startGameView;
 
-        [SerializeField] private ButtonView _gameView;
+        private readonly GameView _gameView;
 
-        [SerializeField] private StartGameTimer _startGameTimer;
+        private readonly StartGameTimer _startGameTimer;
 
-        private void Start()
+        public StartGameController(StartGameView startGameView, GameView gameView, StartGameTimer startGameTimer)
         {
-            IGameListener.Register(this);
+            _startGameTimer = startGameTimer;
+            _gameView = gameView;
+            _startGameView = startGameView;
         }
 
-        /// <summary>
-        /// Использован OnEnable, так как StartGameController запускает игровой цикл
-        /// </summary>
-        private void OnEnable()
+        public void Initialize()
         {
-            _startGameView.OnButtonClick += _startGameTimer.StartGame;
+            _startGameView.StartGameButton.OnButtonClick += _startGameTimer.StartGame;
             _startGameTimer.OnTimerUpdate += UpdateStartGameTimerText;
         }
 
-        /// <summary>
-        /// Использован OnDisable, так как StartGameController запускает игровой цикл
-        /// </summary>
-        private void OnDisable()
+        public void Dispose()
         {
-            _startGameView.OnButtonClick -= _startGameTimer.StartGame;
+            _startGameView.StartGameButton.OnButtonClick -= _startGameTimer.StartGame;
             _startGameTimer.OnTimerUpdate -= UpdateStartGameTimerText;
         }
 
         private void UpdateStartGameTimerText(int time)
         {
-            _startGameView.UpdateText(time.ToString());
+            _startGameView.UpdateStartGameButtonText(time.ToString());
         }
 
         public void OnStart()
