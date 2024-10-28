@@ -22,6 +22,7 @@ namespace ShootEmUp
             builder.RegisterComponentInHierarchy<HitPointsComponent>();
             builder.RegisterComponentInHierarchy<StartGameTimer>();
             builder.RegisterComponentInHierarchy<InputManager>();
+            builder.Register<GameListenerInstaller>(Lifetime.Singleton).AsImplementedInterfaces();
             
             builder.Register<BulletManager>(Lifetime.Singleton).AsImplementedInterfaces();
             

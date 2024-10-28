@@ -4,7 +4,7 @@ namespace ShootEmUp
 {
     public class BulletDestroyOnCollisionObserver : IGameStartListener, IGameFinishListener
     {
-        private BulletFactory _bulletFactory;
+        private readonly BulletFactory _bulletFactory;
 
         public BulletDestroyOnCollisionObserver(BulletFactory bulletFactory)
         {
