@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class EnemyAttackAgent : MonoBehaviour, IGameFixedUpdateListener
+    [Serializable]
+    public sealed class EnemyAttackAgent
     {
         [SerializeField] private WeaponComponent _weaponComponent;
 
@@ -14,14 +16,9 @@ namespace ShootEmUp
 
         private bool _isActive;
 
-        private void Start()
+        public void Construct(BulletFactory bulletFactory, GameObject target, TeamComponent teamComponent)
         {
-            IGameListener.Register(this);
-        }
-
-        public void Construct(BulletFactory bulletFactory, GameObject target)
-        {
-            _weaponComponent.Construct(bulletFactory);
+            _weaponComponent.Construct(bulletFactory, teamComponent);
             _target = target;
         }
 
@@ -54,11 +51,10 @@ namespace ShootEmUp
         private void DelayedAttack(float delta)
         {
             _currentTime -= delta;
-            if (_currentTime <= 0)
-            {
-                Fire();
-                _currentTime += _attackDelay;
-            }
+            if (!(_currentTime <= 0)) return;
+            
+            Fire();
+            _currentTime += _attackDelay;
         }
 
         private void Fire()

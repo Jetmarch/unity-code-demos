@@ -8,9 +8,9 @@ namespace ShootEmUp
 
         private readonly GameManager _gameManager;
 
-        public PlayerDeathObserver(HitPointsComponent hitPointsComponent, GameManager gameManager)
+        public PlayerDeathObserver(Character character, GameManager gameManager)
         {
-            _hitPointsComponent = hitPointsComponent;
+            _hitPointsComponent = character.HitPointsComponent;
             _gameManager = gameManager;
         }
 

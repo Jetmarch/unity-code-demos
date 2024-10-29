@@ -5,37 +5,23 @@ using VContainer;
 
 namespace ShootEmUp
 {
-    public sealed class EnemySpawner : MonoBehaviour
+    public sealed class EnemySpawner
     {
+        public IReadOnlyCollection<Enemy> ActiveEnemies => _activeEnemies;
         public event Action<Enemy> OnEnemySpawned;
-
         public event Action<Enemy> OnEnemyDestroyed;
 
-        [SerializeField] private GameObjectPool _enemyPool;
-
-        [SerializeField] private Transform _worldTransform;
-        
-        // [SerializeField] private GameObject _character;
-        
-        private Character _character;
-        
-        private EnemyPositions _enemyPositions;
-        
-        private BulletFactory _bulletFactory;
+        private readonly EnemySpawnerProvider _spawnerProvider;
 
         private readonly HashSet<Enemy> _activeEnemies = new();
-
-        [Inject]
-        private void Construct(BulletFactory bulletFactory, EnemyPositions enemyPositions, Character character)
+        private EnemySpawner(EnemySpawnerProvider spawnerProvider)
         {
-            _bulletFactory = bulletFactory;
-            _enemyPositions = enemyPositions;
-            _character = character;
+            _spawnerProvider = spawnerProvider;
         }
         
         public void CreateEnemy()
         {
-            var enemy = _enemyPool.GetObject()?.GetComponent<Enemy>();
+            var enemy = _spawnerProvider.Pool.GetObject()?.GetComponent<Enemy>();
 
             if (enemy == null)
             {
@@ -43,14 +29,14 @@ namespace ShootEmUp
                 return;
             }
 
-            enemy.transform.SetParent(_worldTransform);
+            enemy.transform.SetParent(_spawnerProvider.WorldTransform);
 
-            var spawnPosition = _enemyPositions.RandomSpawnPosition();
+            var spawnPosition = _spawnerProvider.EnemyPositions.RandomSpawnPosition();
             enemy.transform.position = spawnPosition.position;
 
-            var attackPosition = _enemyPositions.RandomAttackPosition();
+            var attackPosition = _spawnerProvider.EnemyPositions.RandomAttackPosition();
 
-            enemy.Construct(_bulletFactory, _character.gameObject, attackPosition.position);
+            enemy.Construct(_spawnerProvider.BulletFactory, _spawnerProvider.Character.gameObject, attackPosition.position);
 
             _activeEnemies.Add(enemy);
             OnEnemySpawned?.Invoke(enemy);
@@ -58,11 +44,10 @@ namespace ShootEmUp
 
         public void DestroyEnemy(Enemy enemy)
         {
-            if (_activeEnemies.Remove(enemy))
-            {
-                OnEnemyDestroyed?.Invoke(enemy);
-                _enemyPool.ReturnObject(enemy.gameObject);
-            }
+            if (!_activeEnemies.Remove(enemy)) return;
+            
+            OnEnemyDestroyed?.Invoke(enemy);
+            _spawnerProvider.Pool.ReturnObject(enemy.gameObject);
         }
     }
 }

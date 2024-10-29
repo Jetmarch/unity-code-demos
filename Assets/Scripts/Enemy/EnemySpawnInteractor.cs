@@ -8,7 +8,7 @@ namespace ShootEmUp
     {
         [SerializeField] private float _spawnDelay = 1f;
 
-        [SerializeField] private EnemySpawner _enemySpawner;
+        private EnemySpawner _enemySpawner;
 
         private Coroutine _spawnCoroutine;
 

@@ -5,22 +5,21 @@ using VContainer;
 
 namespace ShootEmUp
 {
-    public sealed class BulletLevelBoundsChecker : MonoBehaviour, IGameFixedUpdateListener
+    public sealed class BulletLevelBoundsChecker : IGameFixedUpdateListener
     {
-        private BulletFactory _bulletFactory;
+        private readonly BulletFactory _bulletFactory;
 
-        private LevelBounds _levelBounds;
+        private readonly LevelBounds _levelBounds;
 
         private readonly List<Bullet> _cache = new();
 
-        [Inject]
-        public void Construct(BulletFactory bulletFactory, LevelBounds levelBounds)
+        public BulletLevelBoundsChecker(BulletFactory bulletFactory, LevelBounds levelBounds)
         {
             _bulletFactory = bulletFactory;
             _levelBounds = levelBounds;
         }
 
-        private void CheckLevelBounds(IReadOnlyCollection<Bullet> activeBullets, Action<Bullet> OnOutOfBoundsCallback)
+        private void CheckLevelBounds(IReadOnlyCollection<Bullet> activeBullets, Action<Bullet> outOfBoundsCallback)
         {
             _cache.Clear();
             _cache.AddRange(activeBullets);
@@ -30,7 +29,7 @@ namespace ShootEmUp
                 var bullet = _cache[i];
                 if (!_levelBounds.InBounds(bullet.transform.position))
                 {
-                    OnOutOfBoundsCallback?.Invoke(bullet);
+                    outOfBoundsCallback?.Invoke(bullet);
                 }
             }
         }

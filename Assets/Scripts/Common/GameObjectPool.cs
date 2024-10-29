@@ -1,25 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace ShootEmUp
 {
-    public sealed class GameObjectPool : MonoBehaviour
+    public sealed class GameObjectPool
     {
-        [SerializeField] private int _initialCount = 50;
-
-        [SerializeField] private Transform _container;
-
-        [SerializeField] private GameObject _prefab;
-
-        [SerializeField] private bool _isInstatiateOnEmpty;
+        private readonly GameObjectPoolParams _poolParams;
 
         private readonly Queue<GameObject> _objectPool = new();
 
-        private void Awake()
+        public GameObjectPool(GameObjectPoolParams poolParams)
         {
-            for (var i = 0; i < _initialCount; i++)
+            _poolParams = poolParams;
+            InitializePool();
+        }
+        
+        private void InitializePool()
+        {
+            for (var i = 0; i < _poolParams.InitialCount; i++)
             {
-                var obj = Instantiate(_prefab, _container);
+                var obj = Object.Instantiate(_poolParams.Prefab, _poolParams.Container);
                 _objectPool.Enqueue(obj);
             }
         }
@@ -28,9 +30,9 @@ namespace ShootEmUp
         {
             if (!_objectPool.TryDequeue(out var obj))
             {
-                if (_isInstatiateOnEmpty)
+                if (_poolParams.IsInstatiateOnEmpty)
                 {
-                    return Instantiate(_prefab);
+                    return Object.Instantiate(_poolParams.Prefab);
                 }
 
                 return null;
@@ -41,7 +43,7 @@ namespace ShootEmUp
 
         public void ReturnObject(GameObject obj)
         {
-            obj.transform.SetParent(_container);
+            obj.transform.SetParent(_poolParams.Container);
             _objectPool.Enqueue(obj);
         }
     }

@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class WeaponComponent : MonoBehaviour
+    [Serializable]
+    public sealed class WeaponComponent
     {
         public Vector2 Position
         {
@@ -14,24 +16,25 @@ namespace ShootEmUp
             get { return _firePoint.rotation; }
         }
 
-        [SerializeField] private bool _isPlayer;
-
         [SerializeField] private Transform _firePoint;
 
         [SerializeField] private BulletConfig _bulletConfig;
 
-        [SerializeField] private BulletFactory _bulletFactory;
+        private BulletFactory _bulletFactory;
+        
+        private TeamComponent _teamComponent;
 
-        public void Construct(BulletFactory bulletFactory)
+        public void Construct(BulletFactory bulletFactory, TeamComponent teamComponent)
         {
             _bulletFactory = bulletFactory;
+            _teamComponent = teamComponent;
         }
 
         public void Fire(Vector2 direction)
         {
             _bulletFactory.CreateBullet(new BulletInfo
             {
-                IsPlayer = _isPlayer,
+                IsPlayer = _teamComponent.IsPlayer,
                 PhysicsLayer = (int)_bulletConfig.PhysicsLayer,
                 Color = _bulletConfig.Color,
                 Damage = _bulletConfig.Damage,

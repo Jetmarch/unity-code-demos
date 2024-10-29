@@ -1,30 +1,33 @@
 using UnityEngine;
+using VContainer;
 
 namespace ShootEmUp
 {
-    public sealed class Character : MonoBehaviour, IGameFixedUpdateListener, IGameFinishListener
+    public sealed class Character : MonoBehaviour, IGameFixedUpdateListener, IGameFinishListener, ITeamable, IHittable
     {
-        [SerializeField] private WeaponComponent _weapon;
-
-        [SerializeField] private BulletConfig _bulletConfig;
+        public HitPointsComponent HitPointsComponent => _hitPoints;
+        public TeamComponent TeamComponent => _teamComponent;
+        
+        [SerializeField] private HitPointsComponent _hitPoints;
+        
+        [SerializeField] private WeaponComponent _weaponComponent;
 
         [SerializeField] private MoveComponent _moveComponent;
+        
+        [SerializeField] private TeamComponent _teamComponent;
 
         private float _horizontalDirection;
 
-        private void Start()
+        [Inject]
+        private void Construct(BulletFactory bulletFactory)
         {
-            IGameListener.Register(this);
-        }
-
-        private void ShootBullet()
-        {
-            _weapon.Fire(_weapon.Rotation * Vector3.up);
+            _weaponComponent.Construct(bulletFactory, _teamComponent);
+            _hitPoints.Construct(gameObject);
         }
 
         public void Fire()
         {
-            ShootBullet();
+            _weaponComponent.Fire(_weaponComponent.Rotation * Vector3.up);
         }
 
         public void Move(float horizontalDirection)
@@ -41,5 +44,8 @@ namespace ShootEmUp
         {
             Move(0);
         }
+
+
+        
     }
 }
