@@ -1,6 +1,6 @@
 namespace ShootEmUp
 {
-    public class BulletManager : IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener, IGameFinishListener
+    public sealed class BulletManager : IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener, IGameFinishListener
     {
         private readonly BulletFactory _bulletFactory;
         

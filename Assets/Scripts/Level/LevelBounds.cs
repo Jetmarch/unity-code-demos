@@ -1,25 +1,35 @@
+using System;
 using UnityEngine;
 
 namespace ShootEmUp
 {
-    public sealed class LevelBounds : MonoBehaviour
+    [Serializable]
+    public struct LevelBoundsData
     {
-        [SerializeField] private Transform _leftBorder;
+        [SerializeField] public Transform LeftBorder;
 
-        [SerializeField] private Transform _rightBorder;
+        [SerializeField] public Transform RightBorder;
 
-        [SerializeField] private Transform _downBorder;
+        [SerializeField] public Transform DownBorder;
 
-        [SerializeField] private Transform _topBorder;
+        [SerializeField] public Transform TopBorder;
+    }
+    public sealed class LevelBounds
+    {
+        private readonly LevelBoundsData _data;
+        public LevelBounds(LevelBoundsData data)
+        {
+            _data = data;
+        }
 
         public bool InBounds(Vector3 position)
         {
             var positionX = position.x;
             var positionY = position.y;
-            return positionX > _leftBorder.position.x
-                   && positionX < _rightBorder.position.x
-                   && positionY > _downBorder.position.y
-                   && positionY < _topBorder.position.y;
+            return positionX > _data.LeftBorder.position.x
+                   && positionX < _data.RightBorder.position.x
+                   && positionY > _data.DownBorder.position.y
+                   && positionY < _data.TopBorder.position.y;
         }
     }
 }

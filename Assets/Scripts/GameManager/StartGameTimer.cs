@@ -5,17 +5,22 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public class StartGameTimer : MonoBehaviour
+    public class StartGameTimer
     {
         public event Action<int> OnTimerUpdate;
+        
+        private readonly GameManager _gameManager;
+        private readonly int _delayInSec = 3;
 
-        [SerializeField] private int _delayInSec = 3;
-
-        [SerializeField] private GameManager _gameManager;
-
+        public StartGameTimer(GameManager gameManager, int delayInSec)
+        {
+            _gameManager = gameManager;
+            _delayInSec = delayInSec;
+        }
+        
         public void StartGame()
         {
-            StartCoroutine(DelayedStartGame());
+            _gameManager.StartCoroutine(DelayedStartGame());
         }
 
         private IEnumerator DelayedStartGame()

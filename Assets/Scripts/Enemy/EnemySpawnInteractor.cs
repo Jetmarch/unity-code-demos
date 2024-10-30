@@ -1,21 +1,20 @@
-using System.Collections;
-using UnityEngine;
-using VContainer;
 
 namespace ShootEmUp
 {
-    public class EnemySpawnInteractor : MonoBehaviour, IGameStartListener, IGameFinishListener, IGamePauseListener, IGameResumeListener
+    public class EnemySpawnInteractor : IGameStartListener, IGameFinishListener, IGameUpdateListener, IGamePauseListener, IGameResumeListener
     {
-        [SerializeField] private float _spawnDelay = 1f;
+        private readonly float _spawnDelay = 1f;
 
-        private EnemySpawner _enemySpawner;
+        private readonly EnemySpawner _enemySpawner;
 
-        private Coroutine _spawnCoroutine;
+        private bool _isSpawnActive;
+        private float _currentDelay;
 
-        [Inject]
-        private void Construct(EnemySpawner enemySpawner)
+        public EnemySpawnInteractor(EnemySpawner enemySpawner, float spawnDelay)
         {
             _enemySpawner = enemySpawner;
+            _spawnDelay = spawnDelay;
+            _isSpawnActive = true;
         }
 
         private void Start()
@@ -45,25 +44,29 @@ namespace ShootEmUp
 
         private void StartSpawn()
         {
-            if (_spawnCoroutine != null)
-            {
-                StopCoroutine(_spawnCoroutine);
-            }
-            _spawnCoroutine = StartCoroutine(Spawn());
-        }
-        private IEnumerator Spawn()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(_spawnDelay);
-                _enemySpawner.CreateEnemy();
-            }
+            _isSpawnActive = true;
         }
 
         private void StopSpawn()
         {
-            StopCoroutine(_spawnCoroutine);
+            _isSpawnActive = false;
         }
 
+        public void OnUpdate(float delta)
+        {
+            Spawn(delta);
+        }
+        
+        private void Spawn(float delta)
+        {
+            if (!_isSpawnActive) return;
+            
+            _currentDelay += delta;
+
+            if (!(_currentDelay >= _spawnDelay)) return;
+            
+            _enemySpawner.CreateEnemy();
+            _currentDelay = 0f;
+        }
     }
 }

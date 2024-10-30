@@ -11,11 +11,7 @@ namespace ShootEmUp
     [Serializable]
     public sealed class TeamComponent
     {
-        public bool IsPlayer
-        {
-            get { return _isPlayer; }
-            set { _isPlayer = value; }
-        }
+        public bool IsPlayer => _isPlayer;
 
         [SerializeField] private bool _isPlayer;
     }

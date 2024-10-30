@@ -6,10 +6,7 @@ namespace ShootEmUp
     [Serializable]
     public sealed class EnemyMoveAgent
     {
-        public bool IsReached
-        {
-            get { return _isReached; }
-        }
+        public bool IsReached => _isReached;
         public event Action OnReachedDestination;
 
         [SerializeField] private MoveComponent _moveComponent;

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ShootEmUp
 {
-    public class Enemy : MonoBehaviour, ITeamable, IHittable
+    public sealed class Enemy : MonoBehaviour, ITeamable, IHittable
     {
         public event Action<Enemy> OnDeath;
         public TeamComponent TeamComponent => _teamComponent;

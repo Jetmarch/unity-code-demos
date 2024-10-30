@@ -1,7 +1,7 @@
 
 namespace ShootEmUp
 {
-    public class EnemyManager : IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener, IGameFinishListener
+    public sealed class EnemyManager : IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener, IGameFinishListener
     {
         private readonly EnemySpawner _enemySpawner;
         

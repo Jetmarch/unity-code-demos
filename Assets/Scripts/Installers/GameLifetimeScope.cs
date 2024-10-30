@@ -1,5 +1,6 @@
 using ShootEmUp.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 using VContainer;
 using VContainer.Unity;
 
@@ -7,10 +8,18 @@ namespace ShootEmUp
 {
     public class GameLifetimeScope : LifetimeScope
     {
+        [Header("Game System")]
+        [SerializeField] private string _horizontalInputAxisName = "Horizontal";
+        [SerializeField] private int _startGameDelayInSeconds = 3;
+        
         [Header("World")] 
         [SerializeField] private Transform _worldTransform;
+        [SerializeField] private LevelBackgroundMoverData _levelBackgroundMoverData;
+        [SerializeField] private LevelBoundsData _levelBoundsData;
 
-        [Header("Enemy")] 
+        [Header("Enemy")]
+        [SerializeField] private EnemyPositionsData _enemyPositionsData;
+        [SerializeField] private float _enemySpawnDelay;
         [SerializeField] private GameObjectPoolParams _enemyPoolParams;
         
         [Header("Character")]
@@ -37,24 +46,33 @@ namespace ShootEmUp
         private void RegisterGameSystem(IContainerBuilder builder)
         {
             builder.RegisterComponentInHierarchy<GameManager>();
-            builder.RegisterComponentInHierarchy<StartGameTimer>();
-            builder.RegisterComponentInHierarchy<InputManager>();
+            builder.Register<StartGameTimer>(Lifetime.Singleton)
+                .WithParameter(_startGameDelayInSeconds);
+            builder.Register<InputManager>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf()
+                .WithParameter(_horizontalInputAxisName);
             builder.Register<GameListenerInstaller>(Lifetime.Singleton).AsImplementedInterfaces();
         }
 
         private void RegisterWorld(IContainerBuilder builder)
         {
             builder.RegisterComponentInHierarchy<LevelBounds>();
+            builder.Register<LevelBackgroundMover>(Lifetime.Singleton).AsImplementedInterfaces()
+                .WithParameter(_levelBackgroundMoverData);
+            builder.Register<LevelBounds>(Lifetime.Singleton)
+                .WithParameter(_levelBoundsData);
         }
 
         private void RegisterEnemy(IContainerBuilder builder)
         {
             builder.Register<EnemyManager>(Lifetime.Singleton).AsImplementedInterfaces();
-            builder.RegisterComponentInHierarchy<EnemyPositions>();
+            builder.Register<EnemyPositions>(Lifetime.Singleton)
+                .WithParameter(_enemyPositionsData);
             builder.Register<EnemySpawnerProvider>(Lifetime.Singleton)
                 .WithParameter(new GameObjectPool(_enemyPoolParams))
                 .WithParameter(_worldTransform);
             builder.Register<EnemySpawner>(Lifetime.Singleton);
+            builder.Register<EnemySpawnInteractor>(Lifetime.Singleton).AsImplementedInterfaces()
+                .WithParameter(_enemySpawnDelay);
         }
 
         private void RegisterCharacter(IContainerBuilder builder)
