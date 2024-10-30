@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace ShootEmUp.UI
@@ -6,7 +5,7 @@ namespace ShootEmUp.UI
     public class GameView : MonoBehaviour
     {
         public ButtonView TogglePauseButton => _togglePauseButton;
-        
+
         [SerializeField] private ButtonView _togglePauseButton;
 
         public void Show()

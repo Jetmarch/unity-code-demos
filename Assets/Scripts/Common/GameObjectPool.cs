@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using VContainer;
-using VContainer.Unity;
 
 namespace ShootEmUp
 {
@@ -16,7 +14,7 @@ namespace ShootEmUp
             _poolParams = poolParams;
             InitializePool();
         }
-        
+
         private void InitializePool()
         {
             for (var i = 0; i < _poolParams.InitialCount; i++)

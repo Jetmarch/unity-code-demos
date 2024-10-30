@@ -52,7 +52,7 @@ namespace ShootEmUp
         {
             _currentTime -= delta;
             if (!(_currentTime <= 0)) return;
-            
+
             Fire();
             _currentTime += _attackDelay;
         }

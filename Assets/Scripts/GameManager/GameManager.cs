@@ -21,7 +21,7 @@ namespace ShootEmUp
         public void RegisterListener(IGameListener obj)
         {
             _gameListeners.Add(obj);
-            
+
             if (obj is IGameUpdateListener updateListener)
             {
                 _gameUpdateListeners.Add(updateListener);
@@ -36,7 +36,7 @@ namespace ShootEmUp
         private void RemoveListener(IGameListener obj)
         {
             _gameListeners.Remove(obj);
-            
+
             if (obj is IGameUpdateListener updateListener)
             {
                 _gameUpdateListeners.Remove(updateListener);
@@ -53,7 +53,7 @@ namespace ShootEmUp
             if (_state != GameState.Running) return;
 
             var delta = Time.deltaTime;
-            foreach(var listener in _gameUpdateListeners)
+            foreach (var listener in _gameUpdateListeners)
             {
                 listener.OnUpdate(delta);
             }
@@ -95,7 +95,7 @@ namespace ShootEmUp
                     finishListener.OnFinish();
                 }
             }
-            
+
             Debug.Log("Game over!");
         }
 
@@ -118,7 +118,7 @@ namespace ShootEmUp
             _state = GameState.Running;
             foreach (var listener in _gameListeners)
             {
-                if(listener is IGameResumeListener resumeListener)
+                if (listener is IGameResumeListener resumeListener)
                 {
                     resumeListener.OnResume();
                 }

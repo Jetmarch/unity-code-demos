@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEditor;
-using UnityEngine;
-using VContainer;
 
 namespace ShootEmUp
 {
@@ -11,9 +9,9 @@ namespace ShootEmUp
         public IReadOnlyCollection<Bullet> ActiveBullets => _activeBullets;
         public event Action<Bullet> OnBulletCreated;
         public event Action<Bullet> OnBulletRemoved;
-        
+
         private readonly BulletFactoryProvider _factoryProvider;
-        
+
         private readonly HashSet<Bullet> _activeBullets = new();
 
         public BulletFactory(BulletFactoryProvider provider)
@@ -45,7 +43,7 @@ namespace ShootEmUp
         public void RemoveBullet(Bullet bullet)
         {
             if (!_activeBullets.Remove(bullet)) return;
-            
+
             OnBulletRemoved?.Invoke(bullet);
 
             _factoryProvider.Pool.ReturnObject(bullet.gameObject);

@@ -1,5 +1,5 @@
-using System;
 using ShootEmUp.UI;
+using System;
 using VContainer.Unity;
 
 namespace ShootEmUp

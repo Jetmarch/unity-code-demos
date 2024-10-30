@@ -7,7 +7,7 @@ namespace ShootEmUp
     {
         TeamComponent TeamComponent { get; }
     }
-    
+
     [Serializable]
     public sealed class TeamComponent
     {
@@ -16,5 +16,5 @@ namespace ShootEmUp
         [SerializeField] private bool _isPlayer;
     }
 
-    
+
 }

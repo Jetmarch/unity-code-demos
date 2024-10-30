@@ -12,7 +12,7 @@ namespace ShootEmUp
         [SerializeField] private MoveComponent _moveComponent;
 
         [SerializeField] private float _minDestinationMagnitude = 0.25f;
-        
+
         [SerializeField] private Transform _enemyTransform;
 
         private Vector2 _destination;

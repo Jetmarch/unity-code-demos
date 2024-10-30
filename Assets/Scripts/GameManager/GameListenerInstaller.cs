@@ -3,7 +3,7 @@ using VContainer.Unity;
 
 namespace ShootEmUp
 {
-    public sealed class GameListenerInstaller: IStartable
+    public sealed class GameListenerInstaller : IStartable
     {
         public GameListenerInstaller(GameManager gameManager, IEnumerable<IGameListener> gameListeners)
         {

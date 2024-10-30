@@ -8,7 +8,7 @@ namespace ShootEmUp
     public class StartGameTimer
     {
         public event Action<int> OnTimerUpdate;
-        
+
         private readonly GameManager _gameManager;
         private readonly int _delayInSec = 3;
 
@@ -17,7 +17,7 @@ namespace ShootEmUp
             _gameManager = gameManager;
             _delayInSec = delayInSec;
         }
-        
+
         public void StartGame()
         {
             _gameManager.StartCoroutine(DelayedStartGame());
@@ -26,7 +26,7 @@ namespace ShootEmUp
         private IEnumerator DelayedStartGame()
         {
             int remainingSeconds = _delayInSec;
-            while(remainingSeconds > 0)
+            while (remainingSeconds > 0)
             {
                 OnTimerUpdate?.Invoke(remainingSeconds);
                 yield return new WaitForSeconds(1f);

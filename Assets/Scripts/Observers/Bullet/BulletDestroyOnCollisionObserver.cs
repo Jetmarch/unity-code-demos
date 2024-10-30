@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace ShootEmUp
 {
     public class BulletDestroyOnCollisionObserver : IGameStartListener, IGameFinishListener

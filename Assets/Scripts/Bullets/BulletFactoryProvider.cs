@@ -7,7 +7,7 @@ namespace ShootEmUp
     {
         public Transform WorldTransform { get; private set; }
         public GameObjectPool Pool { get; private set; }
-        
+
         [Inject]
         public BulletFactoryProvider(GameObjectPool pool, Transform worldTransform)
         {

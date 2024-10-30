@@ -14,7 +14,7 @@ namespace ShootEmUp
         [SerializeField] private EnemyMoveAgent _moveAgent;
 
         [SerializeField] private HitPointsComponent _hitPointsComponent;
-        
+
         [SerializeField] private TeamComponent _teamComponent;
 
         private bool _isActive;
@@ -44,7 +44,7 @@ namespace ShootEmUp
         public void OnFixedUpdate(float fixedDelta)
         {
             if (!_isActive) return;
-            
+
             _moveAgent.OnFixedUpdate(fixedDelta);
             _attackAgent.OnFixedUpdate(fixedDelta);
         }

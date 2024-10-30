@@ -1,6 +1,5 @@
 using ShootEmUp.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using VContainer;
 using VContainer.Unity;
 
@@ -11,8 +10,8 @@ namespace ShootEmUp
         [Header("Game System")]
         [SerializeField] private string _horizontalInputAxisName = "Horizontal";
         [SerializeField] private int _startGameDelayInSeconds = 3;
-        
-        [Header("World")] 
+
+        [Header("World")]
         [SerializeField] private Transform _worldTransform;
         [SerializeField] private LevelBackgroundMoverData _levelBackgroundMoverData;
         [SerializeField] private LevelBoundsData _levelBoundsData;
@@ -21,17 +20,17 @@ namespace ShootEmUp
         [SerializeField] private EnemyPositionsData _enemyPositionsData;
         [SerializeField] private float _enemySpawnDelay;
         [SerializeField] private GameObjectPoolParams _enemyPoolParams;
-        
+
         [Header("Character")]
         [SerializeField] private GameObject _characterPrefab;
-        
+
         [Header("Bullet")]
         [SerializeField] private GameObjectPoolParams _bulletPoolParams;
-        
+
         [Header("UI")]
         [SerializeField] private string _pauseText;
         [SerializeField] private string _resumeText;
-        
+
         protected override void Configure(IContainerBuilder builder)
         {
             RegisterGameSystem(builder);
@@ -100,7 +99,7 @@ namespace ShootEmUp
         {
             builder.Register<GameUIController>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<StartGameController>(Lifetime.Singleton).AsImplementedInterfaces();
-            
+
             builder.Register<PlayerMoveObserver>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerFireObserver>(Lifetime.Singleton).AsImplementedInterfaces();
             builder.Register<PlayerDeathObserver>(Lifetime.Singleton).AsImplementedInterfaces();

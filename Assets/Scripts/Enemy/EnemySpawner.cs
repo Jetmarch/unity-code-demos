@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using VContainer;
 
 namespace ShootEmUp
 {
@@ -18,7 +17,7 @@ namespace ShootEmUp
         {
             _spawnerProvider = spawnerProvider;
         }
-        
+
         public void CreateEnemy()
         {
             var enemy = _spawnerProvider.Pool.GetObject()?.GetComponent<Enemy>();
@@ -45,7 +44,7 @@ namespace ShootEmUp
         public void DestroyEnemy(Enemy enemy)
         {
             if (!_activeEnemies.Remove(enemy)) return;
-            
+
             OnEnemyDestroyed?.Invoke(enemy);
             _spawnerProvider.Pool.ReturnObject(enemy.gameObject);
         }

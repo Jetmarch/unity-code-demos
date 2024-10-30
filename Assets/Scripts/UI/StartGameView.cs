@@ -1,14 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace ShootEmUp.UI
 {
     public class StartGameView : MonoBehaviour
     {
         public ButtonView StartGameButton => _startGameButton;
-        
+
         [SerializeField] private ButtonView _startGameButton;
 
         public void Show()

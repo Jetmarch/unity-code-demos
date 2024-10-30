@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace ShootEmUp
 {
     public sealed class PlayerFireObserver : IGameStartListener, IGameFinishListener

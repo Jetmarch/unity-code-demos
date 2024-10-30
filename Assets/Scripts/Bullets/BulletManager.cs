@@ -3,12 +3,12 @@ namespace ShootEmUp
     public sealed class BulletManager : IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener, IGameFinishListener
     {
         private readonly BulletFactory _bulletFactory;
-        
+
         public BulletManager(BulletFactory bulletFactory)
         {
             _bulletFactory = bulletFactory;
         }
-        
+
         public void OnPause()
         {
             foreach (var bullet in _bulletFactory.ActiveBullets)

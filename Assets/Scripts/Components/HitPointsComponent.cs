@@ -7,20 +7,20 @@ namespace ShootEmUp
     {
         HitPointsComponent HitPointsComponent { get; }
     }
-    
+
     [Serializable]
     public sealed class HitPointsComponent
     {
         public event Action<GameObject> OnDeath;
 
         [SerializeField] private int _hitPoints;
-        
+
         private GameObject _owner;
         public void Construct(GameObject owner)
         {
             _owner = owner;
         }
-        
+
         public bool IsHitPointsExists()
         {
             return _hitPoints > 0;

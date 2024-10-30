@@ -7,13 +7,13 @@ namespace ShootEmUp
     {
         public HitPointsComponent HitPointsComponent => _hitPoints;
         public TeamComponent TeamComponent => _teamComponent;
-        
+
         [SerializeField] private HitPointsComponent _hitPoints;
-        
+
         [SerializeField] private WeaponComponent _weaponComponent;
 
         [SerializeField] private MoveComponent _moveComponent;
-        
+
         [SerializeField] private TeamComponent _teamComponent;
 
         private float _horizontalDirection;
@@ -46,6 +46,6 @@ namespace ShootEmUp
         }
 
 
-        
+
     }
 }

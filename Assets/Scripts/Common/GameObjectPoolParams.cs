@@ -10,7 +10,7 @@ namespace ShootEmUp
         public Transform Container => _container;
         public GameObject Prefab => _prefab;
         public bool IsInstatiateOnEmpty => _isInstatiateOnEmpty;
-        
+
         [SerializeField] private int _initialCount;
         [SerializeField] private Transform _container;
         [SerializeField] private GameObject _prefab;

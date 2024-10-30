@@ -1,6 +1,4 @@
-using System.Runtime.CompilerServices;
 using ShootEmUp.UI;
-using UnityEngine;
 using VContainer;
 
 namespace ShootEmUp

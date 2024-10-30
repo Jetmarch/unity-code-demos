@@ -11,7 +11,7 @@ namespace ShootEmUp
 
         [SerializeField] public Transform[] AttackPositions;
     }
-    
+
     public sealed class EnemyPositions
     {
         private readonly EnemyPositionsData _data;

@@ -15,7 +15,7 @@ namespace ShootEmUp
         [SerializeField] private BulletConfig _bulletConfig;
 
         private BulletFactory _bulletFactory;
-        
+
         private TeamComponent _teamComponent;
 
         public void Construct(BulletFactory bulletFactory, TeamComponent teamComponent)

@@ -56,15 +56,15 @@ namespace ShootEmUp
         {
             Spawn(delta);
         }
-        
+
         private void Spawn(float delta)
         {
             if (!_isSpawnActive) return;
-            
+
             _currentDelay += delta;
 
             if (!(_currentDelay >= _spawnDelay)) return;
-            
+
             _enemySpawner.CreateEnemy();
             _currentDelay = 0f;
         }

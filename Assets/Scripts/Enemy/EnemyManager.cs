@@ -4,12 +4,12 @@ namespace ShootEmUp
     public sealed class EnemyManager : IGameFixedUpdateListener, IGamePauseListener, IGameResumeListener, IGameFinishListener
     {
         private readonly EnemySpawner _enemySpawner;
-        
+
         public EnemyManager(EnemySpawner enemySpawner)
         {
             _enemySpawner = enemySpawner;
         }
-        
+
         public void OnPause()
         {
             foreach (var enemy in _enemySpawner.ActiveEnemies)

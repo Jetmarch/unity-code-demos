@@ -15,7 +15,7 @@ namespace ShootEmUp
 
         private BulletInfo _bulletInfo;
         private Vector2 _currentVelocity;
-        
+
         public void Construct(Transform worldTransform, BulletInfo bulletInfo)
         {
             _bulletInfo = bulletInfo;

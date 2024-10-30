@@ -5,7 +5,7 @@ namespace ShootEmUp
     public sealed class LevelBackgroundMover : IGameFixedUpdateListener
     {
         private readonly LevelBackgroundMoverData _levelBackgroundMoverData;
-        
+
         public LevelBackgroundMover(LevelBackgroundMoverData levelBackgroundMoverData)
         {
             _levelBackgroundMoverData = levelBackgroundMoverData;
