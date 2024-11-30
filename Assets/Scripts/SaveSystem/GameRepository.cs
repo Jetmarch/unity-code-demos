@@ -28,7 +28,7 @@ namespace HomeworkSaveLoad.SaveSystem
         public void SetData<T>(T data)
         {
             var key = typeof(T).ToString();
-            var json = JsonHelper.SerializeObject(data);
+            var json = JsonUseCases.SerializeObject(data);
             _gameData[key] = json;
         }
 
@@ -38,12 +38,12 @@ namespace HomeworkSaveLoad.SaveSystem
             if (encryptedJson == string.Empty) return;
             
             var json = StringEncryptHelper.Decrypt(encryptedJson);
-            _gameData = JsonHelper.DeserializeObject<Dictionary<string, string>>(json);
+            _gameData = JsonUseCases.DeserializeObject<Dictionary<string, string>>(json);
         }
 
         public void SaveState()
         {
-            var json = JsonHelper.SerializeObject(_gameData);
+            var json = JsonUseCases.SerializeObject(_gameData);
             var encryptedJson = StringEncryptHelper.Encrypt(json);
             FileHelper.WriteToFile(SaveFileName, encryptedJson);
         }

@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace Helpers
 {
-    public static class JsonHelper
+    public static class JsonUseCases
     {
         public static string SerializeObject(object obj)
         {

@@ -10,8 +10,6 @@ namespace HomeworkSaveLoad.Installers
 {
     public sealed class GameLifetimeScope : LifetimeScope
     {
-        [SerializeField] private Transform _unitParent;
-        
         [SerializeField] private UnitManager _unitManager;
 
         [SerializeField] private ResourceService _resourceService;
@@ -24,7 +22,7 @@ namespace HomeworkSaveLoad.Installers
 
         private void ConfigureServices(IContainerBuilder builder)
         {
-            builder.RegisterInstance(_unitManager).WithParameter(_unitParent);
+            builder.RegisterInstance(_unitManager);
             builder.RegisterInstance(_resourceService);
             
             builder.Register<VContainerGameContext>(Lifetime.Scoped).AsImplementedInterfaces();
