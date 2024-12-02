@@ -1,3 +1,4 @@
+using System;
 using Atomic.Entities;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace ZombieShooter.Controllers
         
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetMouseButtonDown(0))
             {
                 _sceneEntity.GetShootRequest().Invoke();
             }

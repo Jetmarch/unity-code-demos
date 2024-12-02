@@ -2,6 +2,7 @@ using System;
 using Atomic.Elements;
 using Atomic.Entities;
 using UnityEngine;
+using UnityEngine.Serialization;
 using ZombieShooter.Behaviors;
 using ZombieShooter.Factories;
 
@@ -28,7 +29,7 @@ namespace ZombieShooter.Installers
         
         [Header("Rotation")]
         public ReactiveVariable<float> RotationRate;
-        public ReactiveVariable<Vector3> RotationDirection;
+        public ReactiveVariable<Vector3> RotateDirection;
         public AndExpression CanRotate;
         
         [Header("Visual")]
@@ -56,7 +57,7 @@ namespace ZombieShooter.Installers
             entity.AddCanMove(CanMove);
             
             entity.AddRotationRate(RotationRate);
-            entity.AddRotateDirection(RotationDirection);
+            entity.AddRotateDirection(RotateDirection);
             entity.AddCanRotate(CanRotate);
 
             entity.AddCanFire(CanFire);

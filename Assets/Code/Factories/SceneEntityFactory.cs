@@ -9,8 +9,6 @@ namespace ZombieShooter.Factories
 
         public SceneEntity CreateSceneEntity(SceneEntity prefab, Vector3 position, Quaternion rotation)
         {
-            // var newEntity = Instantiate(prefab, position, rotation);
-            // _sceneEntityWorld.AddEntity(newEntity);
             var newEntity = _sceneEntityWorld.InstantiateEntity(prefab, position, rotation, null);
             _sceneEntityWorld.AddEntity(newEntity);
             return newEntity;

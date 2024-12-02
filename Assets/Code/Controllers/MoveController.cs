@@ -10,12 +10,10 @@ namespace ZombieShooter.Controllers
         private SceneEntity _sceneEntity;
         
         private ReactiveVariable<Vector3> _moveDirection;
-        private ReactiveVariable<Vector3> _rotateDirection;
 
         private void Start()
         {
             _moveDirection = _sceneEntity.GetMoveDirection();
-            _rotateDirection = _sceneEntity.GetRotateDirection();
         }
 
         void Update()
@@ -48,8 +46,6 @@ namespace ZombieShooter.Controllers
         private void Move(Vector3 direction)
         {
             _moveDirection.Value = direction;
-            _rotateDirection.Value = direction;
-            //Rotate
         }
     }
 }
