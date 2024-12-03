@@ -80,3 +80,11 @@ MonoBehaviour:
     - id: 16
       name: SceneEntityFactory
       type: SceneEntityFactory
+  - name: Ammo
+    indexes:
+    - id: 17
+      name: AmmoAmount
+      type: ReactiveVariable<int>
+    - id: 18
+      name: MaxAmmoAmount
+      type: ReactiveVariable<int>
