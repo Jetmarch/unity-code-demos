@@ -42,6 +42,12 @@ namespace ZombieShooter.Installers
         public Atomic.Elements.Event ShootRequest;
         
         public SceneEntityFactory SceneEntityFactory;
+
+        [Header("Ammo")] 
+        public ReactiveVariable<int> AmmoAmount;
+        public ReactiveVariable<int> MaxAmmoAmount;
+        public AmmoReplenishmentBehavior AmmoReplenishmentBehavior;
+        public AmmoDecreaseBehavior AmmoDecreaseBehavior;
         
         public void Install(IEntity entity)
         {
@@ -68,16 +74,22 @@ namespace ZombieShooter.Installers
 
             entity.AddSceneEntityFactory(SceneEntityFactory);
             
+            entity.AddAmmoAmount(AmmoAmount);
+            entity.AddMaxAmmoAmount(MaxAmmoAmount);
+            
             CanTakeDamage.Append(() => !IsDead.Value);
             CanMove.Append(() => !IsDead.Value);
             CanRotate.Append(() => !IsDead.Value);
             CanFire.Append(() => !IsDead.Value);
+            CanFire.Append(() => AmmoAmount.Value > 0);
             
             entity.AddBehaviour(new HitPointsBehavior());
             entity.AddBehaviour(new TakeDamageBehavior());
             entity.AddBehaviour(new MovementBehavior());
             entity.AddBehaviour(new RotationBehavior());
             entity.AddBehaviour(ShootBehavior);
+            entity.AddBehaviour(AmmoReplenishmentBehavior);
+            entity.AddBehaviour(AmmoDecreaseBehavior);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace ZombieShooter.Behaviors
                 return;
             }
             
-            // var targetRotation = Quaternion.LookRotation(_rotateDirection.Value, Vector3.up);
+            
             var targetRotation = Quaternion.Euler(_rotateDirection.Value);
             _visualRoot.rotation = Quaternion.Lerp(_visualRoot.rotation, targetRotation, _rotationRate.Value);
         }
