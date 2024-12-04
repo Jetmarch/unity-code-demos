@@ -88,3 +88,8 @@ MonoBehaviour:
     - id: 18
       name: MaxAmmoAmount
       type: ReactiveVariable<int>
+  - name: AI
+    indexes:
+    - id: 19
+      name: Target
+      type: Transform
