@@ -64,6 +64,9 @@ MonoBehaviour:
     - id: 12
       name: VisualTransform
       type: Transform
+    - id: 20
+      name: Animator
+      type: Animator
   - name: Shoot
     indexes:
     - id: 13

@@ -2,8 +2,8 @@ using System;
 using Atomic.Elements;
 using Atomic.Entities;
 using UnityEngine;
-using UnityEngine.Serialization;
 using ZombieShooter.Behaviors;
+using ZombieShooter.Behaviors.Visual;
 using ZombieShooter.Factories;
 
 // ReSharper disable InconsistentNaming
@@ -34,7 +34,8 @@ namespace ZombieShooter.Installers
         
         [Header("Visual")]
         public Transform VisualTransform;
-
+        public Animator Animator;
+        
         [Header("Shoot")]
         public ShootBehavior ShootBehavior;
         public AndExpression CanFire;
@@ -48,6 +49,7 @@ namespace ZombieShooter.Installers
         public ReactiveVariable<int> MaxAmmoAmount;
         public AmmoReplenishmentBehavior AmmoReplenishmentBehavior;
         public AmmoDecreaseBehavior AmmoDecreaseBehavior;
+        
         
         public void Install(IEntity entity)
         {
@@ -71,6 +73,7 @@ namespace ZombieShooter.Installers
             entity.AddShootRequest(ShootRequest);
             
             entity.AddVisualTransform(VisualTransform);
+            entity.AddAnimator(Animator);
 
             entity.AddSceneEntityFactory(SceneEntityFactory);
             
@@ -90,6 +93,9 @@ namespace ZombieShooter.Installers
             entity.AddBehaviour(ShootBehavior);
             entity.AddBehaviour(AmmoReplenishmentBehavior);
             entity.AddBehaviour(AmmoDecreaseBehavior);
+            
+            //Visual layer
+            entity.AddBehaviour(new MoveAnimationBehavior());
         }
     }
 }
