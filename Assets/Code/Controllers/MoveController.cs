@@ -34,9 +34,9 @@ namespace ZombieShooter.Controllers
         {
             _horizontalInput = Input.GetAxis(_horizontalAxis);
             _verticalInput = Input.GetAxis(_verticalAxis);
-            _direction = new Vector3(_horizontalInput, 0f, _verticalInput).normalized;
+            _direction = new Vector3(_horizontalInput, 0f, _verticalInput);
             
-            Move(_direction);
+            Move(_direction.normalized);
         }
 
         private void Move(Vector3 direction)

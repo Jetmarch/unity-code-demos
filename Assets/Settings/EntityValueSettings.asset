@@ -96,3 +96,8 @@ MonoBehaviour:
     - id: 19
       name: Target
       type: Transform
+  - name: Collisions
+    indexes:
+    - id: 21
+      name: EntityTriggerEnter
+      type: Event<Entity>

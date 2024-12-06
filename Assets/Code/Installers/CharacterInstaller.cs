@@ -1,10 +1,8 @@
 using System;
-using Atomic.Elements;
 using Atomic.Entities;
 using UnityEngine;
 using ZombieShooter.Behaviors;
 using ZombieShooter.Behaviors.Visual;
-using ZombieShooter.Factories;
 
 // ReSharper disable InconsistentNaming
 
@@ -14,85 +12,44 @@ namespace ZombieShooter.Installers
     public class CharacterInstaller : IEntityInstaller
     {
         [Header("Core")]
-        public Transform Root;
+        [SerializeField] private CoreInstaller _coreInstaller;
         
         [Header("Life")]
-        public ReactiveVariable<int> HitPoints;
-        public ReactiveVariable<bool> IsDead;
-        public Event<int> TakeDamageAction;
-        public AndExpression CanTakeDamage;
+        [SerializeField] private LifeInstaller _lifeInstaller;
         
         [Header("Movement")]
-        public ReactiveVariable<float> MoveSpeed;
-        public ReactiveVariable<Vector3> MoveDirection;
-        public AndExpression CanMove;
+        [SerializeField] private MovementInstaller _movementInstaller;
         
         [Header("Rotation")]
-        public ReactiveVariable<float> RotationRate;
-        public ReactiveVariable<Vector3> RotateDirection;
-        public AndExpression CanRotate;
+        [SerializeField] private RotationInstaller _rotationInstaller;
         
         [Header("Visual")]
-        public Transform VisualTransform;
-        public Animator Animator;
-        
-        [Header("Shoot")]
-        public ShootBehavior ShootBehavior;
-        public AndExpression CanFire;
-        public Atomic.Elements.Event ShootAction;
-        public Atomic.Elements.Event ShootRequest;
-        
-        public SceneEntityFactory SceneEntityFactory;
+        [SerializeField] private Transform _visualTransform;
+        [SerializeField] private Animator _animator;
 
+        [Header("Shoot")]
+        [SerializeField] private ShootInstaller _shootInstaller;
+        
         [Header("Ammo")] 
-        public ReactiveVariable<int> AmmoAmount;
-        public ReactiveVariable<int> MaxAmmoAmount;
-        public AmmoReplenishmentBehavior AmmoReplenishmentBehavior;
-        public AmmoDecreaseBehavior AmmoDecreaseBehavior;
-        
-        
+        [SerializeField] private AmmoInstaller _ammoInstaller;
+
         public void Install(IEntity entity)
         {
-            entity.AddTransform(Root);
-            
-            entity.AddHitPoints(HitPoints);
-            entity.AddIsDead(IsDead);
-            entity.AddTakeDamageAction(TakeDamageAction);
-            entity.AddCanTakeDamage(CanTakeDamage);
-            
-            entity.AddMoveSpeed(MoveSpeed);
-            entity.AddMoveDirection(MoveDirection);
-            entity.AddCanMove(CanMove);
-            
-            entity.AddRotationRate(RotationRate);
-            entity.AddRotateDirection(RotateDirection);
-            entity.AddCanRotate(CanRotate);
+            _coreInstaller.Install(entity);
+            _lifeInstaller.Install(entity);
+            _movementInstaller.Install(entity);
+            _rotationInstaller.Install(entity);
+            _shootInstaller.Install(entity);
+            _ammoInstaller.Install(entity);
 
-            entity.AddCanFire(CanFire);
-            entity.AddShootAction(ShootAction);
-            entity.AddShootRequest(ShootRequest);
+            entity.AddVisualTransform(_visualTransform);
+            entity.AddAnimator(_animator);
             
-            entity.AddVisualTransform(VisualTransform);
-            entity.AddAnimator(Animator);
-
-            entity.AddSceneEntityFactory(SceneEntityFactory);
-            
-            entity.AddAmmoAmount(AmmoAmount);
-            entity.AddMaxAmmoAmount(MaxAmmoAmount);
-            
-            CanTakeDamage.Append(() => !IsDead.Value);
-            CanMove.Append(() => !IsDead.Value);
-            CanRotate.Append(() => !IsDead.Value);
-            CanFire.Append(() => !IsDead.Value);
-            CanFire.Append(() => AmmoAmount.Value > 0);
-            
-            entity.AddBehaviour(new HitPointsBehavior());
-            entity.AddBehaviour(new TakeDamageBehavior());
-            entity.AddBehaviour(new MovementBehavior());
-            entity.AddBehaviour(new RotationBehavior());
-            entity.AddBehaviour(ShootBehavior);
-            entity.AddBehaviour(AmmoReplenishmentBehavior);
-            entity.AddBehaviour(AmmoDecreaseBehavior);
+            entity.GetCanTakeDamage().Append(() => !entity.GetIsDead().Value);
+            entity.GetCanMove().Append(() => !entity.GetIsDead().Value);
+            entity.GetCanRotate().Append(() => !entity.GetIsDead().Value);
+            entity.GetCanFire().Append(() => !entity.GetIsDead().Value);
+            entity.GetCanFire().Append(() => entity.GetAmmoAmount().Value > 0);
             
             //Visual layer
             entity.AddBehaviour(new MoveAnimationBehavior());

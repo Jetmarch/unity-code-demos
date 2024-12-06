@@ -5,13 +5,13 @@ using UnityEngine;
 namespace ZombieShooter.Behaviors
 {
     [Serializable]
-    public sealed class CoreInstaller : IEntityInstaller
+    public sealed class CoreInstaller
     {
-        public Transform Root;
+        [SerializeField] private Transform _root;
         
         public void Install(IEntity entity)
         {
-            entity.AddTransform(Root);
+            entity.AddTransform(_root);
         }
     }
 }
