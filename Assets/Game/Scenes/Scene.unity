@@ -201,6 +201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891c0ab746dd0244a840b85ead8ce315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _horizontalAxis: Horizontal
+  _verticalAxis: Vertical
   _sceneEntity: {fileID: 625937920}
 --- !u!1 &91941558
 GameObject:
@@ -777,6 +779,10 @@ PrefabInstance:
       propertyPath: managedReferences[3433372451463495683].MaxAmmoAmount.value
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 625937919, guid: 3b5b2ae0f895574449961910366cbf8a, type: 3}
+      propertyPath: managedReferences[3433372451463495683].ShootBehavior._bulletPrefab
+      value: 
+      objectReference: {fileID: 1868973383}
     - target: {fileID: 625937919, guid: 3b5b2ae0f895574449961910366cbf8a, type: 3}
       propertyPath: managedReferences[3433372451463495683].ShootBehavior._reloadTimer.duration
       value: 0.15
@@ -1689,6 +1695,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet
       objectReference: {fileID: 0}
+    - target: {fileID: 8672590968115116082, guid: 7f12394cd99a93a4c8a18e1a0b1cbf06,
+        type: 3}
+      propertyPath: managedReferences[3433372542127046661].MoveSpeed.value
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f12394cd99a93a4c8a18e1a0b1cbf06, type: 3}
 --- !u!4 &1868973379 stripped
@@ -1697,6 +1708,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1868973378}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1868973383 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3538568285232284734, guid: 7f12394cd99a93a4c8a18e1a0b1cbf06,
+    type: 3}
+  m_PrefabInstance: {fileID: 1868973378}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3142498ee69840069f3a93c11b1e1f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2039635882
 GameObject:
   m_ObjectHideFlags: 0
