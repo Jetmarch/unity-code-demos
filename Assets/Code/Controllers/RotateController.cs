@@ -29,7 +29,6 @@ namespace ZombieShooter.Controllers
             var direction = worldMousePosition - _root.position;
             var rotation = Quaternion.LookRotation(direction).eulerAngles;
             _rotateDirection.Value = new Vector3(0f, rotation.y, 0f);
-
         }
     }
 }

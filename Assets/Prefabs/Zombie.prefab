@@ -75,6 +75,8 @@ GameObject:
   - component: {fileID: 7964997623459932075}
   - component: {fileID: 354380326650615950}
   - component: {fileID: 6486345383869258}
+  - component: {fileID: 8648353636168933266}
+  - component: {fileID: 9007441383588219425}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Untagged
@@ -129,6 +131,71 @@ CapsuleCollider:
   m_Height: 2.4435
   m_Direction: 1
   m_Center: {x: 0, y: 1.27, z: 0}
+--- !u!114 &8648353636168933266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5879414446769212800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3142498ee69840069f3a93c11b1e1f75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoRefresh: 1
+  installOnAwake: 1
+  installPipeline: []
+  onInstalled:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &9007441383588219425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5879414446769212800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4449a408ebb644a08bf8405b221eb04e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  autoRefresh: 1
+  installers:
+  - rid: 3433372542127046656
+  - rid: 3433372542127046657
+  - rid: 3433372542127046658
+  - rid: 3433372542127046659
+  logics: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 3433372542127046656
+      type: {class: CoreInstaller, ns: ZombieShooter.Behaviors, asm: Assembly-CSharp}
+      data:
+        Root: {fileID: 7964997623459932075}
+    - rid: 3433372542127046657
+      type: {class: LifeInstaller, ns: ZombieShooter.Behaviors, asm: Assembly-CSharp}
+      data:
+        HitPoints:
+          value: 1
+        IsDead:
+          value: 0
+    - rid: 3433372542127046658
+      type: {class: MovementInstaller, ns: ZombieShooter.Behaviors, asm: Assembly-CSharp}
+      data:
+        MoveSpeed:
+          value: 1
+        MoveDirection:
+          value: {x: 0, y: 0, z: 0}
+    - rid: 3433372542127046659
+      type: {class: FollowTargetInstaller, ns: ZombieShooter.Behaviors, asm: Assembly-CSharp}
+      data:
+        _target: {fileID: 0}
+        FollowTargetBehavior:
+          _stopDistance:
+            value: 0
 --- !u!1001 &1696610920246370783
 PrefabInstance:
   m_ObjectHideFlags: 0

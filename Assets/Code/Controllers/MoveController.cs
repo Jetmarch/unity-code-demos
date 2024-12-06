@@ -7,15 +7,22 @@ namespace ZombieShooter.Controllers
     public class MoveController : MonoBehaviour
     {
         [SerializeField]
+        private string _horizontalAxis = "Horizontal";
+        [SerializeField]
+        private string _verticalAxis = "Vertical";
+        
+        [SerializeField]
         private SceneEntity _sceneEntity;
         
         private ReactiveVariable<Vector3> _moveDirection;
-        private Transform _visualTransform;
+
+        private float _horizontalInput;
+        private float _verticalInput;
+        private Vector3 _direction;
 
         private void Start()
         {
             _moveDirection = _sceneEntity.GetMoveDirection();
-            _visualTransform = _sceneEntity.GetVisualTransform();
         }
 
         void Update()
@@ -25,29 +32,16 @@ namespace ZombieShooter.Controllers
 
         private void HandleKeyboardInput()
         {
-            Move(Vector3.zero);
+            _horizontalInput = Input.GetAxis(_horizontalAxis);
+            _verticalInput = Input.GetAxis(_verticalAxis);
+            _direction = new Vector3(_horizontalInput, 0f, _verticalInput).normalized;
             
-            if (Input.GetKey(KeyCode.W))
-            {
-                Move(Vector3.forward);
-            }
-            else if (Input.GetKey(KeyCode.S))
-            {
-                Move(Vector3.back);
-            }
-            else if (Input.GetKey(KeyCode.A))
-            {
-                Move(Vector3.left);
-            }
-            else if (Input.GetKey(KeyCode.D))
-            {
-                Move(Vector3.right);
-            }
+            Move(_direction);
         }
 
         private void Move(Vector3 direction)
         {
-            _moveDirection.Value = _visualTransform.TransformDirection(direction);
+            _moveDirection.Value = direction;
         }
     }
 }

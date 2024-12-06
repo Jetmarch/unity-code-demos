@@ -465,6 +465,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8648353636168933266, guid: a76c89c6a539356478cffc6e1b88e8dc,
+        type: 3}
+      propertyPath: installPipeline.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8648353636168933266, guid: a76c89c6a539356478cffc6e1b88e8dc,
+        type: 3}
+      propertyPath: installPipeline.Array.data[0]
+      value: 
+      objectReference: {fileID: 1289969421}
+    - target: {fileID: 9007441383588219425, guid: a76c89c6a539356478cffc6e1b88e8dc,
+        type: 3}
+      propertyPath: managedReferences[3433372542127046659]._target
+      value: 
+      objectReference: {fileID: 625937916}
+    - target: {fileID: 9007441383588219425, guid: a76c89c6a539356478cffc6e1b88e8dc,
+        type: 3}
+      propertyPath: managedReferences[3433372542127046659].FollowTargetBehavior._stopDistance.value
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a76c89c6a539356478cffc6e1b88e8dc, type: 3}
 --- !u!4 &236932030 stripped
@@ -744,6 +764,10 @@ PrefabInstance:
     - target: {fileID: 625937919, guid: 3b5b2ae0f895574449961910366cbf8a, type: 3}
       propertyPath: managedReferences[3433372451463495683].AmmoAmount.value
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 625937919, guid: 3b5b2ae0f895574449961910366cbf8a, type: 3}
+      propertyPath: managedReferences[3433372451463495683].RotationRate.value
+      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 625937919, guid: 3b5b2ae0f895574449961910366cbf8a, type: 3}
       propertyPath: managedReferences[3433372451463495683].SceneEntityFactory
@@ -1341,6 +1365,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1289969421 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9007441383588219425, guid: a76c89c6a539356478cffc6e1b88e8dc,
+    type: 3}
+  m_PrefabInstance: {fileID: 236932029}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4449a408ebb644a08bf8405b221eb04e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1366530278
 GameObject:
   m_ObjectHideFlags: 0
