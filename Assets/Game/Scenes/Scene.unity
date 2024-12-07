@@ -508,6 +508,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zombie
       objectReference: {fileID: 0}
+    - target: {fileID: 5879414446769212800, guid: a76c89c6a539356478cffc6e1b88e8dc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7964997623459932075, guid: a76c89c6a539356478cffc6e1b88e8dc,
         type: 3}
       propertyPath: m_RootOrder
@@ -984,6 +989,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3435628029611942440, guid: 3b5b2ae0f895574449961910366cbf8a,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fddf76956db180e4eb735efb326605f1, type: 2}
     - target: {fileID: 6378945258768650400, guid: 3b5b2ae0f895574449961910366cbf8a,
         type: 3}
       propertyPath: m_Name
