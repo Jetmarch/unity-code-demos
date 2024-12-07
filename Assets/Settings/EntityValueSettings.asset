@@ -100,4 +100,9 @@ MonoBehaviour:
     indexes:
     - id: 21
       name: EntityTriggerEnter
-      type: Event<Entity>
+      type: Event<SceneEntity>
+  - name: Damage
+    indexes:
+    - id: 22
+      name: DamageAmount
+      type: ReactiveVariable<int>

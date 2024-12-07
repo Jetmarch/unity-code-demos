@@ -7,13 +7,13 @@ namespace ZombieShooter.Behaviors
     [Serializable]
     public sealed class FollowTargetInstaller : IEntityInstaller
     {
-        public Transform _target;
-        public FollowTargetBehavior FollowTargetBehavior;
+        [SerializeField] private Transform _target;
+        [SerializeField] private FollowTargetBehavior _followTargetBehavior;
         public void Install(IEntity entity)
         {
             entity.AddTarget(_target);
             
-            entity.AddBehaviour(FollowTargetBehavior);
+            entity.AddBehaviour(_followTargetBehavior);
         }
     }
 }

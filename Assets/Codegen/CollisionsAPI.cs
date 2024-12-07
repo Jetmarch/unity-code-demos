@@ -13,18 +13,18 @@ namespace Atomic.Entities
     public static class CollisionsAPI
     {
         ///Keys
-        public const int EntityTriggerEnter = 21; // Event<Entity>
+        public const int EntityTriggerEnter = 21; // Event<SceneEntity>
 
 
         ///Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Event<Entity> GetEntityTriggerEnter(this IEntity obj) => obj.GetValue<Event<Entity>>(EntityTriggerEnter);
+        public static Event<SceneEntity> GetEntityTriggerEnter(this IEntity obj) => obj.GetValue<Event<SceneEntity>>(EntityTriggerEnter);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool TryGetEntityTriggerEnter(this IEntity obj, out Event<Entity> value) => obj.TryGetValue(EntityTriggerEnter, out value);
+        public static bool TryGetEntityTriggerEnter(this IEntity obj, out Event<SceneEntity> value) => obj.TryGetValue(EntityTriggerEnter, out value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool AddEntityTriggerEnter(this IEntity obj, Event<Entity> value) => obj.AddValue(EntityTriggerEnter, value);
+        public static bool AddEntityTriggerEnter(this IEntity obj, Event<SceneEntity> value) => obj.AddValue(EntityTriggerEnter, value);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasEntityTriggerEnter(this IEntity obj) => obj.HasValue(EntityTriggerEnter);
@@ -33,6 +33,6 @@ namespace Atomic.Entities
         public static bool DelEntityTriggerEnter(this IEntity obj) => obj.DelValue(EntityTriggerEnter);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SetEntityTriggerEnter(this IEntity obj, Event<Entity> value) => obj.SetValue(EntityTriggerEnter, value);
+        public static void SetEntityTriggerEnter(this IEntity obj, Event<SceneEntity> value) => obj.SetValue(EntityTriggerEnter, value);
     }
 }

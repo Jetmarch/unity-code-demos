@@ -9,9 +9,10 @@ namespace ZombieShooter.Controllers
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out Entity entity))
+            if (other.TryGetComponent(out SceneEntity entity))
             {
                 _sceneEntity.GetEntityTriggerEnter().Invoke(entity);
+                Debug.Log($"TriggerEnter {entity.Name}");
             }
         }
     }

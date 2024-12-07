@@ -53,6 +53,7 @@ namespace ZombieShooter.Installers
             
             //Visual layer
             entity.AddBehaviour(new MoveAnimationBehavior());
+            entity.AddBehaviour(new ShootAnimationBehavior());
         }
     }
 }
