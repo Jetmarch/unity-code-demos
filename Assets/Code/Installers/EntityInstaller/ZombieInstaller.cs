@@ -35,6 +35,7 @@ namespace ZombieShooter.Installers
             _movementInstaller.Install(entity);
             _rotationInstaller.Install(entity);
             _followTargetInstaller.Install(entity);
+            entity.AddBehaviour(new LookToTargetBehavior());
 
             entity.AddVisualTransform(_visualTransform);
             entity.AddAnimator(_animator);
@@ -44,7 +45,9 @@ namespace ZombieShooter.Installers
             entity.GetCanRotate().Append(() => !entity.GetIsDead().Value);
             
             //Visual layer
-            // entity.AddBehaviour(new MoveAnimationBehavior());
+            entity.AddBehaviour(new MoveAnimationBehavior());
+            // entity.AddBehaviour(new ShootAnimationBehavior());
+            entity.AddBehaviour(new DeathAnimationBehavior());
         }
     }
 }

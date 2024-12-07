@@ -163,11 +163,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoRefresh: 1
-  installers: []
+  installers:
+  - rid: 3433372559936847873
   logics: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 3433372559936847873
+      type: {class: ZombieInstaller, ns: ZombieShooter.Installers, asm: Assembly-CSharp}
+      data:
+        _coreInstaller:
+          _root: {fileID: 7964997623459932075}
+        _lifeInstaller:
+          _hitPoints:
+            value: 1
+          _isDead:
+            value: 0
+        _movementInstaller:
+          _moveSpeed:
+            value: 1
+          _moveDirection:
+            value: {x: 0, y: 0, z: 0}
+        _rotationInstaller:
+          _rotationRate:
+            value: 0.025
+          _rotateDirection:
+            value: {x: 0, y: 0, z: 0}
+        _followTargetInstaller:
+          _target: {fileID: 0}
+          _followTargetBehavior:
+            _stopDistance:
+              value: 0.5
+        _visualTransform: {fileID: 4405768551765342050}
+        _animator: {fileID: 4828065441531083015}
 --- !u!1001 &1696610920246370783
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -322,6 +350,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 95075453375667064, guid: a3029e28af10f4f458f5d25d6118a906,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0cc925f93303b9e4b94fce90f6ec05cc, type: 2}
     - target: {fileID: 7477056162850146450, guid: a3029e28af10f4f458f5d25d6118a906,
         type: 3}
       propertyPath: m_IsActive
@@ -333,6 +366,12 @@ PrefabInstance:
 --- !u!4 &4782524890436215783 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4376485179048344, guid: a3029e28af10f4f458f5d25d6118a906,
+    type: 3}
+  m_PrefabInstance: {fileID: 4778738596848624255}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4828065441531083015 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 95075453375667064, guid: a3029e28af10f4f458f5d25d6118a906,
     type: 3}
   m_PrefabInstance: {fileID: 4778738596848624255}
   m_PrefabAsset: {fileID: 0}

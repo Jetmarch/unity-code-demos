@@ -2,10 +2,8 @@
 * Code generation. Don't modify! 
 **/
 
-using Atomic.Entities;
 using System.Runtime.CompilerServices;
 using Atomic.Elements;
-using ZombieShooter.Factories;
 
 namespace Atomic.Entities
 {
