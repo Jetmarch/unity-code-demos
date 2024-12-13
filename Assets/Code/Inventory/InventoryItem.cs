@@ -14,6 +14,13 @@ namespace Game
         //Odin
         [SerializeReference] public IItemComponent[] ItemComponents;
 
+        public InventoryItem(string name)
+        {
+            Name = name;
+        }
+
+        public InventoryItem() {}
+        
         public InventoryItem Clone()
         {
             var item = new InventoryItem()
