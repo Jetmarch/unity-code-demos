@@ -47,7 +47,10 @@ namespace Game
             if(lastItem == null)
             {
                 inventory.Add(prototype);
-                prototype.GetComponent<StackComponent>().Count = 1;
+                if (prototype.TryGetComponent<StackComponent>(out var component))
+                {
+                    component.Count = 1;
+                }
                 return;
             }
 

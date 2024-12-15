@@ -14,7 +14,7 @@ namespace Game
 
         public event Action<InventoryItem> OnItemConsumed;
 	
-        [SerializeField] private List<InventoryItem> _items;
+        [SerializeField] private List<InventoryItem> _items = new();
 
         public void AddItem(InventoryItem prototype)
         {

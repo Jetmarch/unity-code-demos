@@ -4,7 +4,8 @@ namespace Game
     {
         Armor,
         Helmet,
-        Gloves,
-        Boots
+        Boots,
+        RightHand,
+        LeftHand
     }
 }

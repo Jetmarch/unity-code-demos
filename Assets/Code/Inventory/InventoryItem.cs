@@ -12,11 +12,12 @@ namespace Game
         public InventoryItemFlag Flags;
 
         //Odin
-        [SerializeReference] public IItemComponent[] ItemComponents;
+        [SerializeReference] public List<IItemComponent> ItemComponents;
 
         public InventoryItem(string name)
         {
             Name = name;
+            ItemComponents = new List<IItemComponent>();
         }
 
         public InventoryItem() {}
@@ -31,6 +32,13 @@ namespace Game
                 Flags = Flags
             };
             return item;
+        }
+
+        public T AddComponent<T>() where T : IItemComponent
+        {
+            var component = Activator.CreateInstance<T>();
+            ItemComponents.Add(component);
+            return component;
         }
 
         public T GetComponent<T>() where T : IItemComponent
@@ -68,7 +76,7 @@ namespace Game
             };
         }
 
-        private IItemComponent[] CloneComponents()
+        private List<IItemComponent> CloneComponents()
         {
             var list = new List<IItemComponent>();
 		
@@ -77,7 +85,7 @@ namespace Game
                 list.Add(itemComponent.Clone());
             }
 
-            return list.ToArray();
+            return list;
         }
     }
 }
