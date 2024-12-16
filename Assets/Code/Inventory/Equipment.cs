@@ -9,29 +9,29 @@ namespace Game
     {
         [SerializeField] private readonly Dictionary<EquipmentType, InventoryItem> _equipment = new();
         
-        public void Add(EquipmentType equipmentType, InventoryItem equipmentItem)
+        public void AddItem(EquipmentType equipmentType, InventoryItem prototypeItem, Inventory inventory)
         {
-            if (_equipment.ContainsKey(equipmentType))
-            {
-                Remove(equipmentType);
-            }
-            
-            _equipment.Add(equipmentType, equipmentItem);
+            EquipmentUseCases.AddEquipment(equipmentType, prototypeItem, inventory, this);
         }
 
-        public void Remove(EquipmentType equipmentType)
+        public void Add(EquipmentType equipmentType, InventoryItem prototypeItem)
+        {
+            _equipment.Add(equipmentType, prototypeItem);
+        }
+
+        public void Remove(EquipmentType equipmentType, Inventory inventory)
+        {
+            EquipmentUseCases.RemoveEquipment(equipmentType, inventory, this);
+        }
+
+        public void RemoveItem(EquipmentType equipmentType)
         {
             _equipment.Remove(equipmentType);
         }
 
         public InventoryItem Get(EquipmentType equipmentType)
         {
-            if (_equipment.TryGetValue(equipmentType, out InventoryItem equipmentItem))
-            {
-                return equipmentItem;
-            }
-            
-            return default;
+            return _equipment.GetValueOrDefault(equipmentType);
         }
     }
 
@@ -39,20 +39,32 @@ namespace Game
     {
         public static void AddEquipment(EquipmentType equipmentType, InventoryItem prototypeEquipment, Inventory inventory, Equipment equipment)
         {
-            var item = inventory.FindItem(prototypeEquipment);
-            if (item == null) return;
-            if (item.TryGetComponent<EquipmentComponent>(out var equipmentComponent) && equipmentComponent.EquipmentType == equipmentType)
+            var equipmentItem = inventory.FindItem(prototypeEquipment);
+            if (equipmentItem == null) return;
+            if (equipmentItem.TryGetComponent<EquipmentComponent>(out var equipmentComponent) && equipmentComponent.EquipmentType == equipmentType)
             {
                 var oldEquipment = equipment.Get(equipmentType);
-                equipment.Add(equipmentType, item);
-                inventory.RemoveItem(item);
-                if (oldEquipment == null) return;
-                inventory.AddItem(oldEquipment);
+                if (oldEquipment != null)
+                {
+                    equipment.Remove(equipmentType, inventory);
+                }
+
+                equipment.Add(equipmentType, equipmentItem);
+                inventory.RemoveItem(equipmentItem);
             }
             else
             {
-                Debug.LogError($"{equipmentType} is not a equipment type");
+                Debug.LogError($"{prototypeEquipment.Name} is not a equipment");
             }
+        }
+
+        public static void RemoveEquipment(EquipmentType equipmentType, Inventory inventory, Equipment equipment)
+        {
+            var equipmentItem = equipment.Get(equipmentType);
+            if (equipmentItem == null) return;
+            
+            inventory.AddItem(equipmentItem);
+            equipment.RemoveItem(equipmentType);
         }
     }
 }

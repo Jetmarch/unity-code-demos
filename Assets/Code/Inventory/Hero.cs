@@ -7,11 +7,8 @@ namespace Game
     {
         public int Damage { get; set; }
         public int Mana { get; set; }
-        public Equipment Equipment { get; }
-
-        public Hero()
-        {
-            Equipment = new Equipment();
-        }
+        
+        public float Speed { get; set; }
+        public Equipment Equipment { get; } = new();
     }
 }

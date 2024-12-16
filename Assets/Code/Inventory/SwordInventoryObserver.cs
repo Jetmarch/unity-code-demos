@@ -3,7 +3,7 @@ namespace Game
     public class SwordInventoryObserver : IInventoryObserver
     {
         //TODO: Create HeroProvider
-        private Hero _hero;
+        private readonly Hero _hero;
 
         public SwordInventoryObserver(Hero hero)
         {
