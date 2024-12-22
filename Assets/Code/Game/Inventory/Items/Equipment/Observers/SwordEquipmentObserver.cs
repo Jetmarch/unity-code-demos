@@ -1,15 +1,15 @@
 namespace Game
 {
-    public class SwordInventoryObserver : IInventoryObserver
+    public class SwordEquipmentObserver : IEquipmentObserver
     {
         private readonly IHero _hero;
 
-        public SwordInventoryObserver(IHero hero)
+        public SwordEquipmentObserver(IHero hero)
         {
             _hero = hero;
         }
 
-        public void OnItemAdded(InventoryItem item)
+        public void OnItemEquipped(InventoryItem item)
         {
             if(item.TryGetComponent<SwordComponent>(out var component))
             {
@@ -17,7 +17,7 @@ namespace Game
             }
         }
 	
-        public void OnItemRemoved(InventoryItem item)
+        public void OnItemUnequipped(InventoryItem item)
         {
             if(item.TryGetComponent<SwordComponent>(out var component))
             {

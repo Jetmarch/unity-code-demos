@@ -3,15 +3,15 @@ using System;
 namespace Game
 {
     [Serializable]
-    public class SwordComponent : EquipmentComponent
+    public sealed  class HelmetComponent : EquipmentComponent
     {
-        public int Damage;
-
+        public int Health;
+	
         public IItemComponent Clone()
         {
-            return new SwordComponent
+            return new HelmetComponent()
             {
-                Damage = Damage,
+                Health = Health,
                 EquipmentType = EquipmentType
             };
         }

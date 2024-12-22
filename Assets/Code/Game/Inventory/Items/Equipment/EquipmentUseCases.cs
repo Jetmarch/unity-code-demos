@@ -20,10 +20,6 @@ namespace Game
                 equipment.NotifyItemAdded(equipmentItem);
                 inventory.RemoveItem(equipmentItem);
             }
-            else
-            {
-                Debug.LogError($"{prototypeEquipment.Name} is not a equipment");
-            }
         }
 
         public static void RemoveEquipment(EquipmentType equipmentType, Inventory inventory, Equipment equipment)

@@ -3,7 +3,7 @@ using System;
 namespace Game
 {
     [Serializable]
-    public class ManaComponent : IItemComponent
+    public sealed class ManaComponent : IItemComponent
     {
         public int Mana;
 	

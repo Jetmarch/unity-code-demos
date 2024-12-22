@@ -7,8 +7,8 @@ namespace Game
     [Serializable]
     public class Equipment 
     {
-        public event Action<InventoryItem> OnItemAdded;
-        public event Action<InventoryItem> OnItemRemoved;
+        public event Action<InventoryItem> OnItemEquipped;
+        public event Action<InventoryItem> OnItemUnequipped;
         
         [SerializeField] private readonly Dictionary<EquipmentType, InventoryItem> _equipment = new();
         
@@ -39,12 +39,12 @@ namespace Game
 
         public void NotifyItemAdded(InventoryItem item)
         {
-            OnItemAdded?.Invoke(item);
+            OnItemEquipped?.Invoke(item);
         }
 
         public void NotifyItemRemoved(InventoryItem item)
         {
-            OnItemRemoved?.Invoke(item);
+            OnItemUnequipped?.Invoke(item);
         }
     }
 }

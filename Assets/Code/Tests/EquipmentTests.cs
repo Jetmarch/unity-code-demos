@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Game.Tests
@@ -10,7 +11,9 @@ namespace Game.Tests
         private InventoryItem _helmetNew;
         private InventoryItem _helmetOld;
         private InventoryItem _sword;
-        private SwordInventoryObserver _swordObserver;
+        private InventoryItem _armor;
+        
+        private EquipmentObserverManager _equipmentObserverManager;
 
         [SetUp]
         public void Setup()
@@ -21,24 +24,42 @@ namespace Game.Tests
             _helmetNew = new InventoryItem("helmet_new");
             _helmetOld = new InventoryItem("helmet_old");
             _sword = new InventoryItem("sword");
+            _armor = new InventoryItem("armor");
+
+            var helmetComponent = _helmetNew.AddComponent<HelmetComponent>();
+            helmetComponent.EquipmentType = EquipmentType.Helmet;
+            helmetComponent.Health = 10;
+
+            var oldHelmetComponent = _helmetOld.AddComponent<HelmetComponent>();
+            oldHelmetComponent.EquipmentType = EquipmentType.Helmet;
+            oldHelmetComponent.Health = 5;
             
-            _helmetNew.AddComponent<EquipmentComponent>().EquipmentType = EquipmentType.Helmet;
-            _helmetOld.AddComponent<EquipmentComponent>().EquipmentType = EquipmentType.Helmet;
+            var swordComponent = _sword.AddComponent<SwordComponent>();
+            swordComponent.EquipmentType = EquipmentType.RightHand;
+            swordComponent.Damage = 5;
             
-            _sword.AddComponent<EquipmentComponent>().EquipmentType = EquipmentType.RightHand;
-            _sword.AddComponent<SwordComponent>().Damage = 5;
+            var armorComponent = _armor.AddComponent<ArmorComponent>();
+            armorComponent.EquipmentType = EquipmentType.Armor;
+            armorComponent.Armor = 5;
             
             _inventory.AddItem(_helmetNew);
             _inventory.AddItem(_helmetOld);
             _inventory.AddItem(_sword);
+            _inventory.AddItem(_armor);
+            
+            var equipmentObservers = new List<IEquipmentObserver>
+            {
+                new SwordEquipmentObserver(_hero),
+                new HelmEquipmentObserver(_hero),
+                new ArmorEquipmentObserver(_hero)
+            };
 
-            _swordObserver = new SwordInventoryObserver(_hero);
-            _equipment.OnItemAdded += _swordObserver.OnItemAdded;
-            _equipment.OnItemRemoved += _swordObserver.OnItemRemoved;
+            _equipmentObserverManager = new EquipmentObserverManager(_equipment, equipmentObservers);
+            _equipmentObserverManager.OnInit();
         }
 
         [Test]
-        public void WhenAddHelmet_AndHeroDoesNotHaveHelmet_ThenEquipmentContainHelmet()
+        public void WhenEquipHelmet_AndHeroDoesNotHaveHelmet_ThenEquipmentContainsHelmet()
         {
             _equipment.AddItem(EquipmentType.Helmet, _helmetNew, _inventory);
 
@@ -47,7 +68,7 @@ namespace Game.Tests
         }
 
         [Test]
-        public void WhenAddNewHelmet_AndHeroHasOldHelmet_ThenEquipmentContainNewHelmetAndInventoryContainsOldHelmet()
+        public void WhenEquipNewHelmet_AndHeroHasOldHelmet_ThenEquipmentContainsNewHelmetAndInventoryContainsOldHelmet()
         {
             _equipment.AddItem(EquipmentType.Helmet, _helmetOld, _inventory);
             
@@ -67,7 +88,15 @@ namespace Game.Tests
         }
         
         [Test]
-        public void WhenEquipSword_AndHeroHaveSword_ThenHeroDamageDecreased()
+        public void WhenEquipArmor_AndHeroDoesNotHaveArmor_ThenHeroArmorIncreased()
+        {
+            _equipment.AddItem(EquipmentType.Armor, _armor, _inventory);
+            
+            Assert.IsTrue(_hero.Armor == _armor.GetComponent<ArmorComponent>().Armor);
+        }
+        
+        [Test]
+        public void WhenUnequipSword_AndHeroHaveSword_ThenHeroDamageDecreased()
         {
             _equipment.AddItem(EquipmentType.RightHand, _sword, _inventory);
             _equipment.RemoveItem(EquipmentType.RightHand, _inventory);
@@ -76,7 +105,7 @@ namespace Game.Tests
         }
 
         [Test]
-        public void WhenUnequipSword_AndHeroHaveSword_ThenEquipmentDoesNotContainSwordAndInventoryContainsSword()
+        public void WhenUnequipSword_AndHeroHaveSword_ThenEquipmentDoesNotContainsSwordAndInventoryContainsSword()
         {
             _equipment.AddItem(EquipmentType.RightHand, _sword, _inventory);
             
@@ -84,6 +113,15 @@ namespace Game.Tests
             
             Assert.IsTrue(_equipment.Get(EquipmentType.RightHand) == default);
             Assert.IsTrue(_inventory.FindItem(_sword) != default);
+        }
+        
+        [Test]
+        public void WhenEquipArmorInLeftHandSlot_AndHeroDoesNotHaveArmor_ThenHeroArmorNotChangedAndArmorStayInInventory()
+        {
+            _equipment.AddItem(EquipmentType.LeftHand, _armor, _inventory);
+            
+            Assert.IsTrue(_hero.Armor == 0);
+            Assert.IsTrue(_inventory.FindItem(_armor) != default);
         }
     }
 }
