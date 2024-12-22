@@ -1,11 +1,11 @@
 namespace Game
 {
-    public class ManaPoisonConsumer : IItemConsumeObserver
+    public class ManaPotionConsumer : IItemConsumeObserver
     {
         private readonly Inventory _inventory;
-        private readonly Hero _hero;
+        private readonly IHero _hero;
 
-        public ManaPoisonConsumer(Inventory inventory, Hero hero)
+        public ManaPotionConsumer(Inventory inventory, IHero hero)
         {
             _inventory = inventory;
             _hero = hero;
