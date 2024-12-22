@@ -7,6 +7,9 @@ namespace Game
     [Serializable]
     public class Equipment 
     {
+        public event Action<InventoryItem> OnItemAdded;
+        public event Action<InventoryItem> OnItemRemoved;
+        
         [SerializeField] private readonly Dictionary<EquipmentType, InventoryItem> _equipment = new();
         
         public void AddItem(EquipmentType equipmentType, InventoryItem prototypeItem, Inventory inventory)
@@ -19,12 +22,12 @@ namespace Game
             _equipment.Add(equipmentType, prototypeItem);
         }
 
-        public void Remove(EquipmentType equipmentType, Inventory inventory)
+        public void RemoveItem(EquipmentType equipmentType, Inventory inventory)
         {
             EquipmentUseCases.RemoveEquipment(equipmentType, inventory, this);
         }
 
-        public void RemoveItem(EquipmentType equipmentType)
+        public void Remove(EquipmentType equipmentType)
         {
             _equipment.Remove(equipmentType);
         }
@@ -33,38 +36,15 @@ namespace Game
         {
             return _equipment.GetValueOrDefault(equipmentType);
         }
-    }
 
-    public static class EquipmentUseCases
-    {
-        public static void AddEquipment(EquipmentType equipmentType, InventoryItem prototypeEquipment, Inventory inventory, Equipment equipment)
+        public void NotifyItemAdded(InventoryItem item)
         {
-            var equipmentItem = inventory.FindItem(prototypeEquipment);
-            if (equipmentItem == null) return;
-            if (equipmentItem.TryGetComponent<EquipmentComponent>(out var equipmentComponent) && equipmentComponent.EquipmentType == equipmentType)
-            {
-                var oldEquipment = equipment.Get(equipmentType);
-                if (oldEquipment != null)
-                {
-                    equipment.Remove(equipmentType, inventory);
-                }
-
-                equipment.Add(equipmentType, equipmentItem);
-                inventory.RemoveItem(equipmentItem);
-            }
-            else
-            {
-                Debug.LogError($"{prototypeEquipment.Name} is not a equipment");
-            }
+            OnItemAdded?.Invoke(item);
         }
 
-        public static void RemoveEquipment(EquipmentType equipmentType, Inventory inventory, Equipment equipment)
+        public void NotifyItemRemoved(InventoryItem item)
         {
-            var equipmentItem = equipment.Get(equipmentType);
-            if (equipmentItem == null) return;
-            
-            inventory.AddItem(equipmentItem);
-            equipment.RemoveItem(equipmentType);
+            OnItemRemoved?.Invoke(item);
         }
     }
 }
