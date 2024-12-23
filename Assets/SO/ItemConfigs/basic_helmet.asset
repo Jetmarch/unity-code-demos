@@ -20,10 +20,22 @@ MonoBehaviour:
     Flags: 4
     ItemComponents:
     - rid: 3433372907449876480
+    - rid: 3433372907449876481
+    - rid: 3433372907449876482
   references:
     version: 2
     RefIds:
     - rid: 3433372907449876480
       type: {class: HelmetComponent, ns: Game, asm: Inventory}
       data:
+        EquipmentType: 0
         Health: 0
+    - rid: 3433372907449876481
+      type: {class: EquipmentComponent, ns: Game, asm: Inventory}
+      data:
+        EquipmentType: 0
+    - rid: 3433372907449876482
+      type: {class: SwordComponent, ns: Game, asm: Inventory}
+      data:
+        EquipmentType: 3
+        Damage: 0
