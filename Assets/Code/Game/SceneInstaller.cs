@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using VContainer;
 using VContainer.Unity;
 
@@ -6,7 +7,7 @@ namespace Game
 {
     public sealed class SceneInstaller : LifetimeScope
     {
-        [SerializeField] private Hero _hero;
+        [FormerlySerializedAs("_hero")] [SerializeField] private AttributeRepository _attributeRepository;
         
         [SerializeField] private Equipment _equipment;
         
@@ -14,7 +15,7 @@ namespace Game
         
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterInstance(_hero).AsImplementedInterfaces();
+            builder.RegisterInstance(_attributeRepository).AsImplementedInterfaces();
             builder.RegisterInstance(_equipment);
             builder.RegisterInstance(_inventory);
             

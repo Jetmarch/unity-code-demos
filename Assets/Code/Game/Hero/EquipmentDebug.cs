@@ -2,22 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using VContainer;
 
 namespace Game
 {
     public class EquipmentDebug : MonoBehaviour
     {
-        [SerializeField] private Hero _hero;
+        [FormerlySerializedAs("_hero")] [SerializeField] private AttributeRepository _attributeRepository;
         
         [SerializeField] private Equipment _equipment;
         
         [SerializeField] private Inventory _inventory;
 
         [Inject]
-        public void Construct(Hero hero, Equipment equipment, Inventory inventory)
+        public void Construct(AttributeRepository attributeRepository, Equipment equipment, Inventory inventory)
         {
-            _hero = hero;
+            _attributeRepository = attributeRepository;
             _equipment = equipment;
             _inventory = inventory;
         }

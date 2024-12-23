@@ -5,7 +5,7 @@ namespace Game.Tests
 {
     public class EquipmentTests
     {
-        private Hero _hero;
+        private AttributeRepository _attributeRepository;
         private Inventory _inventory;
         private Equipment _equipment;
         private InventoryItem _helmetNew;
@@ -18,7 +18,7 @@ namespace Game.Tests
         [SetUp]
         public void Setup()
         {
-            _hero = new Hero();
+            _attributeRepository = new AttributeRepository();
             _inventory = new Inventory();
             _equipment = new Equipment();
             _helmetNew = new InventoryItem("helmet_new");
@@ -45,9 +45,9 @@ namespace Game.Tests
             
             var equipmentObservers = new List<IEquipmentObserver>
             {
-                new SwordEquipmentObserver(_hero),
-                new HelmEquipmentObserver(_hero),
-                new ArmorEquipmentObserver(_hero)
+                new SwordEquipmentObserver(_attributeRepository),
+                new HelmEquipmentObserver(_attributeRepository),
+                new ArmorEquipmentObserver(_attributeRepository)
             };
 
             _equipmentObserverManager = new EquipmentObserverManager(_equipment, equipmentObservers);
@@ -80,7 +80,7 @@ namespace Game.Tests
         {
             _equipment.AddItem(EquipmentType.RightHand, _sword, _inventory);
             
-            Assert.IsTrue(_hero.Damage == _sword.GetComponent<SwordComponent>().Damage);
+            Assert.IsTrue(_attributeRepository.Damage == _sword.GetComponent<SwordComponent>().Damage);
         }
         
         [Test]
@@ -88,7 +88,7 @@ namespace Game.Tests
         {
             _equipment.AddItem(EquipmentType.Armor, _armor, _inventory);
             
-            Assert.IsTrue(_hero.Armor == _armor.GetComponent<ArmorComponent>().Armor);
+            Assert.IsTrue(_attributeRepository.Armor == _armor.GetComponent<ArmorComponent>().Armor);
         }
         
         [Test]
@@ -97,7 +97,7 @@ namespace Game.Tests
             _equipment.AddItem(EquipmentType.RightHand, _sword, _inventory);
             _equipment.RemoveItem(EquipmentType.RightHand, _inventory);
             
-            Assert.IsTrue(_hero.Damage == 0);
+            Assert.IsTrue(_attributeRepository.Damage == 0);
         }
 
         [Test]
@@ -116,7 +116,7 @@ namespace Game.Tests
         {
             _equipment.AddItem(EquipmentType.LeftHand, _armor, _inventory);
             
-            Assert.IsTrue(_hero.Armor == 0);
+            Assert.IsTrue(_attributeRepository.Armor == 0);
             Assert.IsTrue(_inventory.FindItem(_armor) != default);
         }
     }
