@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Game
 {
     public class HelmEquipmentObserver : IEquipmentObserver

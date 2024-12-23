@@ -1,28 +1,20 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using VContainer.Unity;
 
 namespace Game
 {
-    public sealed class EquipmentObserverManager
+    public sealed class EquipmentObserverManager : IStartable, IDisposable
     {
         private readonly Equipment _equipment;
-        private readonly List<IEquipmentObserver> _observers;
+        private readonly IEnumerable<IEquipmentObserver> _observers;
 
-        public EquipmentObserverManager(Equipment equipment, List<IEquipmentObserver> observers)
+        public EquipmentObserverManager(Equipment equipment, IEnumerable<IEquipmentObserver> observers)
         {
             _equipment = equipment;
             _observers = observers;
-        }
-
-        public void OnInit()
-        {
-            _equipment.OnItemEquipped += ItemEquipped;
-            _equipment.OnItemUnequipped += ItemUnequipped;
-        }
-
-        public void OnDestroy()
-        {
-            _equipment.OnItemEquipped -= ItemEquipped;
-            _equipment.OnItemUnequipped -= ItemUnequipped;
         }
 
         private void ItemEquipped(InventoryItem item)
@@ -39,6 +31,18 @@ namespace Game
             {
                 observer.OnItemUnequipped(item);
             }
+        }
+
+        public void Start()
+        {
+            _equipment.OnItemEquipped += ItemEquipped;
+            _equipment.OnItemUnequipped += ItemUnequipped;
+        }
+
+        public void Dispose()
+        {
+            _equipment.OnItemEquipped -= ItemEquipped;
+            _equipment.OnItemUnequipped -= ItemUnequipped;
         }
     }
 }

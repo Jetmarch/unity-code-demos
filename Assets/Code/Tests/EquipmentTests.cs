@@ -55,7 +55,7 @@ namespace Game.Tests
             };
 
             _equipmentObserverManager = new EquipmentObserverManager(_equipment, equipmentObservers);
-            _equipmentObserverManager.OnInit();
+            _equipmentObserverManager.Start();
         }
 
         [Test]
