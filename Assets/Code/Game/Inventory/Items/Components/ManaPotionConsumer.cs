@@ -3,12 +3,12 @@ namespace Game
     public class ManaPotionConsumer : IItemConsumeObserver
     {
         private readonly Inventory _inventory;
-        private readonly IHero _hero;
+        private readonly IAttributeRepository _attributeRepository;
 
-        public ManaPotionConsumer(Inventory inventory, IHero hero)
+        public ManaPotionConsumer(Inventory inventory, IAttributeRepository attributeRepository)
         {
             _inventory = inventory;
-            _hero = hero;
+            _attributeRepository = attributeRepository;
         }
 
         public void OnStartGame()
@@ -25,7 +25,7 @@ namespace Game
         {
             if(item.TryGetComponent<ManaComponent>(out var manaComponent))
             {
-                _hero.Mana += manaComponent.Mana;
+                _attributeRepository.Mana += manaComponent.Mana;
             }
         }
     }

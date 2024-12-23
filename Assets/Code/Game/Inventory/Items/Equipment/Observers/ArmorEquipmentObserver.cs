@@ -2,18 +2,18 @@ namespace Game
 {
     public class ArmorEquipmentObserver : IEquipmentObserver
     {
-        private readonly IHero _hero;
+        private readonly IAttributeRepository _attributeRepository;
 
-        public ArmorEquipmentObserver(IHero hero)
+        public ArmorEquipmentObserver(IAttributeRepository attributeRepository)
         {
-            _hero = hero;
+            _attributeRepository = attributeRepository;
         }
 
         public void OnItemEquipped(InventoryItem item)
         {
             if(item.TryGetComponent<ArmorComponent>(out var component))
             {
-                _hero.Armor += component.Armor;
+                _attributeRepository.Armor += component.Armor;
             }
         }
 	
@@ -21,7 +21,7 @@ namespace Game
         {
             if(item.TryGetComponent<ArmorComponent>(out var component))
             {
-                _hero.Armor -= component.Armor;
+                _attributeRepository.Armor -= component.Armor;
             }
         }
     }

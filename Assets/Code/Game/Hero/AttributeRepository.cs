@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Game
 {
     [Serializable]
-    public sealed class AttributeRepository : IHero
+    public sealed class AttributeRepository : IAttributeRepository
     {
         [SerializeField] private int _damage;
         [SerializeField] private int _health;

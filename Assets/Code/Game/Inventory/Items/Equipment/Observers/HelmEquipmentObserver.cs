@@ -4,18 +4,18 @@ namespace Game
 {
     public class HelmEquipmentObserver : IEquipmentObserver
     {
-        private readonly IHero _hero;
+        private readonly IAttributeRepository _attributeRepository;
 
-        public HelmEquipmentObserver(IHero hero)
+        public HelmEquipmentObserver(IAttributeRepository attributeRepository)
         {
-            _hero = hero;
+            _attributeRepository = attributeRepository;
         }
 
         public void OnItemEquipped(InventoryItem item)
         {
             if(item.TryGetComponent<HelmetComponent>(out var component))
             {
-                _hero.Health += component.Health;
+                _attributeRepository.Health += component.Health;
             }
         }
 	
@@ -23,7 +23,7 @@ namespace Game
         {
             if(item.TryGetComponent<HelmetComponent>(out var component))
             {
-                _hero.Health -= component.Health;
+                _attributeRepository.Health -= component.Health;
             }
         }
     }
