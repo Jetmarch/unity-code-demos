@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: wooden_sword
   m_EditorClassIdentifier: 
   Prototype:
-    Name: iron_sword
+    Name: wooden_sword
     MetaData:
       Description: 
       Icon: {fileID: 0}
@@ -31,4 +31,4 @@ MonoBehaviour:
     - rid: 3433372931077177348
       type: {class: SwordComponent, ns: Game, asm: Inventory}
       data:
-        Damage: 5
+        Damage: 1

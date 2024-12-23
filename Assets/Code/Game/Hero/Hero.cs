@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Serialization;
 using VContainer;
 
 namespace Game
 {
-    public class EquipmentDebug : MonoBehaviour
+    public class Hero : MonoBehaviour
     {
-        [FormerlySerializedAs("_hero")] [SerializeField] private AttributeRepository _attributeRepository;
+        [SerializeField] private AttributeRepository _attributeRepository;
         
         [SerializeField] private Equipment _equipment;
         

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using VContainer;
@@ -7,18 +8,19 @@ namespace Game
 {
     public sealed class SceneInstaller : LifetimeScope
     {
-        [FormerlySerializedAs("_hero")] [SerializeField] private AttributeRepository _attributeRepository;
+        [SerializeField] private AttributeRepository _attributeRepository;
         
         [SerializeField] private Equipment _equipment;
         
         [SerializeField] private Inventory _inventory;
         
+        [SerializeField] private List<InventoryItemConfig> _inventoryItemConfigs;
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(_attributeRepository).AsImplementedInterfaces();
             builder.RegisterInstance(_equipment);
-            builder.RegisterInstance(_inventory);
             
+            ConfigureInventory(builder);
             ConfigureEquipmentObservers(builder);
         }
 
@@ -29,6 +31,16 @@ namespace Game
             builder.Register<SwordEquipmentObserver>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<HelmEquipmentObserver>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<ArmorEquipmentObserver>(Lifetime.Scoped).AsImplementedInterfaces();
+        }
+
+        private void ConfigureInventory(IContainerBuilder builder)
+        {
+            foreach (var itemConfig in _inventoryItemConfigs)
+            {
+                _inventory.AddItem(itemConfig.Clone());
+            }
+            
+            builder.RegisterInstance(_inventory);
         }
     }
 }
