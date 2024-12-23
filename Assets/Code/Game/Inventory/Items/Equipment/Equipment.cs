@@ -5,12 +5,12 @@ using UnityEngine;
 namespace Game
 {
     [Serializable]
-    public class Equipment 
+    public sealed class Equipment 
     {
         public event Action<InventoryItem> OnItemEquipped;
         public event Action<InventoryItem> OnItemUnequipped;
         
-        [SerializeField] private readonly Dictionary<EquipmentType, InventoryItem> _equipment = new();
+        [SerializeReference] private Dictionary<EquipmentType, InventoryItem> _equipment = new();
         
         public void AddItem(EquipmentType equipmentType, InventoryItem prototypeItem, Inventory inventory)
         {

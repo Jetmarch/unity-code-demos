@@ -26,21 +26,17 @@ namespace Game.Tests
             _sword = new InventoryItem("sword");
             _armor = new InventoryItem("armor");
 
-            var helmetComponent = _helmetNew.AddComponent<HelmetComponent>();
-            helmetComponent.EquipmentType = EquipmentType.Helmet;
-            helmetComponent.Health = 10;
-
-            var oldHelmetComponent = _helmetOld.AddComponent<HelmetComponent>();
-            oldHelmetComponent.EquipmentType = EquipmentType.Helmet;
-            oldHelmetComponent.Health = 5;
+            _helmetNew.AddComponent<HelmetComponent>().Health = 10;
+            _helmetNew.AddComponent<EquipmentComponent>().EquipmentType = EquipmentType.Helmet;
             
-            var swordComponent = _sword.AddComponent<SwordComponent>();
-            swordComponent.EquipmentType = EquipmentType.RightHand;
-            swordComponent.Damage = 5;
+            _helmetOld.AddComponent<HelmetComponent>().Health = 5;
+            _helmetOld.AddComponent<EquipmentComponent>().EquipmentType = EquipmentType.Helmet;
             
-            var armorComponent = _armor.AddComponent<ArmorComponent>();
-            armorComponent.EquipmentType = EquipmentType.Armor;
-            armorComponent.Armor = 5;
+            _sword.AddComponent<SwordComponent>().Damage = 5;
+            _sword.AddComponent<EquipmentComponent>().EquipmentType = EquipmentType.RightHand;
+            
+            _armor.AddComponent<ArmorComponent>().Armor = 5;
+            _armor.AddComponent<EquipmentComponent>().EquipmentType = EquipmentType.Armor;
             
             _inventory.AddItem(_helmetNew);
             _inventory.AddItem(_helmetOld);

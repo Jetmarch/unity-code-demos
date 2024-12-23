@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Game
 {
     [Serializable]
-    public class Inventory
+    public sealed class Inventory
     {
         public event Action<InventoryItem> OnItemAdded;
 

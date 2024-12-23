@@ -11,7 +11,6 @@ namespace Game
         public ItemMetaData MetaData;
         public InventoryItemFlag Flags;
 
-        //Odin
         [SerializeReference] public List<IItemComponent> ItemComponents;
 
         public InventoryItem(string name)

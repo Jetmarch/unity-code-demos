@@ -3,7 +3,7 @@ using System;
 namespace Game
 {
     [Serializable]
-    public class SwordComponent : EquipmentComponent
+    public class SwordComponent : IItemComponent
     {
         public int Damage;
 
@@ -11,8 +11,7 @@ namespace Game
         {
             return new SwordComponent
             {
-                Damage = Damage,
-                EquipmentType = EquipmentType
+                Damage = Damage
             };
         }
     }

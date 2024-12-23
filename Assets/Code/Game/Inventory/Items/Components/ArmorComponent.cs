@@ -3,7 +3,7 @@ using System;
 namespace Game
 {
     [Serializable]
-    public class ArmorComponent : EquipmentComponent
+    public class ArmorComponent : IItemComponent
     {
         public int Armor;
 
@@ -11,8 +11,7 @@ namespace Game
         {
             return new ArmorComponent
             {
-                Armor = Armor,
-                EquipmentType = EquipmentType
+                Armor = Armor
             };
         }
     }
