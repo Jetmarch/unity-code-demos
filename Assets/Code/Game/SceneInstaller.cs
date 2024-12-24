@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.ComponentModel;
+using DG.Tweening;
+using Game.Controllers;
+using Game.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 using VContainer;
 using VContainer.Unity;
 
@@ -15,13 +18,34 @@ namespace Game
         [SerializeField] private Inventory _inventory;
         
         [SerializeField] private List<InventoryItemConfig> _inventoryItemConfigs;
+        
+        [SerializeField] private TextPopupView _textPopupView;
         protected override void Configure(IContainerBuilder builder)
+        {
+            ConfigureHero(builder);
+            ConfigureEquipmentObservers(builder);
+            ConfigureControllers(builder);
+            ConfigureUI(builder);
+
+            DOTween.Init();
+        }
+
+        private void ConfigureHero(IContainerBuilder builder)
         {
             builder.RegisterInstance(_attributeRepository).AsImplementedInterfaces();
             builder.RegisterInstance(_equipment);
             
             ConfigureInventory(builder);
-            ConfigureEquipmentObservers(builder);
+        }
+        
+        private void ConfigureInventory(IContainerBuilder builder)
+        {
+            foreach (var itemConfig in _inventoryItemConfigs)
+            {
+                _inventory.AddItem(itemConfig.Clone());
+            }
+            
+            builder.RegisterInstance(_inventory);
         }
 
         private void ConfigureEquipmentObservers(IContainerBuilder builder)
@@ -31,16 +55,17 @@ namespace Game
             builder.Register<SwordEquipmentObserver>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<HelmEquipmentObserver>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<ArmorEquipmentObserver>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.Register<ShieldEquipmentObserver>(Lifetime.Scoped).AsImplementedInterfaces();
         }
 
-        private void ConfigureInventory(IContainerBuilder builder)
+        private void ConfigureControllers(IContainerBuilder builder)
         {
-            foreach (var itemConfig in _inventoryItemConfigs)
-            {
-                _inventory.AddItem(itemConfig.Clone());
-            }
-            
-            builder.RegisterInstance(_inventory);
+            builder.Register<EquipmentController>(Lifetime.Scoped).AsImplementedInterfaces();
+        }
+
+        private void ConfigureUI(IContainerBuilder builder)
+        {
+            builder.RegisterInstance(_textPopupView);
         }
     }
 }

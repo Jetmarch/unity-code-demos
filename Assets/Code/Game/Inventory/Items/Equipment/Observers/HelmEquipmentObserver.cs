@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class HelmEquipmentObserver : IEquipmentObserver
+    public sealed class HelmEquipmentObserver : IEquipmentObserver
     {
         private readonly IAttributeRepository _attributeRepository;
 

@@ -6,10 +6,14 @@ namespace Game
     {
         public static void AddEquipment(EquipmentType equipmentType, InventoryItem prototypeEquipment, Inventory inventory, Equipment equipment)
         {
+            if (prototypeEquipment == null)
+            {
+                return;
+            }
             var equipmentItem = inventory.FindItem(prototypeEquipment);
             if (equipmentItem == null)
             {
-                Debug.LogWarning($"Item {prototypeEquipment.Name} doesn't exist in inventory");
+                equipment.NotifyItemNotExistInInventory(prototypeEquipment);
                 return;
             }
             if (equipmentItem.TryGetComponent<EquipmentComponent>(out var equipmentComponent) && equipmentComponent.EquipmentType == equipmentType)
@@ -21,14 +25,12 @@ namespace Game
                 }
 
                 equipment.Add(equipmentType, equipmentItem);
-                equipment.NotifyItemAdded(equipmentItem);
                 inventory.RemoveItem(equipmentItem);
-                
-                Debug.Log($"Added {equipmentItem.Name} to {equipmentType} slot");
+                equipment.NotifyItemAdded(equipmentItem);
             }
             else
             {
-                Debug.LogWarning($"Unable to equip item {prototypeEquipment.Name} in {equipmentType} slot");
+                equipment.NotifyUnableToEquipItem(prototypeEquipment, equipmentType);
             }
         }
 
@@ -37,15 +39,13 @@ namespace Game
             var equipmentItem = equipment.Get(equipmentType);
             if (equipmentItem == null)
             {
-                Debug.Log($"{equipmentType} is empty");
+                equipment.NotifyUnableToUnequipEquipmentType(equipmentType);
                 return;
             }
             
             inventory.AddItem(equipmentItem);
             equipment.Remove(equipmentType);
             equipment.NotifyItemRemoved(equipmentItem);
-            
-            Debug.Log($"Item {equipmentItem.Name} was removed from equipment");
         }
     }
 }

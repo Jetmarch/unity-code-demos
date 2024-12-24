@@ -18,7 +18,7 @@ namespace Game
 
         public void AddItem(InventoryItem prototype)
         {
-            InventoryUseCases.AddItem(this, prototype);
+            StackableInventoryUseCases.AddItem(this, prototype);
         }
 
         public void Add(InventoryItem item)
@@ -40,7 +40,7 @@ namespace Game
 
         public bool RemoveItem(InventoryItem item)
         {
-            return InventoryUseCases.RemoveItem(this, item);
+            return StackableInventoryUseCases.RemoveItem(this, item);
         }
 
         public void RemoveItemInstance(InventoryItem item)
@@ -55,7 +55,7 @@ namespace Game
 
         public void ConsumeItem(InventoryItem item)
         {
-            InventoryUseCases.ConsumeItem(this, item);
+            StackableInventoryUseCases.ConsumeItem(this, item);
         }
 
         public void NotifyConsumed(InventoryItem item)

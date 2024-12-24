@@ -23,18 +23,33 @@ namespace Game
         [Button]
         public void AddItemToInventory(InventoryItemConfig itemConfig)
         {
+            if (itemConfig == null)
+            {
+                return;
+            }
+            
             _inventory.AddItem(itemConfig.Clone());
         }
 
         [Button]
         public void RemoveItemFromInventory(InventoryItemConfig itemConfig)
         {
+            if (itemConfig == null)
+            {
+                return;
+            }
+            
             _inventory.RemoveItem(itemConfig.Clone());
         }
 
         [Button]
         public void EquipItem(EquipmentType equipmentType, InventoryItemConfig itemConfig)
         {
+            if (itemConfig == null)
+            {
+                return;
+            }
+            
             _equipment.AddItem(equipmentType, itemConfig.Clone(), _inventory);
         }
 

@@ -1,6 +1,6 @@
 namespace Game
 {
-    public class SwordEquipmentObserver : IEquipmentObserver
+    public sealed class SwordEquipmentObserver : IEquipmentObserver
     {
         private readonly IAttributeRepository _attributeRepository;
 

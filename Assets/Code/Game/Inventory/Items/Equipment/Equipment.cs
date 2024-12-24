@@ -10,6 +10,10 @@ namespace Game
         public event Action<InventoryItem> OnItemEquipped;
         public event Action<InventoryItem> OnItemUnequipped;
         
+        public event Action<InventoryItem> OnItemNotExistInInventory;
+        public event Action<InventoryItem, EquipmentType> OnUnableToEquipItem;
+        public event Action<EquipmentType> OnUnableToUnequipEquipmentType;
+        
         [SerializeReference] private Dictionary<EquipmentType, InventoryItem> _equipment = new();
         
         public void AddItem(EquipmentType equipmentType, InventoryItem prototypeItem, Inventory inventory)
@@ -45,6 +49,21 @@ namespace Game
         public void NotifyItemRemoved(InventoryItem item)
         {
             OnItemUnequipped?.Invoke(item);
+        }
+
+        public void NotifyItemNotExistInInventory(InventoryItem item)
+        {
+            OnItemNotExistInInventory?.Invoke(item);
+        }
+
+        public void NotifyUnableToEquipItem(InventoryItem item, EquipmentType equipmentType)
+        {
+            OnUnableToEquipItem?.Invoke(item, equipmentType);
+        }
+
+        public void NotifyUnableToUnequipEquipmentType(EquipmentType equipmentType)
+        {
+            OnUnableToUnequipEquipmentType?.Invoke(equipmentType);
         }
     }
 }
