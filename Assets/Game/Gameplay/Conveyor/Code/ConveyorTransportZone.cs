@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 
 namespace Game.Gameplay.Conveyor
 {
+    [Serializable]
     public sealed class ConveyorTransportZone
     {
-        public event Action OnResourceLoaded;
-        public event Action OnZoneFull;
-        
         private readonly ConveyorAttributes _attributes;
         private readonly Queue<ConveyorResource> _resourceQueue;
-        private readonly ConveyorTransportZoneType _type;
+        private readonly  ConveyorTransportZoneType _type;
         public ConveyorTransportZone(ConveyorAttributes attributes, ConveyorTransportZoneType type)
         {
             _attributes = attributes;
@@ -18,22 +18,15 @@ namespace Game.Gameplay.Conveyor
             _resourceQueue = new Queue<ConveyorResource>();
         }
 
-        public void AddResource(ConveyorResource resource)
+        public async UniTask AddResourceAsync(ConveyorResource resource, CancellationTokenSource cts)
         {
             if (!CanLoadResource())
             {
-                OnZoneFull?.Invoke();
-                return;
-            }
-            
-            if (_resourceQueue.Count >= _attributes.MaxLoadZoneCapacity)
-            {
-                OnZoneFull?.Invoke();
+                await UniTask.WaitUntil(() => CanLoadResource() == true, cancellationToken: cts.Token);
                 return;
             }
             
             _resourceQueue.Enqueue(resource);
-            OnResourceLoaded?.Invoke();
         }
 
         private bool CanLoadResource()
@@ -48,17 +41,20 @@ namespace Game.Gameplay.Conveyor
             }
         }
 
-        public ConveyorResource GetNextResource()
+        public async UniTask<ConveyorResource> GetNextResourceAsync(CancellationTokenSource cts)
         {
-            if (_resourceQueue.TryDequeue(out var resource))
+            if (_resourceQueue.Count == 0)
             {
-                return resource;
+                await UniTask.WaitUntil(() => _resourceQueue.Count > 0, cancellationToken: cts.Token);
             }
+            
+            var resource = _resourceQueue.Dequeue();
 
-            return default;
+            return resource;
         }
     }
 
+    [Serializable]
     public enum ConveyorTransportZoneType : byte
     {
         Load,

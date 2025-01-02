@@ -1,5 +1,8 @@
+using System;
+
 namespace Game.Gameplay.Conveyor
 {
+    [Serializable]
     public sealed class ConveyorRecipe
     {
         public ConveyorResource RequiredResource { get; }

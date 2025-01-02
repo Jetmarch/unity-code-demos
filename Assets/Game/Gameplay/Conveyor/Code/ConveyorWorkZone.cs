@@ -1,45 +1,41 @@
 using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace Game.Gameplay.Conveyor
 {
+    [Serializable]
     public sealed class ConveyorWorkZone
     {
-        public event Action<ConveyorResource> OnResourceConverted;
-        public event Action<ConveyorResource> OnResourceCannotConvert;
-        public event Action OnConveyorBusy;
-        public bool IsBusy { get; private set; }
-
+        [SerializeField] private bool _isBusy;
         private readonly ConveyorAttributes _attributes;
         private readonly ConveyorRecipe _currentRecipe;
-
+        
         public ConveyorWorkZone(ConveyorAttributes attributes, ConveyorRecipe recipe)
         {
             _attributes = attributes;
             _currentRecipe = recipe;
         }
 
-        public async UniTask<ConveyorResource> ConvertResource(ConveyorResource resource)
+        public async UniTask<ConveyorResource> ConvertResourceAsync(ConveyorResource resource, CancellationTokenSource cts)
         {
-            if (IsBusy)
+            if (_isBusy)
             {
-                OnConveyorBusy?.Invoke();
-                return default;
+                await UniTask.WaitUntil(() => _isBusy == true, cancellationToken: cts.Token);
             }
 
             if (!CanConvert(resource))
             {
-                OnResourceCannotConvert?.Invoke(resource);
                 return default;
             }
-
-            IsBusy = true;
+            _isBusy = true;
             
             var convertTimeInSeconds = _attributes.BaseWorkTime * resource.ConvertModifier;
-            await UniTask.Delay(TimeSpan.FromSeconds(convertTimeInSeconds));
-            OnResourceConverted?.Invoke(_currentRecipe.RequiredResource);
+            await UniTask.Delay(TimeSpan.FromSeconds(convertTimeInSeconds), cancellationToken: cts.Token);
             
-            IsBusy = false;
+            _isBusy = false;
+            
             return _currentRecipe.ResultingResource;
         }
 

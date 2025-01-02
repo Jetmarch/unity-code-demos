@@ -1,10 +1,14 @@
+using System;
+using UnityEngine;
+
 namespace Game.Gameplay.Conveyor
 {
+    [Serializable]
     public sealed class ConveyorAttributes
     {
-        public int MaxUnloadZoneCapacity { get; }
-        public int MaxLoadZoneCapacity { get; }
-        public float BaseWorkTime { get; }
+        [field: SerializeReference] public int MaxUnloadZoneCapacity { get; }
+        [field: SerializeReference] public int MaxLoadZoneCapacity { get; }
+        [field: SerializeReference] public float BaseWorkTime { get; }
         
         public ConveyorAttributes(int maxLoadZoneCapacity, int maxUnloadZoneCapacity, float baseWorkTime)
         {
