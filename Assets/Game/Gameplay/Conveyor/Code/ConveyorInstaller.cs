@@ -21,12 +21,25 @@ namespace Game.Gameplay.Conveyor
             var inputZone = new ConveyorTransportZone(_attributes, ConveyorTransportZoneType.Load);
             var outputZone = new ConveyorTransportZone(_attributes, ConveyorTransportZoneType.Unload);
             var workZone = new ConveyorWorkZone(_attributes, _recipeConfig.Clone());
+            var conveyorZones = new ConveyorZones(inputZone, outputZone, workZone);
             
             builder.Register<Conveyor>(Lifetime.Scoped)
-                .WithParameter(inputZone)
-                .WithParameter(outputZone)
-                .WithParameter(workZone)
+                .WithParameter(conveyorZones)
                 .WithParameter(new CancellationTokenSource());
+        }
+    }
+
+    public sealed class ConveyorZones
+    {
+        public readonly ConveyorTransportZone InputZone;
+        public readonly ConveyorTransportZone OutputZone;
+        public readonly ConveyorWorkZone WorkZone;
+
+        public ConveyorZones(ConveyorTransportZone inputZone, ConveyorTransportZone outputZone, ConveyorWorkZone workZone)
+        {
+            InputZone = inputZone;
+            OutputZone = outputZone;
+            WorkZone = workZone;
         }
     }
 }

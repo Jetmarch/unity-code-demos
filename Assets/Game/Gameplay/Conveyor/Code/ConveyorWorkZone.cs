@@ -41,6 +41,8 @@ namespace Game.Gameplay.Conveyor
 
         private bool CanConvert(ConveyorResource resource)
         {
+            if (resource == null) return false;
+            
             return _currentRecipe.RequiredResource.Prototype.Name == resource.Name;
         }
     }

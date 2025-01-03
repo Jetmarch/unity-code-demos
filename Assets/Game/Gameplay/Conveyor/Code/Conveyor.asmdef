@@ -3,7 +3,8 @@
     "rootNamespace": "Game.Gameplay.Conveyor",
     "references": [
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "GUID:f5fea45ee19ec034b954971610aa0122"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

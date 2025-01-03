@@ -33,8 +33,6 @@ namespace Game.Gameplay.Conveyor.Tests
             _loadZone = new ConveyorTransportZone(_attributes, ConveyorTransportZoneType.Load);
             _unloadZone = new ConveyorTransportZone(_attributes, ConveyorTransportZoneType.Unload);
 
-            // _woodPlankRecipe = ScriptableObject.CreateInstance<ConveyorRecipeConfig>();
-            // _woodPlankRecipe.SetPrototype(_);
             _woodLogConfig = ScriptableObject.CreateInstance<ConveyorResourceConfig>();
             _woodLogConfig.SetPrototype(_woodLog);
             _woodPlankConfig = ScriptableObject.CreateInstance<ConveyorResourceConfig>();
@@ -43,7 +41,9 @@ namespace Game.Gameplay.Conveyor.Tests
             _workZone = new ConveyorWorkZone(_attributes, new ConveyorRecipe(_woodLogConfig, _woodPlankConfig));
             
             _cts = new CancellationTokenSource(_ctsMillis);
-            _conveyor = new Conveyor(_loadZone, _unloadZone, _workZone, _cts);
+
+            var conveyorZones = new ConveyorZones(_loadZone, _unloadZone, _workZone);
+            _conveyor = new Conveyor(conveyorZones, _cts);
         }
 
         [Test]

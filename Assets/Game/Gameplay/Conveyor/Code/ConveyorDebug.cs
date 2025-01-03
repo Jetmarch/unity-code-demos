@@ -16,17 +16,27 @@ namespace Game.Gameplay.Conveyor
         }
         
         [Button]
-        public void ConvertResource(ConveyorResourceConfig config)
+        public void AddResource(ConveyorResourceConfig config)
         {
             var resource = config.Clone();
-            _conveyor.AddResourceAsync(resource).GetAwaiter().OnCompleted(() =>
+            _conveyor.AddResourceAsync(resource).Forget();
+        }
+        
+        [Button]
+        public void ConvertNextResource()
+        {
+            _conveyor.ConvertNextResourceAsync().Forget();
+        }
+
+        [Button]
+        public void GetConvertedResource()
+        {
+            var task = _conveyor.GetConvertedResourceAsync();
+            var awaiter = task.GetAwaiter();
+            awaiter.OnCompleted(() =>
             {
-                Debug.Log("Resource added to input");
-                _conveyor.ConvertNextResourceAsync().GetAwaiter().OnCompleted(() =>
-                {
-                    var convertedResource = _conveyor.GetConvertedResourceAsync().GetAwaiter().GetResult();
-                    Debug.Log($"Resource {resource.Name} has converted to {convertedResource.Name}");
-                });
+                var resource = task.GetAwaiter().GetResult();
+                Debug.Log($"Resource obtained: {resource.Name}");
             });
         }
     }
