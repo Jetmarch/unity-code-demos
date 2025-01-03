@@ -22,7 +22,7 @@ namespace Game.Gameplay.Conveyor
             _conveyor.AddResourceAsync(resource).GetAwaiter().OnCompleted(() =>
             {
                 Debug.Log("Resource added to input");
-                _conveyor.ConvertNextResource().GetAwaiter().OnCompleted(() =>
+                _conveyor.ConvertNextResourceAsync().GetAwaiter().OnCompleted(() =>
                 {
                     var convertedResource = _conveyor.GetConvertedResourceAsync().GetAwaiter().GetResult();
                     Debug.Log($"Resource {resource.Name} has converted to {convertedResource.Name}");

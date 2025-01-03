@@ -33,7 +33,7 @@ namespace Game.Gameplay.Conveyor
             return resource;
         }
 
-        public async UniTask ConvertNextResource()
+        public async UniTask ConvertNextResourceAsync()
         {
             var resource = await _input.GetNextResourceAsync(_cts);
             var convertedResource = await _workZone.ConvertResourceAsync(resource, _cts);
