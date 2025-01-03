@@ -13,10 +13,10 @@ namespace Game.Gameplay.Conveyor
  
         protected override void Configure(IContainerBuilder builder)
         {
-            ConfigureConveyorController(builder);
+            ConfigureConveyor(builder);
         }
 
-        private void ConfigureConveyorController(IContainerBuilder builder)
+        private void ConfigureConveyor(IContainerBuilder builder)
         {
             var inputZone = new ConveyorTransportZone(_attributes, ConveyorTransportZoneType.Load);
             var outputZone = new ConveyorTransportZone(_attributes, ConveyorTransportZoneType.Unload);
