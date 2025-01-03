@@ -3,15 +3,15 @@ using Cysharp.Threading.Tasks;
 
 namespace Game.Gameplay.Conveyor
 {
-    public sealed class ConveyorController
+    public sealed class Conveyor
     {
-         private readonly ConveyorTransportZone _input;
-         private readonly ConveyorTransportZone _output;
-         private readonly ConveyorWorkZone _workZone;
+        private readonly ConveyorTransportZone _input;
+        private readonly ConveyorTransportZone _output;
+        private readonly ConveyorWorkZone _workZone;
         
         private readonly CancellationTokenSource _cts;
 
-        public ConveyorController(ConveyorTransportZone input,
+        public Conveyor(ConveyorTransportZone input,
                                 ConveyorTransportZone output, 
                                 ConveyorWorkZone workZone, 
                                 CancellationTokenSource cancellationTokenSource)
@@ -33,7 +33,7 @@ namespace Game.Gameplay.Conveyor
             return resource;
         }
 
-        public async UniTask UpdateAsync()
+        public async UniTask ConvertNextResource()
         {
             var resource = await _input.GetNextResourceAsync(_cts);
             var convertedResource = await _workZone.ConvertResourceAsync(resource, _cts);

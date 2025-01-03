@@ -6,15 +6,19 @@ namespace Game.Gameplay.Conveyor
     [Serializable]
     public sealed class ConveyorAttributes
     {
-        [field: SerializeReference] public int MaxUnloadZoneCapacity { get; }
-        [field: SerializeReference] public int MaxLoadZoneCapacity { get; }
-        [field: SerializeReference] public float BaseWorkTime { get; }
+        public int MaxUnloadZoneCapacity => _maxUnloadZoneCapacity;
+        public int MaxLoadZoneCapacity => _maxLoadZoneCapacity;
+        public float BaseWorkTime => _baseWorkTime;
         
-        public ConveyorAttributes(int maxLoadZoneCapacity, int maxUnloadZoneCapacity, float baseWorkTime)
+        [SerializeField] private int _maxUnloadZoneCapacity;
+        [SerializeField] private int _maxLoadZoneCapacity;
+        [SerializeField] private float _baseWorkTime;
+        
+        public ConveyorAttributes(int maxLoadZoneCapacity = 4, int maxUnloadZoneCapacity = 4, float baseWorkTime = 1f)
         {
-            MaxLoadZoneCapacity = maxLoadZoneCapacity;
-            BaseWorkTime = baseWorkTime;
-            MaxUnloadZoneCapacity = maxUnloadZoneCapacity;
+            _maxUnloadZoneCapacity = maxUnloadZoneCapacity;
+            _maxLoadZoneCapacity = maxLoadZoneCapacity;
+            _baseWorkTime = baseWorkTime;
         }
     }
 }

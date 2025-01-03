@@ -19,7 +19,7 @@ namespace Game.Gameplay.Conveyor.Tests
         private ConveyorResourceConfig _woodLogConfig;
         private ConveyorResourceConfig _woodPlankConfig;
         
-        private ConveyorController _conveyorController;
+        private Conveyor _conveyor;
         private CancellationTokenSource _cts;
         private readonly int _ctsMillis = 1000;
         
@@ -43,7 +43,7 @@ namespace Game.Gameplay.Conveyor.Tests
             _workZone = new ConveyorWorkZone(_attributes, new ConveyorRecipe(_woodLogConfig, _woodPlankConfig));
             
             _cts = new CancellationTokenSource(_ctsMillis);
-            _conveyorController = new ConveyorController(_loadZone, _unloadZone, _workZone, _cts);
+            _conveyor = new Conveyor(_loadZone, _unloadZone, _workZone, _cts);
         }
 
         [Test]
@@ -100,9 +100,9 @@ namespace Game.Gameplay.Conveyor.Tests
         [Test]
         public async Task WhenWoodLogResourceAddInLoadZone_AndWorkZoneIsNotBusy_ThenProduceWoodPlankResource()
         {
-            await _conveyorController.AddResourceAsync(_woodLog);
-            await _conveyorController.UpdateAsync();
-            var unloadedResource = await _conveyorController.GetConvertedResourceAsync();
+            await _conveyor.AddResourceAsync(_woodLog);
+            await _conveyor.ConvertNextResource();
+            var unloadedResource = await _conveyor.GetConvertedResourceAsync();
             
             
             Assert.AreEqual(unloadedResource.Name, _woodPlank.Name);
@@ -111,9 +111,9 @@ namespace Game.Gameplay.Conveyor.Tests
         [Test]
         public async Task WhenWoodPlankResourceAddInLoadZone_AndWorkZoneIsNotBusy_ThenUnloadedResourceIsDefault()
         {
-            await _conveyorController.AddResourceAsync(_woodPlank);
-            await _conveyorController.UpdateAsync();
-            var unloadedResource = await _conveyorController.GetConvertedResourceAsync();
+            await _conveyor.AddResourceAsync(_woodPlank);
+            await _conveyor.ConvertNextResource();
+            var unloadedResource = await _conveyor.GetConvertedResourceAsync();
             
             Assert.AreEqual(unloadedResource, default);
         }
