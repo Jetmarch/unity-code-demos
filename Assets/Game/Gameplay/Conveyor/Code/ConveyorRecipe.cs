@@ -1,17 +1,21 @@
 using System;
+using UnityEngine;
 
 namespace Game.Gameplay.Conveyor
 {
     [Serializable]
     public sealed class ConveyorRecipe
     {
-        public ConveyorResource RequiredResource { get; }
-        public ConveyorResource ResultingResource { get; }
+        public ConveyorResourceConfig RequiredResource => _requiredResource;
+        public ConveyorResourceConfig ResultingResource => _resultingResource;
         
-        public ConveyorRecipe(ConveyorResource requiredResource, ConveyorResource resultingResource)
+        [SerializeField] private ConveyorResourceConfig _requiredResource;
+        [SerializeField] private ConveyorResourceConfig _resultingResource;
+        
+        public ConveyorRecipe(ConveyorResourceConfig requiredResource, ConveyorResourceConfig resultingResource)
         {
-            RequiredResource = requiredResource;
-            ResultingResource = resultingResource;
+            _requiredResource = requiredResource;
+            _resultingResource = resultingResource;
         }
     }
 }

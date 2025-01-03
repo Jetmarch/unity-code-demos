@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace Game.Gameplay.Conveyor.Tests
 {
@@ -13,6 +14,10 @@ namespace Game.Gameplay.Conveyor.Tests
         private ConveyorTransportZone _loadZone;
         private ConveyorTransportZone _unloadZone;
         private ConveyorWorkZone _workZone;
+
+        // private ConveyorRecipeConfig _woodPlankRecipe;
+        private ConveyorResourceConfig _woodLogConfig;
+        private ConveyorResourceConfig _woodPlankConfig;
         
         private ConveyorController _conveyorController;
         private CancellationTokenSource _cts;
@@ -27,7 +32,15 @@ namespace Game.Gameplay.Conveyor.Tests
             _woodPlank = new ConveyorResource("woodPlank");
             _loadZone = new ConveyorTransportZone(_attributes, ConveyorTransportZoneType.Load);
             _unloadZone = new ConveyorTransportZone(_attributes, ConveyorTransportZoneType.Unload);
-            _workZone = new ConveyorWorkZone(_attributes, new ConveyorRecipe(_woodLog, _woodPlank));
+
+            // _woodPlankRecipe = ScriptableObject.CreateInstance<ConveyorRecipeConfig>();
+            // _woodPlankRecipe.SetPrototype(_);
+            _woodLogConfig = ScriptableObject.CreateInstance<ConveyorResourceConfig>();
+            _woodLogConfig.SetPrototype(_woodLog);
+            _woodPlankConfig = ScriptableObject.CreateInstance<ConveyorResourceConfig>();
+            _woodPlankConfig.SetPrototype(_woodPlank);
+            
+            _workZone = new ConveyorWorkZone(_attributes, new ConveyorRecipe(_woodLogConfig, _woodPlankConfig));
             
             _cts = new CancellationTokenSource(_ctsMillis);
             _conveyorController = new ConveyorController(_loadZone, _unloadZone, _workZone, _cts);
@@ -87,9 +100,9 @@ namespace Game.Gameplay.Conveyor.Tests
         [Test]
         public async Task WhenWoodLogResourceAddInLoadZone_AndWorkZoneIsNotBusy_ThenProduceWoodPlankResource()
         {
-            await _conveyorController.LoadResourceAsync(_woodLog);
+            await _conveyorController.AddResourceAsync(_woodLog);
             await _conveyorController.UpdateAsync();
-            var unloadedResource = await _conveyorController.UnloadConvertedResourceAsync();
+            var unloadedResource = await _conveyorController.GetConvertedResourceAsync();
             
             
             Assert.AreEqual(unloadedResource.Name, _woodPlank.Name);
@@ -98,9 +111,9 @@ namespace Game.Gameplay.Conveyor.Tests
         [Test]
         public async Task WhenWoodPlankResourceAddInLoadZone_AndWorkZoneIsNotBusy_ThenUnloadedResourceIsDefault()
         {
-            await _conveyorController.LoadResourceAsync(_woodPlank);
+            await _conveyorController.AddResourceAsync(_woodPlank);
             await _conveyorController.UpdateAsync();
-            var unloadedResource = await _conveyorController.UnloadConvertedResourceAsync();
+            var unloadedResource = await _conveyorController.GetConvertedResourceAsync();
             
             Assert.AreEqual(unloadedResource, default);
         }

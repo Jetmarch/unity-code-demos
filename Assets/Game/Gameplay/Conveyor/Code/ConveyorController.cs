@@ -11,7 +11,10 @@ namespace Game.Gameplay.Conveyor
         
         private readonly CancellationTokenSource _cts;
 
-        public ConveyorController(ConveyorTransportZone input, ConveyorTransportZone output, ConveyorWorkZone workZone, CancellationTokenSource cancellationTokenSource)
+        public ConveyorController(ConveyorTransportZone input,
+                                ConveyorTransportZone output, 
+                                ConveyorWorkZone workZone, 
+                                CancellationTokenSource cancellationTokenSource)
         {
             _input = input;
             _output = output;
@@ -19,12 +22,12 @@ namespace Game.Gameplay.Conveyor
             _cts = cancellationTokenSource;
         }
 
-        public async UniTask LoadResourceAsync(ConveyorResource resource)
+        public async UniTask AddResourceAsync(ConveyorResource resource)
         {
             await _input.AddResourceAsync(resource, _cts);
         }
 
-        public async UniTask<ConveyorResource> UnloadConvertedResourceAsync()
+        public async UniTask<ConveyorResource> GetConvertedResourceAsync()
         {
             var resource = await _output.GetNextResourceAsync(_cts);
             return resource;

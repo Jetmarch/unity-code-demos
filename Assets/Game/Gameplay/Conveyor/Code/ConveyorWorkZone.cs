@@ -31,17 +31,17 @@ namespace Game.Gameplay.Conveyor
             }
             _isBusy = true;
             
-            var convertTimeInSeconds = _attributes.BaseWorkTime * resource.ConvertModifier;
+            var convertTimeInSeconds = _attributes.BaseWorkTime * resource.ConvertTimeModifier;
             await UniTask.Delay(TimeSpan.FromSeconds(convertTimeInSeconds), cancellationToken: cts.Token);
             
             _isBusy = false;
             
-            return _currentRecipe.ResultingResource;
+            return _currentRecipe.ResultingResource.Clone();
         }
 
         private bool CanConvert(ConveyorResource resource)
         {
-            return _currentRecipe.RequiredResource.Name == resource.Name;
+            return _currentRecipe.RequiredResource.Prototype.Name == resource.Name;
         }
     }
 }
