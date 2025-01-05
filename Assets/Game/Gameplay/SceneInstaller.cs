@@ -1,6 +1,11 @@
 using System.Threading;
 using Game.Gameplay.Money;
+using Game.Gameplay.Money.Controllers;
+using Game.Gameplay.Money.UI;
 using Game.Meta.Upgrades;
+using Game.Meta.Upgrades.Presenters;
+using Game.Meta.Upgrades.UI;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -9,10 +14,16 @@ namespace Game.Gameplay.Conveyor
 {
     public class SceneInstaller : LifetimeScope
     {
+        [Header("Conveyor")]
         [SerializeField] private ConveyorAttributes _attributes;
-        
         [SerializeField] private ConveyorRecipeConfig _recipeConfig;
+        
+        [Header("Upgrades")]
         [SerializeField] private UpgradeConfig[] _upgradeConfigs;
+        [SerializeField] private UpgradePanelList _upgradePanelList;
+        
+        [Header("Money")]
+        [SerializeField] private MoneyPanel _moneyPanel;
         protected override void Configure(IContainerBuilder builder)
         {
             ConfigureConveyor(builder);
@@ -42,11 +53,21 @@ namespace Game.Gameplay.Conveyor
             {
                 builder.RegisterInstance(upgradeConfig).As<UpgradeConfig>();
             }
+            
+            ConfigureUpgradesUI(builder);
         }
-        
+
+        private void ConfigureUpgradesUI(IContainerBuilder builder)
+        {
+            builder.Register<UpgradeListPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.RegisterInstance(_upgradePanelList);
+        }
+
         private void ConfigureMoney(IContainerBuilder builder)
         {
             builder.Register<MoneyStorage>(Lifetime.Scoped);
+            builder.Register<MoneyController>(Lifetime.Scoped).AsImplementedInterfaces();
+            builder.RegisterInstance(_moneyPanel);
         }
     }
     

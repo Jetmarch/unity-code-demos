@@ -17,7 +17,7 @@ namespace Game.Gameplay.Money
         private int _maxAmount = int.MaxValue;
         
         [Button]
-        public void SetAmount(int amount)
+        public void Set(int amount)
         {
             _amount = Mathf.Clamp(amount, 0, _maxAmount);
             OnAmountChanged?.Invoke();
@@ -27,6 +27,7 @@ namespace Game.Gameplay.Money
         public void Get(int amount)
         {
             _amount = Mathf.Clamp(_amount - amount, 0, _maxAmount);
+            OnAmountChanged?.Invoke();
         }
 
         [Button]
@@ -37,6 +38,7 @@ namespace Game.Gameplay.Money
                 checked
                 {
                     _amount = Mathf.Clamp(_amount + amount, 0, _maxAmount);
+                    OnAmountChanged?.Invoke();
                 }
             }
             catch (OverflowException)
