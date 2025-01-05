@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ConvertSpeedUpgrade
   m_EditorClassIdentifier: Game:Game.Meta.Upgrades:ConvertSpeedUpgradeConfig
   _id: ConvertSpeedUpgradeConfig
+  _displayName: Convert Speed
   _maxLevel: 4
   _priceTableValue:
     _baseValue: 10

@@ -25,7 +25,7 @@ namespace Game.Meta.Upgrades.Presenters
 
     public sealed class UpgradePresenter : IUpgradePresenter
     {
-        public string Name => $"{_upgrade.Id}";
+        public string Name => $"{_upgrade.DisplayName}";
         public string Value => $"Value: TODO";
         public string Level => $"Level: {_upgrade.CurrentLevel}/{_upgrade.MaxLevel}";
         public string Cost => _upgrade.CurrentPrice.ToString();

@@ -6,6 +6,7 @@ namespace Game.Meta.Upgrades
     public abstract class Upgrade
     {
         public string Id => Config.Id;
+        public string DisplayName => Config.DisplayName;
         public int MaxLevel => Config.MaxLevel;
         public int CurrentLevel => _currentLevel;
         public int CurrentPrice => Config.PriceTableValue.GetValue(_currentLevel);
