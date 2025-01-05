@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Game.Meta.Upgrades;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
@@ -7,12 +8,14 @@ namespace Game.Gameplay.Conveyor
 {
     public class ConveyorDebug : MonoBehaviour
     {
-        private Conveyor _conveyor;
-
+        [SerializeField] private Conveyor _conveyor;
+        [SerializeField] private UpgradeManager _upgradeManager;
+        
         [Inject]
-        private void Configure(Conveyor conveyor)
+        private void Configure(Conveyor conveyor, UpgradeManager upgradeManager)
         {
             _conveyor = conveyor;
+            _upgradeManager = upgradeManager;
         }
         
         [Button]
@@ -38,6 +41,12 @@ namespace Game.Gameplay.Conveyor
                 var resource = task.GetAwaiter().GetResult();
                 Debug.Log($"Resource obtained: {resource.Name}");
             });
+        }
+
+        [Button]
+        public void LevelUpConveyor(UpgradeConfig upgradeConfig)
+        {
+            _upgradeManager.LevelUp(upgradeConfig.Id);
         }
     }
 }

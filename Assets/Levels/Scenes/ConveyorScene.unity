@@ -358,6 +358,8 @@ MonoBehaviour:
     _maxLoadZoneCapacity: 4
     _baseWorkTime: 1
   _recipeConfig: {fileID: 11400000, guid: 88ef6ed50b7297c49aeaafb870a1fc96, type: 2}
+  _upgradeConfigs:
+  - {fileID: 11400000, guid: fbe6dff289c4218469f8110ca5e5769d, type: 2}
 --- !u!1 &706512774
 GameObject:
   m_ObjectHideFlags: 0

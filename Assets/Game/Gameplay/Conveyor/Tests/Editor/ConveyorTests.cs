@@ -43,7 +43,7 @@ namespace Game.Gameplay.Conveyor.Tests
             _cts = new CancellationTokenSource(_ctsMillis);
 
             var conveyorZones = new ConveyorZones(_loadZone, _unloadZone, _workZone);
-            _conveyor = new Conveyor(conveyorZones, _cts);
+            _conveyor = new Conveyor(conveyorZones, _attributes, _cts);
         }
 
         [Test]

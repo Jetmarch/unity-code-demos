@@ -5,9 +5,10 @@ namespace Game.Meta.Upgrades
     [Serializable]
     public abstract class Upgrade
     {
-        public string Name => Config.Name;
+        public string Id => Config.Id;
         public int MaxLevel => Config.MaxLevel;
         public int CurrentLevel => _currentLevel;
+        public int CurrentPrice => Config.PriceTableValue.GetValue(_currentLevel);
         
         protected int _currentLevel = 1;
         
@@ -16,7 +17,11 @@ namespace Game.Meta.Upgrades
         {
             Config = config;
         }
-        
-        public abstract void LevelUp();
+
+        public virtual void LevelUp()
+        {
+            _currentLevel++;
+        }
+        public bool CanLevelUp => _currentLevel < MaxLevel;
     }
 }

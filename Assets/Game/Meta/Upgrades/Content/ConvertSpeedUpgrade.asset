@@ -9,8 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: f548fac817584f4eb827ea0141018e14, type: 3}
   m_Name: ConvertSpeedUpgrade
   m_EditorClassIdentifier: Game:Game.Meta.Upgrades:ConvertSpeedUpgradeConfig
-  _name: ConvertSpeedUpgrade
+  _id: ConvertSpeedUpgradeConfig
   _maxLevel: 4
+  _priceTableValue:
+    _baseValue: 10
+    _values: 000000000a000000280000005a000000
+  _speedTableValue:
+    _baseValue: 5
+    _values: 00000000050000000a0000000f000000

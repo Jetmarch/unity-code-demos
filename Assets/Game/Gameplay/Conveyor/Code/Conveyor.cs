@@ -1,9 +1,12 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Game.Gameplay.Conveyor
 {
+    [Serializable]
     public sealed class Conveyor
     {
         public event Action OnAddResourceToInput;
@@ -12,18 +15,21 @@ namespace Game.Gameplay.Conveyor
         public event Action OnRemoveResourceFromOutput;
         public event Action OnStartConvert;
         public event Action OnFinishConvert;
+        [ShowInInspector] public ConveyorAttributes Attributes => _attributes;
         
         private readonly ConveyorTransportZone _input;
         private readonly ConveyorTransportZone _output;
         private readonly ConveyorWorkZone _workZone;
+        private readonly ConveyorAttributes _attributes;
         
         private readonly CancellationTokenSource _cts;
 
-        public Conveyor(ConveyorZones zones, CancellationTokenSource cancellationTokenSource)
+        public Conveyor(ConveyorZones zones, ConveyorAttributes attributes, CancellationTokenSource cancellationTokenSource)
         {
             _input = zones.InputZone;
             _output = zones.OutputZone;
             _workZone = zones.WorkZone;
+            _attributes = attributes;
             _cts = cancellationTokenSource;
         }
 
