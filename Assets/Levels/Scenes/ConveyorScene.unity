@@ -1006,6 +1006,8 @@ MonoBehaviour:
   _recipeConfig: {fileID: 11400000, guid: 88ef6ed50b7297c49aeaafb870a1fc96, type: 2}
   _upgradeConfigs:
   - {fileID: 11400000, guid: fbe6dff289c4218469f8110ca5e5769d, type: 2}
+  - {fileID: 11400000, guid: 169a28072555d46449cb4044cd08daad, type: 2}
+  - {fileID: 11400000, guid: 19ce8511cbe95fa46a8f63010d5b0265, type: 2}
   _upgradePanelList: {fileID: 260930290}
   _moneyPanel: {fileID: 559546650}
 --- !u!1 &559546648

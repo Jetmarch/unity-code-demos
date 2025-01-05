@@ -11,13 +11,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f548fac817584f4eb827ea0141018e14, type: 3}
   m_Name: ConvertSpeedUpgrade
-  m_EditorClassIdentifier: Game:Game.Meta.Upgrades:ConvertSpeedUpgradeConfig
-  _id: ConvertSpeedUpgradeConfig
-  _displayName: Convert Speed
-  _maxLevel: 4
+  m_EditorClassIdentifier: 
+  _id: f5ffd1f5-0ae9-4eff-86d1-ab8e5729d5fc
+  _displayName: Convert speed
+  _maxLevel: 10
   _priceTableValue:
-    _baseValue: 10
-    _values: 0000000005000000140000002d000000
+    _baseValue: 1
+    _values: 00000000000000000200000004000000080000000c00000012000000180000002000000028000000
   _speedTableValue:
-    _baseValue: 5
-    _values: 00000000050000000a0000000f000000
+    _baseValue: 1
+    _values: 00000000010000000200000003000000040000000500000006000000070000000800000009000000

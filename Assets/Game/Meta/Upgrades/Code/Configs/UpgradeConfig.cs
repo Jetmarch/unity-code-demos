@@ -1,3 +1,5 @@
+using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Game.Meta.Upgrades
@@ -9,7 +11,7 @@ namespace Game.Meta.Upgrades
         public int MaxLevel => _maxLevel;
         public TableValue PriceTableValue => _priceTableValue;
         
-        [SerializeField] protected string _id;
+        [SerializeField, ReadOnly] protected string _id = Guid.NewGuid().ToString();
         [SerializeField] protected string _displayName;
         [SerializeField] protected int _maxLevel;
         [SerializeField] protected TableValue _priceTableValue;

@@ -1,3 +1,4 @@
+using System;
 using Game.Meta.Upgrades.Presenters;
 using TMPro;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace Game.Meta.Upgrades.UI
 {
     public sealed class UpgradeButton : MonoBehaviour
     {
+        public event Action OnLevelUp;
         [SerializeField] private GameObject _container;
         [SerializeField] private Button _buyButton;
         [SerializeField] private TextMeshProUGUI _priceText;
@@ -44,6 +46,7 @@ namespace Game.Meta.Upgrades.UI
         {
             _presenter.LevelUp();
             UpdateButtonState();
+            OnLevelUp?.Invoke();
         }
         
         private void OnMoneyChanged()

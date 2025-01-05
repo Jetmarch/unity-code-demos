@@ -25,16 +25,27 @@ namespace Game.Meta.Upgrades.UI
         public void Show()
         {
             _container.SetActive(true);
+            UpdatePanelState();
+            _upgradeButton.Show();
+            _upgradeButton.OnLevelUp += UpgradeButtonOnLevelUp;
+        }
+        public void Hide()
+        {
+            _upgradeButton.OnLevelUp += UpgradeButtonOnLevelUp;
+            _upgradeButton.Hide();
+            _container.SetActive(false);
+        }
+
+        private void UpdatePanelState()
+        {
             _nameText.text = _presenter.Name;
             _valueText.text = _presenter.Value;
             _levelText.text = _presenter.Level;
-            _upgradeButton.Show();
         }
-
-        public void Hide()
+        
+        private void UpgradeButtonOnLevelUp()
         {
-            _upgradeButton.Hide();
-            _container.SetActive(false);
+            UpdatePanelState();
         }
     }
 }
