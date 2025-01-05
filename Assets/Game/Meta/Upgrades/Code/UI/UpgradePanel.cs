@@ -18,6 +18,7 @@ namespace Game.Meta.Upgrades.UI
         public void Configure(IUpgradePresenter presenter)
         {
             _presenter = presenter;
+            _upgradeButton.Configure(presenter.GetUpgradeButtonPresenter());
             Show();
         }
 
@@ -27,10 +28,12 @@ namespace Game.Meta.Upgrades.UI
             _nameText.text = _presenter.Name;
             _valueText.text = _presenter.Value;
             _levelText.text = _presenter.Level;
+            _upgradeButton.Show();
         }
 
         public void Hide()
         {
+            _upgradeButton.Hide();
             _container.SetActive(false);
         }
     }

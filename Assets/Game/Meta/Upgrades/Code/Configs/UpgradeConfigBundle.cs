@@ -10,8 +10,8 @@ namespace Game.Meta.Upgrades
     {
         private readonly List<UpgradeConfig> _upgradeConfigs;
         private readonly IObjectResolver _objectResolver;
-
-
+        
+        
         public UpgradeConfigBundle(IEnumerable<UpgradeConfig> upgradeConfigs, IObjectResolver objectResolver)
         {
             _upgradeConfigs = upgradeConfigs.ToList();

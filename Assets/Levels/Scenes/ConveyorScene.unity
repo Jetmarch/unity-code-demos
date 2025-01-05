@@ -616,8 +616,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a69d43d8bcbeb5458f8eb79bd71fe48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _closePanelButton: {fileID: 0}
-  _openPanelButton: {fileID: 0}
+  _closePanelButton: {fileID: 1395117962}
+  _openPanelButton: {fileID: 1129177745}
   _container: {fileID: 1407033785}
   _upgradePanels: []
   _panelContainer: {fileID: 2130814622}

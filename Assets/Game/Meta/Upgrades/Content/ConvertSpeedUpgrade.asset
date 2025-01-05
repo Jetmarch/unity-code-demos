@@ -17,7 +17,7 @@ MonoBehaviour:
   _maxLevel: 4
   _priceTableValue:
     _baseValue: 10
-    _values: 000000000a000000280000005a000000
+    _values: 0000000005000000140000002d000000
   _speedTableValue:
     _baseValue: 5
     _values: 00000000050000000a0000000f000000

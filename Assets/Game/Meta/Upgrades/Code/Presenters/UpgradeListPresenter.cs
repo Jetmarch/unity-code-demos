@@ -1,14 +1,19 @@
 using System.Collections.Generic;
+using Game.Gameplay.Money;
 
 namespace Game.Meta.Upgrades.Presenters
 {
     public sealed class UpgradeListPresenter : IUpgradeListPresenter
     {
         private readonly Upgrade[] _upgrades;
+        private readonly MoneyStorage _moneyStorage;
+        private readonly UpgradeManager _upgradeManager;
 
-        public UpgradeListPresenter(UpgradeConfigBundle upgradeConfigs)
+        public UpgradeListPresenter(MoneyStorage moneyStorage, UpgradeManager upgradeManager)
         {
-            _upgrades = upgradeConfigs.GetUpgrades();
+            _upgrades = upgradeManager.GetUpgrades();
+            _moneyStorage = moneyStorage;
+            _upgradeManager = upgradeManager;
         }
         
         public List<IUpgradePresenter> GetUpgradePresenters()
@@ -16,38 +21,10 @@ namespace Game.Meta.Upgrades.Presenters
             var upgradePresenters = new List<IUpgradePresenter>();
             foreach (var upgrade in _upgrades)
             {
-                upgradePresenters.Add(new UpgradePresenter(upgrade));
+                upgradePresenters.Add(new UpgradePresenter(upgrade, _moneyStorage, _upgradeManager));
             }
             
             return upgradePresenters;
         }
-    }
-
-    public sealed class UpgradePresenter : IUpgradePresenter
-    {
-        public string Name => $"{_upgrade.DisplayName}";
-        public string Value => $"Value: TODO";
-        public string Level => $"Level: {_upgrade.CurrentLevel}/{_upgrade.MaxLevel}";
-        public string Cost => _upgrade.CurrentPrice.ToString();
-        
-        private readonly Upgrade _upgrade;
-
-        public UpgradePresenter(Upgrade upgrade)
-        {
-            _upgrade = upgrade;
-        }
-    }
-
-    public interface IUpgradeListPresenter
-    {
-        List<IUpgradePresenter> GetUpgradePresenters();
-    }
-
-    public interface IUpgradePresenter
-    {
-        string Name { get; }
-        string Value { get; }
-        string Level { get; }
-        string Cost { get; }
     }
 }

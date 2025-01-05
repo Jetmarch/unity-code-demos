@@ -23,6 +23,6 @@ namespace Game.Meta.Upgrades
         {
             _currentLevel++;
         }
-        public bool CanLevelUp => _currentLevel < MaxLevel;
+        public bool CanLevelUp => _currentLevel <= MaxLevel;
     }
 }
