@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using Game.Meta.Upgrades;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -22,25 +21,20 @@ namespace Game.Gameplay.Conveyor
         public void AddResource(ConveyorResourceConfig config)
         {
             var resource = config.Clone();
-            _conveyor.AddResourceAsync(resource).Forget();
+            _conveyor.AddResource(resource);
         }
         
         [Button]
-        public void ConvertNextResource()
+        public async void ConvertNextResource()
         {
-            _conveyor.ConvertNextResourceAsync().Forget();
+            await _conveyor.ConvertNextResource();
         }
 
         [Button]
         public void GetConvertedResource()
         {
-            var task = _conveyor.GetConvertedResourceAsync();
-            var awaiter = task.GetAwaiter();
-            awaiter.OnCompleted(() =>
-            {
-                var resource = task.GetAwaiter().GetResult();
-                Debug.Log($"Resource obtained: {resource.Name}");
-            });
+            var resource = _conveyor.GetConvertedResource();
+            Debug.Log($"Resource obtained: {resource.Name}");
         }
 
         [Button]

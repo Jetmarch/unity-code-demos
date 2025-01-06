@@ -47,46 +47,47 @@ namespace Game.Gameplay.Conveyor.Tests
         }
 
         [Test]
-        public async Task WhenAddWoodLogToLoadZone_AndLoadZoneIsEmpty_ThenLoadZoneHaveWoodLog()
+        public void WhenAddWoodLogToLoadZone_AndLoadZoneIsEmpty_ThenLoadZoneHaveWoodLog()
         {
-            await _loadZone.AddResourceAsync(_woodLog, _cts);
-            var loadedResource = await _loadZone.GetNextResourceAsync(_cts);
+            _loadZone.TryAddResource(_woodLog);
+            _loadZone.TryGetNextResource(out var loadedResource);
             Assert.AreEqual(loadedResource, _woodLog);
         }
         
         [Test]
-        public async Task WhenAddWoodLogToLoadZone_AndLoadZoneIsFull_ThenLoadZoneDoesNotHaveWoodLog()
+        public void WhenAddWoodLogToLoadZone_AndLoadZoneIsFull_ThenLoadZoneDoesNotHaveWoodLog()
         {
             for (int i = 0; i < _attributes.MaxLoadZoneCapacity; i++)
             {
-                await _loadZone.AddResourceAsync(_woodPlank, _cts);
+                _loadZone.TryAddResource(_woodPlank);
             }
             
-            await _loadZone.AddResourceAsync(_woodLog, _cts);
-            var loadedResource = await _loadZone.GetNextResourceAsync(_cts);
+            _loadZone.TryAddResource(_woodLog);
+            _loadZone.TryGetNextResource(out var loadedResource);
             Assert.AreNotEqual(loadedResource, _woodLog);
         }
         
         [Test]
-        public async Task WhenAddWoodLogToUnloadZone_AndUnloadZoneIsEmpty_ThenUnloadZoneHaveWoodLog()
+        public void WhenAddWoodLogToUnloadZone_AndUnloadZoneIsEmpty_ThenUnloadZoneHaveWoodLog()
         {
-            await _unloadZone.AddResourceAsync(_woodLog, _cts);
-            var unloadedResource = await _unloadZone.GetNextResourceAsync(_cts);
+            _unloadZone.TryAddResource(_woodLog);
+            _unloadZone.TryGetNextResource(out var unloadedResource);
             
             Assert.AreEqual(unloadedResource, _woodLog);
         }
         
         [Test]
-        public async Task WhenAddWoodLogToUnloadZone_AndUnloadZoneIsFull_ThenUnloadZoneDoesNotHaveWoodLog()
+        public void WhenAddWoodLogToUnloadZone_AndUnloadZoneIsFull_ThenUnloadZoneDoesNotHaveWoodLog()
         {
             for (int i = 0; i < _attributes.MaxUnloadZoneCapacity; i++)
             {
-                await _unloadZone.AddResourceAsync(_woodPlank, _cts);
+                _unloadZone.TryAddResource(_woodPlank);
             }
             
-            await _unloadZone.AddResourceAsync(_woodLog, _cts);
+            _unloadZone.TryAddResource(_woodLog);
+            _unloadZone.TryGetNextResource(out var unloadedResource);
             
-            Assert.AreNotEqual(_unloadZone.GetNextResourceAsync(_cts), _woodLog);
+            Assert.AreNotEqual(unloadedResource, _woodLog);
         }
         
         [Test]
@@ -98,22 +99,22 @@ namespace Game.Gameplay.Conveyor.Tests
         }
         
         [Test]
-        public async Task WhenWoodLogResourceAddInLoadZone_AndWorkZoneIsNotBusy_ThenProduceWoodPlankResource()
+        public void WhenWoodLogResourceAddInLoadZone_AndWorkZoneIsNotBusy_ThenProduceWoodPlankResource()
         {
-            await _conveyor.AddResourceAsync(_woodLog);
-            await _conveyor.ConvertNextResourceAsync();
-            var unloadedResource = await _conveyor.GetConvertedResourceAsync();
+            _conveyor.AddResource(_woodLog);
+            _conveyor.ConvertNextResource();
+            var unloadedResource = _conveyor.GetConvertedResource();
             
             
             Assert.AreEqual(unloadedResource.Name, _woodPlank.Name);
         }
         
         [Test]
-        public async Task WhenWoodPlankResourceAddInLoadZone_AndWorkZoneIsNotBusy_ThenUnloadedResourceIsDefault()
+        public void WhenWoodPlankResourceAddInLoadZone_AndWorkZoneIsNotBusy_ThenUnloadedResourceIsDefault()
         {
-            await _conveyor.AddResourceAsync(_woodPlank);
-            await _conveyor.ConvertNextResourceAsync();
-            var unloadedResource = await _conveyor.GetConvertedResourceAsync();
+            _conveyor.AddResource(_woodPlank);
+            _conveyor.ConvertNextResource();
+            var unloadedResource = _conveyor.GetConvertedResource();
             
             Assert.AreEqual(unloadedResource, default);
         }

@@ -33,28 +33,49 @@ namespace Game.Gameplay.Conveyor
             _cts = cancellationTokenSource;
         }
 
-        public async UniTask AddResourceAsync(ConveyorResource resource)
+        public void AddResource(ConveyorResource resource)
         {
-            await _input.AddResourceAsync(resource, _cts);
-            OnAddResourceToInput?.Invoke();
+            if (_input.TryAddResource(resource))
+            {
+                OnAddResourceToInput?.Invoke();
+            }
         }
 
-        public async UniTask<ConveyorResource> GetConvertedResourceAsync()
+        public ConveyorResource GetConvertedResource()
         {
-            var resource = await _output.GetNextResourceAsync(_cts);
+            if (!_output.TryGetNextResource(out var resource)) return default;
+            
             OnRemoveResourceFromOutput?.Invoke();
             return resource;
         }
 
-        public async UniTask ConvertNextResourceAsync()
+        public async UniTask ConvertNextResource()
         {
-            var resource = await _input.GetNextResourceAsync(_cts);
+            if (!_output.CanLoadResource())
+            {
+                return;
+            }
+
+            if (_workZone.IsBusy)
+            {
+                return;
+            }
+            
+            if (!_input.TryGetNextResource(out var resource))
+            {
+                return;
+            }
+            
             OnRemoveResourceFromInput?.Invoke();
+            
             OnStartConvert?.Invoke();
             var convertedResource = await _workZone.ConvertResourceAsync(resource, _cts);
             OnFinishConvert?.Invoke();
-            await _output.AddResourceAsync(convertedResource, _cts);
-            OnAddResourceToOutput?.Invoke();
+            
+            if (_output.TryAddResource(convertedResource))
+            {
+                OnAddResourceToOutput?.Invoke();
+            }
         }
     }
 }

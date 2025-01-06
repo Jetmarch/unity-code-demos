@@ -8,6 +8,7 @@ namespace Game.Gameplay.Conveyor
     [Serializable]
     public sealed class ConveyorWorkZone
     {
+        public bool IsBusy => _isBusy;
         [SerializeField] private bool _isBusy;
         private readonly ConveyorAttributes _attributes;
         private readonly ConveyorRecipe _currentRecipe;
@@ -22,7 +23,7 @@ namespace Game.Gameplay.Conveyor
         {
             if (_isBusy)
             {
-                await UniTask.WaitUntil(() => _isBusy == true, cancellationToken: cts.Token);
+                return default;
             }
 
             if (!CanConvert(resource))

@@ -18,18 +18,18 @@ namespace Game.Gameplay.Conveyor
             _resourceQueue = new Queue<ConveyorResource>();
         }
 
-        public async UniTask AddResourceAsync(ConveyorResource resource, CancellationTokenSource cts)
+        public bool TryAddResource(ConveyorResource resource)
         {
             if (!CanLoadResource())
             {
-                await UniTask.WaitUntil(() => CanLoadResource() == true, cancellationToken: cts.Token);
-                return;
+                return false;
             }
             
             _resourceQueue.Enqueue(resource);
+            return true;
         }
 
-        private bool CanLoadResource()
+        public bool CanLoadResource()
         {
             switch (_type)
             {
@@ -41,16 +41,16 @@ namespace Game.Gameplay.Conveyor
             }
         }
 
-        public async UniTask<ConveyorResource> GetNextResourceAsync(CancellationTokenSource cts)
+        public bool TryGetNextResource(out ConveyorResource resource)
         {
             if (_resourceQueue.Count == 0)
             {
-                await UniTask.WaitUntil(() => _resourceQueue.Count > 0, cancellationToken: cts.Token);
+                resource = default;
+                return false;
             }
             
-            var resource = _resourceQueue.Dequeue();
-
-            return resource;
+            resource = _resourceQueue.Dequeue();
+            return true;
         }
     }
 
