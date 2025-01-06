@@ -45,6 +45,8 @@ namespace Game.Gameplay.Conveyor
             builder.Register<Conveyor>(Lifetime.Scoped)
                 .WithParameter(conveyorZones)
                 .WithParameter(new CancellationTokenSource());
+
+            builder.Register<ConveyorPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
         }
         
         private void ConfigureUpgrades(IContainerBuilder builder)

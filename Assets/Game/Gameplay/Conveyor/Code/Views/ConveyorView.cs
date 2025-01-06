@@ -48,39 +48,33 @@ namespace Game.Gameplay.Conveyor
 
         private void ConveyorOnStartConvert()
         {
-            Debug.Log("START CONVERT");
-
             _workZoneTween?.Kill();
             _workZoneTween = _workZone.transform.DOPunchScale(_scaleVector, _scaleDuration).SetLoops(-1, LoopType.Yoyo);
         }
         
         private void ConveyorOnFinishConvert()
         {
-            Debug.Log("FINISH CONVERT");
             _workZoneTween?.Kill();
+            _workZone.transform.localScale = Vector3.one;
         }
         
         private void ConveyorOnAddResourceToInput()
         {
-            Debug.Log("Add resource to INPUT");
             _inputZoneView.AddResource();
         }
         
         private void ConveyorOnAddResourceToOutput()
         {
-            Debug.Log("Add resource to OUTPUT");
             _outputZoneView.AddResource();
         }
         
         private void ConveyorOnRemoveResourceFromInput()
         {
-            Debug.Log("Remove resource from INPUT");
             _inputZoneView.RemoveResource();
         }
         
         private void ConveyorOnRemoveResourceFromOutput()
         {
-            Debug.Log("Remove resource from OUTPUT");
             _outputZoneView.RemoveResource();
         }
     }

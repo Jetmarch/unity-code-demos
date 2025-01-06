@@ -46,7 +46,7 @@ namespace Game.Gameplay.Money.Controllers
         /// </summary>
         private void MoneyPanelOnAddMoneyBtnClicked()
         {
-            _moneyStorage.Add(10);
+            _moneyStorage.Add(100);
         }
         
         /// <summary>
@@ -54,7 +54,7 @@ namespace Game.Gameplay.Money.Controllers
         /// </summary>
         private void MoneyPanelOnRemoveMoneyBtnClicked()
         {
-            _moneyStorage.Get(10);
+            _moneyStorage.Get(100);
         }
         
         /// <summary>
