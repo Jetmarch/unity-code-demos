@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Game.Meta.Upgrades.Presenters;
 using Sirenix.OdinInspector;
@@ -18,7 +19,12 @@ namespace Game.Meta.Upgrades.UI
         [SerializeField] private UpgradePanel _panelPrefab;
 
         private IUpgradeListPresenter _presenter;
-        
+
+        private void Start()
+        {
+            Hide();
+        }
+
         [Inject]
         public void Construct(IUpgradeListPresenter presenter)
         {

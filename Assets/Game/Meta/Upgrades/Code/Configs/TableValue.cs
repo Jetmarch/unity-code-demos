@@ -19,7 +19,7 @@ namespace Game.Meta.Upgrades
             _values = new int[maxLevel];
             for (int i = 0; i < maxLevel; i++)
             {
-                _values[i] = _formula.CalculateValue(_baseValue, i);
+                _values[i] = _formula.CalculateValue(_baseValue, i + 1);
             }
         }
 

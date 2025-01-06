@@ -26,5 +26,21 @@ namespace Game.Meta.Upgrades
             var newCapacity = _config.CapacityTableValue.GetValue(CurrentLevel);
             _conveyor.Attributes.MaxLoadZoneCapacity = newCapacity;
         }
+        
+        public override int GetUpgradeCurrentValue()
+        {
+            return _conveyor.Attributes.MaxLoadZoneCapacity;
+        }
+
+        public override int GetUpgradeValueIncrement()
+        {
+            if (!CanLevelUp)
+            {
+                return 0;
+            }
+            
+            var valueIncrement = _config.CapacityTableValue.GetValue(_currentLevel + 1) - _config.CapacityTableValue.GetValue(_currentLevel);
+            return valueIncrement;
+        }
     }
 }

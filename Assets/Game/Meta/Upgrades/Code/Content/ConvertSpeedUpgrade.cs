@@ -25,5 +25,21 @@ namespace Game.Meta.Upgrades
             var newSpeedValue = _config.SpeedTableValue.GetValue(_currentLevel);
             _conveyor.Attributes.BaseWorkTime = newSpeedValue;
         }
+
+        public override int GetUpgradeCurrentValue()
+        {
+            return (int)_conveyor.Attributes.BaseWorkTime;
+        }
+
+        public override int GetUpgradeValueIncrement()
+        {
+            if (!CanLevelUp)
+            {
+                return 0;
+            }
+            
+            var valueIncrement = _config.SpeedTableValue.GetValue(_currentLevel + 1) - _config.SpeedTableValue.GetValue(_currentLevel);
+            return valueIncrement;
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace Game.Gameplay.Conveyor
             }
             _isBusy = true;
             
-            var convertTimeInSeconds = _attributes.BaseWorkTime * resource.ConvertTimeModifier;
+            var convertTimeInSeconds = 1 / (_attributes.BaseWorkTime * resource.ConvertTimeModifier);
             await UniTask.Delay(TimeSpan.FromSeconds(convertTimeInSeconds), cancellationToken: cts.Token);
             
             _isBusy = false;

@@ -10,6 +10,7 @@ namespace Game.Meta.Upgrades
         public int MaxLevel => Config.MaxLevel;
         public int CurrentLevel => _currentLevel;
         public int CurrentPrice => Config.PriceTableValue.GetValue(_currentLevel);
+        public bool CanLevelUp => _currentLevel < MaxLevel;
         
         protected int _currentLevel = 1;
         
@@ -23,6 +24,8 @@ namespace Game.Meta.Upgrades
         {
             _currentLevel++;
         }
-        public bool CanLevelUp => _currentLevel < MaxLevel;
+
+        public abstract int GetUpgradeCurrentValue();
+        public abstract int GetUpgradeValueIncrement();
     }
 }
