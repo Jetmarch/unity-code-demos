@@ -6,7 +6,6 @@ using Game.Gameplay.Money.UI;
 using Game.Meta.Upgrades;
 using Game.Meta.Upgrades.Presenters;
 using Game.Meta.Upgrades.UI;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

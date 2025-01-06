@@ -99,10 +99,10 @@ namespace Game.Gameplay.Conveyor.Tests
         }
         
         [Test]
-        public void WhenWoodLogResourceAddInLoadZone_AndWorkZoneIsNotBusy_ThenProduceWoodPlankResource()
+        public async Task WhenWoodLogResourceAddInLoadZone_AndWorkZoneIsNotBusy_ThenProduceWoodPlankResource()
         {
             _conveyor.AddResource(_woodLog);
-            _conveyor.ConvertNextResource();
+            await _conveyor.ConvertNextResource();
             var unloadedResource = _conveyor.GetConvertedResource();
             
             
@@ -110,10 +110,10 @@ namespace Game.Gameplay.Conveyor.Tests
         }
         
         [Test]
-        public void WhenWoodPlankResourceAddInLoadZone_AndWorkZoneIsNotBusy_ThenUnloadedResourceIsDefault()
+        public async Task WhenWoodPlankResourceAddInLoadZone_AndWorkZoneIsNotBusy_ThenUnloadedResourceIsDefault()
         {
             _conveyor.AddResource(_woodPlank);
-            _conveyor.ConvertNextResource();
+            await _conveyor.ConvertNextResource();
             var unloadedResource = _conveyor.GetConvertedResource();
             
             Assert.AreEqual(unloadedResource, default);

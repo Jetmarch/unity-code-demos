@@ -1,5 +1,4 @@
 using Game.Gameplay.Conveyor;
-using UnityEngine;
 using VContainer;
 
 namespace Game.Meta.Upgrades

@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using Cysharp.Threading.Tasks;
 
 namespace Game.Gameplay.Conveyor
 {
@@ -52,12 +50,5 @@ namespace Game.Gameplay.Conveyor
             resource = _resourceQueue.Dequeue();
             return true;
         }
-    }
-
-    [Serializable]
-    public enum ConveyorTransportZoneType : byte
-    {
-        Load,
-        Unload
     }
 }
