@@ -1,11 +1,11 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using VContainer;
 
 namespace Game.Gameplay.Conveyor
 {
-    public class ConveyorView : MonoBehaviour
+    public sealed class ConveyorView : MonoBehaviour
     {
         [SerializeField] private GameObject _inputZone;
         [SerializeField] private GameObject _workZone;
@@ -13,6 +13,9 @@ namespace Game.Gameplay.Conveyor
 
         [SerializeField] private float _scaleDuration = 0.25f;
         [SerializeField] private Vector3 _scaleVector = new Vector3(0f, 0.25f, 0f);
+        
+        [SerializeField] private ConveyorTransportZoneView _inputZoneView;
+        [SerializeField] private ConveyorTransportZoneView _outputZoneView;
 
         private Tween _workZoneTween;
         private Conveyor _conveyor;
@@ -21,11 +24,6 @@ namespace Game.Gameplay.Conveyor
         private void Configure(Conveyor conveyor)
         {
             _conveyor = conveyor;
-        }
-
-        private void Start()
-        {
-            DOTween.Init();
         }
 
         private void OnEnable()
@@ -65,25 +63,25 @@ namespace Game.Gameplay.Conveyor
         private void ConveyorOnAddResourceToInput()
         {
             Debug.Log("Add resource to INPUT");
-            _inputZone.transform.DOScale(_inputZone.transform.localScale + _scaleVector, _scaleDuration);
+            _inputZoneView.AddResource();
         }
         
         private void ConveyorOnAddResourceToOutput()
         {
             Debug.Log("Add resource to OUTPUT");
-            _outputZone.transform.DOScale(_outputZone.transform.localScale + _scaleVector, _scaleDuration);
+            _outputZoneView.AddResource();
         }
         
         private void ConveyorOnRemoveResourceFromInput()
         {
             Debug.Log("Remove resource from INPUT");
-            _inputZone.transform.DOScale(_inputZone.transform.localScale - _scaleVector, _scaleDuration);
+            _inputZoneView.RemoveResource();
         }
         
         private void ConveyorOnRemoveResourceFromOutput()
         {
             Debug.Log("Remove resource from OUTPUT");
-            _outputZone.transform.DOScale(_outputZone.transform.localScale - _scaleVector, _scaleDuration);
+            _outputZoneView.RemoveResource();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Threading;
+using DG.Tweening;
 using Game.Gameplay.Money;
 using Game.Gameplay.Money.Controllers;
 using Game.Gameplay.Money.UI;
@@ -29,6 +30,8 @@ namespace Game.Gameplay.Conveyor
             ConfigureConveyor(builder);
             ConfigureUpgrades(builder);
             ConfigureMoney(builder);
+            
+            DOTween.Init();
         }
         
         private void ConfigureConveyor(IContainerBuilder builder)
