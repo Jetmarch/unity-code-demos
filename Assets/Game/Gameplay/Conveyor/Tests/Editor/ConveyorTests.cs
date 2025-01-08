@@ -15,7 +15,6 @@ namespace Game.Gameplay.Conveyor.Tests
         private ConveyorTransportZone _unloadZone;
         private ConveyorWorkZone _workZone;
 
-        // private ConveyorRecipeConfig _woodPlankRecipe;
         private ConveyorResourceConfig _woodLogConfig;
         private ConveyorResourceConfig _woodPlankConfig;
         

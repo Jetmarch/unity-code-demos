@@ -11,11 +11,11 @@ namespace Game.Gameplay.Conveyor
             return new ConveyorRecipe(_prototype.RequiredResource, _prototype.ResultingResource);
         }
         
-#if UNITY_EDITOR
+        #if UNITY_EDITOR
         public void SetPrototype(ConveyorRecipe prototype)
         {
             _prototype = prototype;
         }
-#endif
+        #endif
     }
 }

@@ -53,5 +53,10 @@ namespace Game.Meta.Upgrades.UI
         {
             UpdateButtonState();
         }
+
+        private void OnDestroy()
+        {
+            _presenter.Dispose();
+        }
     }
 }

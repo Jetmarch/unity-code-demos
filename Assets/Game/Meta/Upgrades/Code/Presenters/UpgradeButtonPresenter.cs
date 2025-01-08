@@ -31,5 +31,10 @@ namespace Game.Meta.Upgrades.Presenters
         {
             OnMoneyChanged?.Invoke();
         }
+
+        public void Dispose()
+        {
+            _moneyStorage.OnAmountChanged -= NotifyMoneyChanged;
+        }
     }
 }

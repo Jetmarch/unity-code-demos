@@ -13,11 +13,9 @@ namespace Game.Meta.Upgrades.UI
         [SerializeField] private Button _openPanelButton;
         [SerializeField] private GameObject _container;
         [SerializeField] private List<UpgradePanel> _upgradePanels = new();
-
-        [SerializeField] private Transform _panelContainer;
-        [SerializeField] private UpgradePanel _panelPrefab;
-
+        
         private IUpgradeListPresenter _presenter;
+        private UpgradePanelFactory _panelFactory;
 
         private void Start()
         {
@@ -25,9 +23,10 @@ namespace Game.Meta.Upgrades.UI
         }
 
         [Inject]
-        public void Construct(IUpgradeListPresenter presenter)
+        public void Construct(IUpgradeListPresenter presenter, UpgradePanelFactory panelFactory)
         {
             _presenter = presenter;
+            _panelFactory = panelFactory;
         }
 
         private void OnEnable()
@@ -50,16 +49,16 @@ namespace Game.Meta.Upgrades.UI
             var upgradePresenters = _presenter.GetUpgradePresenters();
             foreach (var upgradePresenter in upgradePresenters)
             {
-                var upgradePanel = Instantiate(_panelPrefab, _panelContainer);
+                var upgradePanel = _panelFactory.Create();
                 upgradePanel.Configure(upgradePresenter);
                 _upgradePanels.Add(upgradePanel);
             }
         }
+        
         [Button]
         public void Hide()
         {
             ClearUpgradePanels();
-
             _container.SetActive(false);
         }
 

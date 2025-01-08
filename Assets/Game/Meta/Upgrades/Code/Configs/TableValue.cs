@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Game.Meta.Upgrades
 {
     [Serializable]
-    public class TableValue
+    public sealed class TableValue
     {
         [ShowInInspector] private TableFormula _formula;
         [SerializeField] private int _baseValue = 1;

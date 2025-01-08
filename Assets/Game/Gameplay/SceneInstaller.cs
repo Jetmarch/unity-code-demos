@@ -21,9 +21,13 @@ namespace Game.Gameplay.Conveyor
         [Header("Upgrades")]
         [SerializeField] private UpgradeConfig[] _upgradeConfigs;
         [SerializeField] private UpgradePanelList _upgradePanelList;
+        [SerializeField] private Transform _panelContainer;
+        [SerializeField] private UpgradePanel _panelPrefab;
         
         [Header("Money")]
         [SerializeField] private MoneyPanel _moneyPanel;
+        [SerializeField] private MoneyDebugPanel _moneyDebugPanel;
+        [SerializeField] private int _moneyAmountForTesting = 100;
         protected override void Configure(IContainerBuilder builder)
         {
             ConfigureConveyor(builder);
@@ -65,6 +69,10 @@ namespace Game.Gameplay.Conveyor
         {
             builder.Register<UpgradeListPresenter>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.RegisterInstance(_upgradePanelList);
+
+            builder.Register<UpgradePanelFactory>(Lifetime.Scoped)
+                .WithParameter(_panelContainer)
+                .WithParameter(_panelPrefab);
         }
 
         private void ConfigureMoney(IContainerBuilder builder)
@@ -72,6 +80,10 @@ namespace Game.Gameplay.Conveyor
             builder.Register<MoneyStorage>(Lifetime.Scoped);
             builder.Register<MoneyController>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.RegisterInstance(_moneyPanel);
+            
+            builder.Register<MoneyDebugController>(Lifetime.Scoped).AsImplementedInterfaces()
+                .WithParameter(_moneyAmountForTesting);
+            builder.RegisterInstance(_moneyDebugPanel);
         }
     }
     

@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 
 namespace Game.Gameplay.Conveyor
 {
-    public class ConveyorPanel : MonoBehaviour
+    public sealed class ConveyorPanel : MonoBehaviour
     {
         [SerializeField] private GameObject _container;
         [SerializeField] private Button _addResourceButton;

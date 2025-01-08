@@ -7,7 +7,9 @@ namespace Game.Meta.Upgrades.Presenters
         string Price { get; }
         bool CanLevelUp { get; }
         bool CanBuy { get; }
+        
         void LevelUp();
+        void Dispose();
         event Action OnMoneyChanged;
     }
 }

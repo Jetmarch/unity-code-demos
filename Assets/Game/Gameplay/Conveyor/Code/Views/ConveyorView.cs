@@ -1,4 +1,4 @@
-using DG.Tweening;
+using System;
 using UnityEngine;
 using VContainer;
 
@@ -6,26 +6,25 @@ namespace Game.Gameplay.Conveyor
 {
     public sealed class ConveyorView : MonoBehaviour
     {
-        [SerializeField] private GameObject _inputZone;
-        [SerializeField] private GameObject _workZone;
-        [SerializeField] private GameObject _outputZone;
-
-        [SerializeField] private float _scaleDuration = 0.25f;
-        [SerializeField] private Vector3 _scaleVector = new Vector3(0f, 0.25f, 0f);
-        
         [SerializeField] private ConveyorTransportZoneView _inputZoneView;
         [SerializeField] private ConveyorTransportZoneView _outputZoneView;
+        [SerializeField] private ConveyorWorkZoneView _workZoneView;
 
-        private Tween _workZoneTween;
         private Conveyor _conveyor;
         
         [Inject]
         private void Configure(Conveyor conveyor)
         {
             _conveyor = conveyor;
+            SubscribeOnEvents();
         }
 
-        private void OnEnable()
+        private void OnDestroy()
+        {
+            UnsubscribeOnEvents();
+        }
+
+        private void SubscribeOnEvents()
         {
             _conveyor.OnAddResourceToInput += ConveyorOnAddResourceToInput;
             _conveyor.OnAddResourceToOutput += ConveyorOnAddResourceToOutput;
@@ -35,7 +34,7 @@ namespace Game.Gameplay.Conveyor
             _conveyor.OnFinishConvert += ConveyorOnFinishConvert;
         }
 
-        private void OnDisable()
+        private void UnsubscribeOnEvents()
         {
             _conveyor.OnAddResourceToInput -= ConveyorOnAddResourceToInput;
             _conveyor.OnAddResourceToOutput -= ConveyorOnAddResourceToOutput;
@@ -44,17 +43,17 @@ namespace Game.Gameplay.Conveyor
             _conveyor.OnStartConvert -= ConveyorOnStartConvert;
             _conveyor.OnFinishConvert -= ConveyorOnFinishConvert;
         }
+       
 
         private void ConveyorOnStartConvert()
         {
-            _workZoneTween?.Kill();
-            _workZoneTween = _workZone.transform.DOPunchScale(_scaleVector, _scaleDuration).SetLoops(-1, LoopType.Yoyo);
+            _workZoneView.StartWork();
+           
         }
         
         private void ConveyorOnFinishConvert()
         {
-            _workZoneTween?.Kill();
-            _workZone.transform.localScale = Vector3.one;
+            _workZoneView.StopWork();
         }
         
         private void ConveyorOnAddResourceToInput()

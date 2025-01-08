@@ -5,24 +5,31 @@ using UnityEngine.UI;
 
 namespace Game.Gameplay.Money.UI
 {
-    public class MoneyPanel : MonoBehaviour
+    public sealed class MoneyDebugPanel : MonoBehaviour
     {
-        #if UNITY_EDITOR
         public event Action OnAddMoneyBtnClicked;
-        public event Action OnRemoveMoneyBtnClicked;  
-        public event Action OnClearMoneyBtnClicked;  
-        #endif
+        public event Action OnRemoveMoneyBtnClicked;
+        public event Action OnClearMoneyBtnClicked;
         
-        [SerializeField] private TextMeshProUGUI _moneyText;
         [SerializeField] private Button _addMoneyButton;
         [SerializeField] private Button _removeMoneyButton;
         [SerializeField] private Button _clearMoneyButton;
 
-        public void SetMoneyText(string moneyText)
+        public void SetAddMoneyText(string text)
         {
-            _moneyText.text = moneyText;
+            _addMoneyButton.GetComponentInChildren<TextMeshProUGUI>().text = text;
         }
-        #if UNITY_EDITOR
+
+        public void SetRemoveMoneyText(string text)
+        {
+            _removeMoneyButton.GetComponentInChildren<TextMeshProUGUI>().text = text;
+        }
+
+        public void SetClearMoneyText(string text)
+        {
+            _clearMoneyButton.GetComponentInChildren<TextMeshProUGUI>().text = text;
+        }
+        
         private void OnEnable()
         {
             _addMoneyButton.onClick.AddListener(NotifyAddMoney);
@@ -51,6 +58,5 @@ namespace Game.Gameplay.Money.UI
         {
             OnClearMoneyBtnClicked?.Invoke();
         }
-        #endif
     }
 }
