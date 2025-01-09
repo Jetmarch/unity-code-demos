@@ -84,7 +84,7 @@ namespace Game.Tests
         }
         
         [Test]
-        public void WhenEquipArmor_AndHeroDoesNotHaveArmor_ThenHeroArmorIncreased()
+        public void WhenEquipArmorItemInArmorSlot_AndHeroDoesNotHaveArmor_ThenHeroArmorStatIncreased()
         {
             _equipment.EquipItem(EquipmentType.Armor, _armor);
             
@@ -112,7 +112,7 @@ namespace Game.Tests
         }
         
         [Test]
-        public void WhenEquipArmorInLeftHandSlot_AndHeroDoesNotHaveArmor_ThenHeroArmorNotChangedAndArmorStayInInventory()
+        public void WhenEquipArmorInLeftHandSlot_ThenHeroArmorNotChangedAndArmorItemStaysInInventory()
         {
             _equipment.EquipItem(EquipmentType.LeftHand, _armor);
             
