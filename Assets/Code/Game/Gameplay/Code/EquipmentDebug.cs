@@ -4,7 +4,7 @@ using VContainer;
 
 namespace Game
 {
-    public class Hero : MonoBehaviour
+    public class EquipmentDebug : MonoBehaviour
     {
         [SerializeField] private AttributeRepository _attributeRepository;
         
@@ -50,13 +50,13 @@ namespace Game
                 return;
             }
             
-            _equipment.AddItem(equipmentType, itemConfig.Clone(), _inventory);
+            _equipment.EquipItem(equipmentType, itemConfig.Clone());
         }
 
         [Button]
         public void UnequipItem(EquipmentType equipmentType)
         {
-            _equipment.RemoveItem(equipmentType, _inventory);
+            _equipment.UnequipItem(equipmentType);
         }
     }
 }

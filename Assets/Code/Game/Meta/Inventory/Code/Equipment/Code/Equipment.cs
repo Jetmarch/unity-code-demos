@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace Game
 {
@@ -14,21 +14,28 @@ namespace Game
         public event Action<InventoryItem, EquipmentType> OnUnableToEquipItem;
         public event Action<EquipmentType> OnUnableToUnequipEquipmentType;
         
-        [SerializeReference] private Dictionary<EquipmentType, InventoryItem> _equipment = new();
+        [ShowInInspector] private Dictionary<EquipmentType, InventoryItem> _equipment = new();
         
-        public void AddItem(EquipmentType equipmentType, InventoryItem prototypeItem, Inventory inventory)
+        private readonly Inventory _inventory;
+
+        public Equipment(Inventory inventory)
         {
-            EquipmentUseCases.AddEquipment(equipmentType, prototypeItem, inventory, this);
+            _inventory = inventory;
+        }
+        
+        public void EquipItem(EquipmentType equipmentType, InventoryItem prototypeItem)
+        {
+            EquipmentUseCases.EquipItem(equipmentType, prototypeItem, _inventory, this);
         }
 
-        public void Add(EquipmentType equipmentType, InventoryItem prototypeItem)
+        public void Equip(EquipmentType equipmentType, InventoryItem prototypeItem)
         {
             _equipment.Add(equipmentType, prototypeItem);
         }
 
-        public void RemoveItem(EquipmentType equipmentType, Inventory inventory)
+        public void UnequipItem(EquipmentType equipmentType)
         {
-            EquipmentUseCases.RemoveEquipment(equipmentType, inventory, this);
+            EquipmentUseCases.RemoveEquipment(equipmentType, _inventory, this);
         }
 
         public void Remove(EquipmentType equipmentType)

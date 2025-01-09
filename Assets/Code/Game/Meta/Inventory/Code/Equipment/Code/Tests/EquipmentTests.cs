@@ -20,7 +20,7 @@ namespace Game.Tests
         {
             _attributeRepository = new AttributeRepository();
             _inventory = new Inventory();
-            _equipment = new Equipment();
+            _equipment = new Equipment(_inventory);
             _helmetNew = new InventoryItem("helmet_new");
             _helmetOld = new InventoryItem("helmet_old");
             _sword = new InventoryItem("sword");
@@ -57,7 +57,7 @@ namespace Game.Tests
         [Test]
         public void WhenEquipHelmet_AndHeroDoesNotHaveHelmet_ThenEquipmentContainsHelmet()
         {
-            _equipment.AddItem(EquipmentType.Helmet, _helmetNew, _inventory);
+            _equipment.EquipItem(EquipmentType.Helmet, _helmetNew);
 
             Assert.IsTrue(_equipment.Get(EquipmentType.Helmet) != default);
             Assert.IsTrue(_inventory.FindItem(_helmetNew) == default);
@@ -66,9 +66,9 @@ namespace Game.Tests
         [Test]
         public void WhenEquipNewHelmet_AndHeroHasOldHelmet_ThenEquipmentContainsNewHelmetAndInventoryContainsOldHelmet()
         {
-            _equipment.AddItem(EquipmentType.Helmet, _helmetOld, _inventory);
+            _equipment.EquipItem(EquipmentType.Helmet, _helmetOld);
             
-            _equipment.AddItem(EquipmentType.Helmet, _helmetNew, _inventory);
+            _equipment.EquipItem(EquipmentType.Helmet, _helmetNew);
 
             Assert.IsTrue(_equipment.Get(EquipmentType.Helmet).Name != _helmetOld.Name);
             Assert.IsTrue(_inventory.FindItem(_helmetNew) == default);
@@ -78,7 +78,7 @@ namespace Game.Tests
         [Test]
         public void WhenEquipSword_AndHeroDoesNotHaveSword_ThenHeroDamageIncreased()
         {
-            _equipment.AddItem(EquipmentType.RightHand, _sword, _inventory);
+            _equipment.EquipItem(EquipmentType.RightHand, _sword);
             
             Assert.IsTrue(_attributeRepository.Damage == _sword.GetComponent<SwordComponent>().Damage);
         }
@@ -86,7 +86,7 @@ namespace Game.Tests
         [Test]
         public void WhenEquipArmor_AndHeroDoesNotHaveArmor_ThenHeroArmorIncreased()
         {
-            _equipment.AddItem(EquipmentType.Armor, _armor, _inventory);
+            _equipment.EquipItem(EquipmentType.Armor, _armor);
             
             Assert.IsTrue(_attributeRepository.Armor == _armor.GetComponent<ArmorComponent>().Armor);
         }
@@ -94,8 +94,8 @@ namespace Game.Tests
         [Test]
         public void WhenUnequipSword_AndHeroHaveSword_ThenHeroDamageDecreased()
         {
-            _equipment.AddItem(EquipmentType.RightHand, _sword, _inventory);
-            _equipment.RemoveItem(EquipmentType.RightHand, _inventory);
+            _equipment.EquipItem(EquipmentType.RightHand, _sword);
+            _equipment.UnequipItem(EquipmentType.RightHand);
             
             Assert.IsTrue(_attributeRepository.Damage == 0);
         }
@@ -103,9 +103,9 @@ namespace Game.Tests
         [Test]
         public void WhenUnequipSword_AndHeroHaveSword_ThenEquipmentDoesNotContainsSwordAndInventoryContainsSword()
         {
-            _equipment.AddItem(EquipmentType.RightHand, _sword, _inventory);
+            _equipment.EquipItem(EquipmentType.RightHand, _sword);
             
-            _equipment.RemoveItem(EquipmentType.RightHand, _inventory);
+            _equipment.UnequipItem(EquipmentType.RightHand);
             
             Assert.IsTrue(_equipment.Get(EquipmentType.RightHand) == default);
             Assert.IsTrue(_inventory.FindItem(_sword) != default);
@@ -114,7 +114,7 @@ namespace Game.Tests
         [Test]
         public void WhenEquipArmorInLeftHandSlot_AndHeroDoesNotHaveArmor_ThenHeroArmorNotChangedAndArmorStayInInventory()
         {
-            _equipment.AddItem(EquipmentType.LeftHand, _armor, _inventory);
+            _equipment.EquipItem(EquipmentType.LeftHand, _armor);
             
             Assert.IsTrue(_attributeRepository.Armor == 0);
             Assert.IsTrue(_inventory.FindItem(_armor) != default);

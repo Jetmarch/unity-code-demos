@@ -13,34 +13,36 @@ namespace Game
     {
         [SerializeField] private AttributeRepository _attributeRepository;
         
-        [SerializeField] private Equipment _equipment;
-        
         [SerializeField] private Inventory _inventory;
         
-        [SerializeField] private List<InventoryItemConfig> _inventoryItemConfigs;
+        [SerializeField] private InventoryItemConfigBundle _inventoryItemConfigBundle;
         
         [SerializeField] private TextPopupView _textPopupView;
         protected override void Configure(IContainerBuilder builder)
         {
-            ConfigureHero(builder);
+            ConfigureInventory(builder);
+            ConfigureEquipment(builder);
             ConfigureEquipmentObservers(builder);
-            ConfigureControllers(builder);
             ConfigureUI(builder);
+            ConfigureDebug(builder);
 
             DOTween.Init();
         }
 
-        private void ConfigureHero(IContainerBuilder builder)
+        private void ConfigureEquipment(IContainerBuilder builder)
+        {
+            builder.Register<Equipment>(Lifetime.Scoped);
+            builder.Register<EquipmentController>(Lifetime.Scoped).AsImplementedInterfaces();
+        }
+
+        private void ConfigureDebug(IContainerBuilder builder)
         {
             builder.RegisterInstance(_attributeRepository).AsImplementedInterfaces();
-            builder.RegisterInstance(_equipment);
-            
-            ConfigureInventory(builder);
         }
         
         private void ConfigureInventory(IContainerBuilder builder)
         {
-            foreach (var itemConfig in _inventoryItemConfigs)
+            foreach (var itemConfig in _inventoryItemConfigBundle.GetItemConfigs())
             {
                 _inventory.AddItem(itemConfig.Clone());
             }
@@ -56,11 +58,6 @@ namespace Game
             builder.Register<HelmEquipmentObserver>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<ArmorEquipmentObserver>(Lifetime.Scoped).AsImplementedInterfaces();
             builder.Register<ShieldEquipmentObserver>(Lifetime.Scoped).AsImplementedInterfaces();
-        }
-
-        private void ConfigureControllers(IContainerBuilder builder)
-        {
-            builder.Register<EquipmentController>(Lifetime.Scoped).AsImplementedInterfaces();
         }
 
         private void ConfigureUI(IContainerBuilder builder)

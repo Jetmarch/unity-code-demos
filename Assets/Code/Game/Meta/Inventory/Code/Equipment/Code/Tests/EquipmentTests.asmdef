@@ -1,10 +1,13 @@
 {
-    "name": "Inventory",
-    "rootNamespace": "",
+    "name": "EquipmentTests",
+    "rootNamespace": "EquipmentTests",
     "references": [
-        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+        "GUID:8e4fa72ce3c8e074bae865c9a5aa8a75",
+        "GUID:5da6d59baaf1e1c438a71f41dba071eb"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

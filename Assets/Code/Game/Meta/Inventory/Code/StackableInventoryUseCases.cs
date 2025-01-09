@@ -36,7 +36,7 @@ namespace Game
 
         public static void AddItem(Inventory inventory, InventoryItem prototype)
         {
-            if(CanStack(prototype))
+            if(!CanStack(prototype))
             {
                 inventory.Add(prototype);
                 return;

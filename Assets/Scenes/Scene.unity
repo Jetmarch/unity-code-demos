@@ -519,7 +519,7 @@ GameObject:
   - component: {fileID: 677266902}
   - component: {fileID: 677266901}
   m_Layer: 0
-  m_Name: Hero (Dummy)
+  m_Name: EquipmentDebug
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1139,12 +1139,7 @@ MonoBehaviour:
     _speed: 10
   _inventory:
     _items: []
-  _inventoryItemConfigs:
-  - {fileID: 11400000, guid: c585e111c255d4a4baca54b79197fc77, type: 2}
-  - {fileID: 11400000, guid: ef38bdf8a670d234a977281cf964f5db, type: 2}
-  - {fileID: 11400000, guid: d118df549940de7468776fa2db7d3161, type: 2}
-  - {fileID: 11400000, guid: fb3c42d0e038cb54399c731ed57809a7, type: 2}
-  - {fileID: 11400000, guid: 1ea3c1f49bc5b9341b384750809f7e8b, type: 2}
+  _inventoryItemConfigBundle: {fileID: 11400000, guid: afcae67a2feafc14389ebfb7e7444bc3, type: 2}
   _textPopupView: {fileID: 1289331592}
   references:
     version: 2

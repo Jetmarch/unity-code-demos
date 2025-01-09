@@ -4,7 +4,7 @@ namespace Game
 {
     public static class EquipmentUseCases
     {
-        public static void AddEquipment(EquipmentType equipmentType, InventoryItem prototypeEquipment, Inventory inventory, Equipment equipment)
+        public static void EquipItem(EquipmentType equipmentType, InventoryItem prototypeEquipment, Inventory inventory, Equipment equipment)
         {
             if (prototypeEquipment == null)
             {
@@ -21,10 +21,10 @@ namespace Game
                 var oldEquipment = equipment.Get(equipmentType);
                 if (oldEquipment != null)
                 {
-                    equipment.RemoveItem(equipmentType, inventory);
+                    equipment.UnequipItem(equipmentType);
                 }
 
-                equipment.Add(equipmentType, equipmentItem);
+                equipment.Equip(equipmentType, equipmentItem);
                 inventory.RemoveItem(equipmentItem);
                 equipment.NotifyItemAdded(equipmentItem);
             }

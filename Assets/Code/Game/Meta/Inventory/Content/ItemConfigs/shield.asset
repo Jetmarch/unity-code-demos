@@ -10,25 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 917f9038172a46b2b33c06badbdb0907, type: 3}
-  m_Name: armor
+  m_Name: shield
   m_EditorClassIdentifier: 
-  Prototype:
-    Name: basic_armor
+  _prototype:
+    Name: Shield
     MetaData:
       Description: 
       Icon: {fileID: 0}
     Flags: 4
     ItemComponents:
-    - rid: 3433372931077177346
-    - rid: 3433372931077177347
+    - rid: 8597570920921169926
+    - rid: 8597570920921169927
   references:
     version: 2
     RefIds:
-    - rid: 3433372931077177346
-      type: {class: EquipmentComponent, ns: Game, asm: Inventory}
-      data:
-        EquipmentType: 0
-    - rid: 3433372931077177347
-      type: {class: ArmorComponent, ns: Game, asm: Inventory}
+    - rid: 8597570920921169926
+      type: {class: ShieldComponent, ns: Game, asm: Inventory}
       data:
         Armor: 5
+        Health: 5
+    - rid: 8597570920921169927
+      type: {class: EquipmentComponent, ns: Game, asm: Inventory}
+      data:
+        EquipmentType: 4
