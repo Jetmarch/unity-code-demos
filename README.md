@@ -20,8 +20,8 @@
 | `feature/saveload` | Save-load system | Unity, C# |
 | `feature/ecs` | Entity-Component-System design pattern | Unity, C#, LeoECS |
 | `feature/dialogue-editor` | Dialogue editor using GraphView | Unity, C# |
-| `feature/upgrade-manager` | Mechanic of upgrades | Unity, C#, VContainer, UniTask, DOTween |
-
+| `feature/upgrade-manager` | Upgrade mechanics | Unity, C#, VContainer, UniTask, DOTween |
+| `feature/inventory` | Inventory management mechanics | Unity, C#, VContainer, DOTween |
 ---  
 
 ## **How to Explore the Code?**  
